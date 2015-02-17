@@ -26,7 +26,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
                                         <props>
                                                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                                                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-                                                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                                                <prop key="hibernate.hbm2ddl.auto">update</prop>
                                         </props>
                                 </property>
                         </bean>
