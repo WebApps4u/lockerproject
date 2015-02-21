@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**/*.java" including="**/*.java" kind="src" path="src/main/resources"/>
+	<classpathentry kind="var" path="M2_REPO/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="var" path="M2_REPO/com/googlecode/genericdao/dao-hibernate/1.2.0/dao-hibernate-1.2.0.jar" sourcepath="M2_REPO/com/googlecode/genericdao/dao-hibernate/1.2.0/dao-hibernate-1.2.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/googlecode/genericdao/dao/1.2.0/dao-1.2.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/googlecode/genericdao/search/1.2.0/search-1.2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/googlecode/genericdao/search/1.2.0/search-1.2.0.jar" sourcepath="M2_REPO/com/googlecode/genericdao/search/1.2.0/search-1.2.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/googlecode/genericdao/search-hibernate/1.2.0/search-hibernate-1.2.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-core/4.2.4.Final/hibernate-core-4.2.4.Final.jar"/>
@@ -66,19 +84,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/apache/maven/shared/maven-filtering/1.1/maven-filtering-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-interpolation/1.13/plexus-interpolation-1.13.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/sonatype/plexus/plexus-build-api/0.0.4/plexus-build-api-0.0.4.jar"/>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

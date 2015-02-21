@@ -12,14 +12,14 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<servlet-class>com.lok.config.RestApplication</servlet-class>
+		 <servlet-class>javax.ws.rs.core.Application</servlet-class> 
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
 </web-app>

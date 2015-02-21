@@ -15,11 +15,11 @@ import com.lok.controller.PartyRecordController;
 public class ConfigurationLok {
 
 	//add for logging
-		private static Logger logger = Logger.getLogger(PartyRecordController.class);
+	private static Logger logger = Logger.getLogger(PartyRecordController.class);
 		
 	//to get the context of all the services
 	private static ApplicationContext context =
-		    new ClassPathXmlApplicationContext(new String[] {"/com/biyt/config/BookShootServiceTests-context.xml"});
+		    null;
 	
 	//All the paths of the xml
 	
