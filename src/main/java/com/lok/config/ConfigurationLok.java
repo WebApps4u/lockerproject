@@ -3,6 +3,7 @@ package com.lok.config;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StringUtils;
 
 import com.lok.controller.PartyRecordController;
 
@@ -25,7 +26,7 @@ public class ConfigurationLok {
 	
 	
 	//All the default path, if not provided by the system property
-	final String defaultContextPath = "/com/lok/config/PartyRecordServiceTests-context.xml";
+	private static final String defaultContextPath = "/com/lok/config/PartyRecordServiceTests-context.xml";
 	
 	
 	//make it singleton
@@ -38,10 +39,14 @@ public class ConfigurationLok {
 	 */
 	public static ApplicationContext getAppContext(String path){
 		
+		logger.debug(" enter Configuration.getAppContext(String)");
+		logger.debug(" path value "+path);
 		if(context == null){
 			context = new ClassPathXmlApplicationContext(path);
 			logger.debug(" context object for path "+path+" is -> "+context);
 		}
+		
+		logger.debug(" exit Configuration.getAppContext(String)");
 		return context;
 	}
 	
@@ -52,6 +57,15 @@ public class ConfigurationLok {
 	//get the app context to load bean 
 	public static ApplicationContext getAppContext(){
 		
-		String path = System.getenv(name)
+		logger.debug(" enter Configuration.getAppContext()");
+		String path = System.getenv(Constant.CONFIG_ENV);
+		
+		if (StringUtils.isEmpty(path)){
+			
+			//get context from default path
+			path = defaultContextPath;
+		}
+		logger.debug(" exit Configuration.getAppContext()");
+		return getAppContext(path);
 	}
 }

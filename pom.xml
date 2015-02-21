@@ -22,7 +22,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		
+
 		<!-- For rest api -->
 		<repository>
 			<id>maven2-repository.java.net</id>
@@ -121,12 +121,20 @@
 			<artifactId>maven-resources-plugin</artifactId>
 			<version>2.6</version>
 		</dependency>
-		
+
 		<!-- For rest api -->
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>1.8</version>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- for apache commons lib -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 
 	</dependencies>
@@ -162,7 +170,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<includeGroupIds>com.googlecode.genericdao</includeGroupIds>
+							<includeGroupIds>com.googlecode.genericdao,javax.ws.rs</includeGroupIds>
 							<outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
 						</configuration>
 					</execution>

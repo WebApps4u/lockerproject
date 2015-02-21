@@ -49,13 +49,13 @@ $(function(){
 	
 	function getDetails(keynum){
 		//get ajax call
-		$.get('/lockerservice/keydetails/'+keynum // rest api
+		$.get('rest/lockerservice/keydetails/'+keynum // rest api
 									// key for which record is to be fetched		
 			)
 			.done(function(data){	// data is returned from the server
 				
 				//populate fields with the recieved data
-				populateForm($('form[id=frm_keyDetails]'));
+				populateForm($('form[id=frm_keyDetails]'),data);
 			})            
 			.fail(function(error){
 				//log error to console
