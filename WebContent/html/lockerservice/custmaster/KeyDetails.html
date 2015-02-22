@@ -20,9 +20,9 @@ $(function(){
 	//TODO need to be moved to the generic js file
 	function populateForm($form, data)
 	{
-	    resetForm($form);
+	   // resetForm($form);
 	    $.each(data, function(key, value) {
-	        var $ctrl = $form.find('[name='+key+']');
+	        var $ctrl = $form.find('[name="'+key.toUpperCase()+'"]');
 	        if ($ctrl.is('select')){
 	            $('option', $ctrl).each(function() {
 	                if (this.value == value)
@@ -34,6 +34,9 @@ $(function(){
 	            switch($ctrl.attr("type")) {
 	                case "text":
 	                case "hidden":
+	                case "date":
+	                case "email":
+	                case "number":
 	                    $ctrl.val(value);   
 	                    break;
 	                case "checkbox":
@@ -49,7 +52,7 @@ $(function(){
 	
 	function getDetails(keynum){
 		//get ajax call
-		$.get('rest/lockerservice/keydetails/'+keynum // rest api
+		$.get('/Locker_Financial_Society/rest/lockerservice/keydetails/'+keynum // rest api
 									// key for which record is to be fetched		
 			)
 			.done(function(data){	// data is returned from the server
@@ -136,23 +139,23 @@ $(function(){
 		<form id="frm_keyDetails">
 			<table>
 				<tr>
-					<td>Key no <input name="keynum" size="15" type="text" /></td>
-					<td>Locker no <input name="locknum" size="15" type="text" /></td>
-					<td>R box <input name="rbox" size="15" type="text" /></td>
+					<td>Key no <input name="KNO" size="15" type="text" /></td>
+					<td>Locker no <input name="LNO" size="15" type="text" /></td>
+					<td>R box <input name="RBOX" size="15" type="text" /></td>
 				</tr>
 				<tr>
-					<td>Booking no <input name="bookingnum" size="15" type="text" /></td>
-					<td>Locker rent <input name="lockrent" size="15" type="number" step="0.01"/></td>
-					<td>S deposit <input name="sdeposit" size="15" type="number" step="0.01"/></td>
+					<td>Booking no <input name="LSNO" size="15" type="text" /></td>
+					<td>Locker rent <input name="LOKR" size="15" type="number" step="0.01"/></td>
+					<td>S deposit <input name="LSDA" size="15" type="number" step="0.01"/></td>
 				</tr>
 				<tr>
-					<td>Old Booking no <input name="oldbookingnum" size="15"
+					<td>Old Booking no <input name="LSNO2" size="15"
 						type="text" /></td>
-					<td>Rent due date <input type="date" name="rentduedate" />
-					<td>Folio no <input name="name" size="15" type="text" /></td>
+					<td>Rent due date <input type="date" name="LRDD" />
+					<td>Folio no <input name="FLON" size="15" type="text" /></td>
 				</tr>
 				<tr>
-					<td>Lease date <input type="date" name="leasedate" size="15" /></td>
+					<td>Lease date <input type="date" name="LSDT" size="15" /></td>
 					<td>Old Rent <input type="number" name="oldrent" step="0.01"/>
 				</tr>
 			</table>
@@ -162,59 +165,52 @@ $(function(){
 				<tr>
 					<td>Name</td>
 					<td>1st</td>
-					<td><select name="sal_1">
-							<option value="Mr">Mr</option>
-							<option value="Ms">Ms</option>
+					<td><select name="PNM1" >
+							<option value="MR">Mr</option>
+							<option value="MRS">Mrs</option>
 					</select></td>
-					<td><input name="firstname_1" /></td>
-					<td><input name="secondname_1" /></td>
+					<td><input name="PNM2" type="text" /></td>
+					<td><input name="PNM3" type="text"/></td>
 
 				</tr>
 				<tr>
 					<td></td>
 					<td>2nd</td>
-					<td><select name="sal_2">
-							<option value="Mr">Mr</option>
-							<option value="Ms">Ms</option>
-					</select></td>
-					<td><input name="firstname_2" /></td>
-					<td><input name="secondname_2" /></td>
+					<td><input name="PNM4" type="text"/></td>
 				</tr>
 				<tr>
 					<td></td>
 					<td>3rd</td>
-					<td><select name="sal_3">
-							<option value="Mr">Mr</option>
-							<option value="Ms">Ms</option>
-					</select></td>
-					<td><input name="firstname_3" /></td>
-					<td><input name="secondname_3" /></td>
+					<td><input name="PNM5" type="text" /></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td>Dupty</td>
+					<td>Deputy</td>
 					<td></td>
-					<td colspan="2"><input name="deputyname" style="width: 331px;" /></td>
+					<td colspan="2"><input type="text" name="PNM6D" style="width: 331px;" /></td>
 				</tr>
 			</table>
 			<table>
 				<tr>
-					<td colspan="2">E-mail: <input type="email" name="emailid"
+					<td colspan="2">E-mail: <input type="email" name="EMAILID"
 						style="width: 392px;" />
 					</td>
-					<td>Phones <input type="text" name="phonenum" /></td>
+					<td>Phones <input type="text" name="PHN" /></td>
 				</tr>
 				<tr>
-					<td>Outstanding: <input type="number" name="outstanding" step="0.01"></td>
-					<td>Advance Rent<input type="number" name="advancerent" step="0.01"></td>
+					<td>Outstanding: <input type="number" name="POA" step="0.01"></td>
+					<td>Advance Rent<input type="number" name="PCRA" step="0.01"></td>
 					<td>Rct No./.Dt.</td>
+					<td><input type="text" name="LRNO"></td>
+					<td><input type="text" name="LRND"></td>
 
 				</tr>
 				<tr>
-					<td>Remark: <input type="text" name="usrremark"></td>
-					<td>Service tax<input type="number" name="servicetax" step="0.01"></td>
+					<td>Remark: <input type="text" name="REMARKS"></td>
+					<td>Service tax<input type="number" name="PCRAST" step="0.01"></td>
 					<td>Release</td>
-					<td>Dt.</td>
+					<td><input type="text" name="RELS" size="1"/></td>
+					<td>Dt.</td><td><input type="date" name="RELSD"/></td>
 
 				</tr>
 				<tr>
