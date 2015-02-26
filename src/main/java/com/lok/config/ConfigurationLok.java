@@ -1,9 +1,15 @@
 package com.lok.config;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.lok.controller.PartyRecordController;
 
@@ -68,4 +74,12 @@ public class ConfigurationLok {
 		logger.debug(" exit Configuration.getAppContext()");
 		return getAppContext(path);
 	}
+	
+/*	@InitBinder
+	public void initBinder(WebDataBinder webDataBinder) {
+		//TODO Keep this format at the properties level
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	dateFormat.setLenient(false);
+	webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}*/
 }

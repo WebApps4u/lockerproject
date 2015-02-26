@@ -19,7 +19,7 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.ForeignKey;
 
 /**
- * Entity implementation class for Entity: BookingShoots
+ * Entity implementation class for Entity: PartyRecord
  *
  */
 @Entity
@@ -44,17 +44,17 @@ public class PartyRecord implements Serializable {
 	//
 	private Date LSDT;
 	//Locker Rent
-	private long LOKR;
+	private Long LOKR;
 	//locker deposit advance
-	private long LSDA;
+	private Long LSDA;
 	//Previous outstanding
-	private long POA;
+	private Long POA;
 	//
-	private long LPA;
+	private Long LPA;
 	//Advance payment
-	private long PCRA;
+	private Long PCRA;
 	//Advance tax
-	private long PCRAST;
+	private Long PCRAST;
 	//Last Receipt number
 	private String LRNO;
 	//Last receipt number
@@ -87,7 +87,7 @@ public class PartyRecord implements Serializable {
 	//comma seperated in original data, thus keeping it to String
 	private String PHN;
 	//old locker rent
-	private long OLOKR;
+	private Long OLOKR;
 	//OBSELETE
 	private String ACSN;
 	//Email id
@@ -97,7 +97,7 @@ public class PartyRecord implements Serializable {
 	//stop billing date
 	private Date STPBD;
 	//User code- logged in user
-	private long PUCD;
+	private Long PUCD;
 	//2nd user address, line 1
 	private String PAD41;
 	//2nd user address, line 2
@@ -149,7 +149,7 @@ public class PartyRecord implements Serializable {
 	//remarks
 	private String REMARKS;
 					
-	private static final long serialVersionUID = 1L;
+	private static final Long serialVersionUID = 1L;
 
 	public PartyRecord() {
 		super();
@@ -270,84 +270,84 @@ public class PartyRecord implements Serializable {
 	/**
 	 * @return the lOKR
 	 */
-	public long getLOKR() {
+	public Long getLOKR() {
 		return LOKR;
 	}
 
 	/**
 	 * @param lOKR the lOKR to set
 	 */
-	public void setLOKR(long lOKR) {
+	public void setLOKR(Long lOKR) {
 		LOKR = lOKR;
 	}
 
 	/**
 	 * @return the lSDA
 	 */
-	public long getLSDA() {
+	public Long getLSDA() {
 		return LSDA;
 	}
 
 	/**
 	 * @param lSDA the lSDA to set
 	 */
-	public void setLSDA(long lSDA) {
+	public void setLSDA(Long lSDA) {
 		LSDA = lSDA;
 	}
 
 	/**
 	 * @return the pOA
 	 */
-	public long getPOA() {
+	public Long getPOA() {
 		return POA;
 	}
 
 	/**
 	 * @param pOA the pOA to set
 	 */
-	public void setPOA(long pOA) {
+	public void setPOA(Long pOA) {
 		POA = pOA;
 	}
 
 	/**
 	 * @return the lPA
 	 */
-	public long getLPA() {
+	public Long getLPA() {
 		return LPA;
 	}
 
 	/**
 	 * @param lPA the lPA to set
 	 */
-	public void setLPA(long lPA) {
+	public void setLPA(Long lPA) {
 		LPA = lPA;
 	}
 
 	/**
 	 * @return the pCRA
 	 */
-	public long getPCRA() {
+	public Long getPCRA() {
 		return PCRA;
 	}
 
 	/**
 	 * @param pCRA the pCRA to set
 	 */
-	public void setPCRA(long pCRA) {
+	public void setPCRA(Long pCRA) {
 		PCRA = pCRA;
 	}
 
 	/**
 	 * @return the pCRAST
 	 */
-	public long getPCRAST() {
+	public Long getPCRAST() {
 		return PCRAST;
 	}
 
 	/**
 	 * @param pCRAST the pCRAST to set
 	 */
-	public void setPCRAST(long pCRAST) {
+	public void setPCRAST(Long pCRAST) {
 		PCRAST = pCRAST;
 	}
 
@@ -564,14 +564,14 @@ public class PartyRecord implements Serializable {
 	/**
 	 * @return the oLOKR
 	 */
-	public long getOLOKR() {
+	public Long getOLOKR() {
 		return OLOKR;
 	}
 
 	/**
 	 * @param oLOKR the oLOKR to set
 	 */
-	public void setOLOKR(long oLOKR) {
+	public void setOLOKR(Long oLOKR) {
 		OLOKR = oLOKR;
 	}
 
@@ -634,14 +634,14 @@ public class PartyRecord implements Serializable {
 	/**
 	 * @return the pUCD
 	 */
-	public long getPUCD() {
+	public Long getPUCD() {
 		return PUCD;
 	}
 
 	/**
 	 * @param pUCD the pUCD to set
 	 */
-	public void setPUCD(long pUCD) {
+	public void setPUCD(Long pUCD) {
 		PUCD = pUCD;
 	}
 
@@ -984,7 +984,7 @@ public class PartyRecord implements Serializable {
 	/**
 	 * @return the serialversionuid
 	 */
-	public static long getSerialversionuid() {
+	public static Long getSerialversionuid() {
 		return serialVersionUID;
 	}
 

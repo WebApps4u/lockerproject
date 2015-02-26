@@ -1,4 +1,4 @@
-package com.base.dao;
+package com.lok.dao;
 
 import java.io.Serializable;
 

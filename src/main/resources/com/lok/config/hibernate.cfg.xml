@@ -3,6 +3,7 @@
 <session-factory>
 
         <mapping class="com.lok.model.PartyRecord"/>
+        <mapping class="com.lok.model.BillRecord"/>
 </session-factory>
 
 

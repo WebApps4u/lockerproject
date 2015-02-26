@@ -4,84 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="/Locker_Financial_Society/css/jquery-ui.css" />
-
-<link rel="stylesheet" type="text/css"
-	href="/Locker_Financial_Society/css/jquery-ui.structure.css" />
-<link rel="stylesheet" type="text/css" href="/Locker_Financial_Society/css/jquery-ui.theme.css" />
-
-<!--  load jquery prior to the jquery ui which is using it -->
-<script src="/Locker_Financial_Society/js/jquery-1.11.1.js" type="text/javascript"></script>
-<script src="/Locker_Financial_Society/js/jquery-ui.js" type="text/javascript"></script>
 <title>Key Details</title>
-<script type="text/javascript">
-	
-//equivalent of $(document).ready(function(){...
-$(function(){
-	
-	//generic function to populate form data 
-	//TODO need to be moved to the generic js file
-	function populateForm($form, data)
-	{
-	   // resetForm($form);
-	    $.each(data, function(key, value) {
-	        var $ctrl = $form.find('[name="'+key.toUpperCase()+'"]');
-	        if ($ctrl.is('select')){
-	            $('option', $ctrl).each(function() {
-	                if (this.value == value)
-	                    this.selected = true;
-	            });
-	        } else if ($ctrl.is('textarea')) {
-	            $ctrl.val(value);
-	        } else {
-	            switch($ctrl.attr("type")) {
-	                case "text":
-	                case "hidden":
-	                case "date":
-	                case "email":
-	                case "number":
-	                    $ctrl.val(value);   
-	                    break;
-	                case "checkbox":
-	                    if (value == '1')
-	                        $ctrl.prop('checked', true);
-	                    else
-	                        $ctrl.prop('checked', false);
-	                    break;
-	            } 
-	        }
-	    });
-	}
-	
-	function getDetails(keynum){
-		//get ajax call
-		$.get('/Locker_Financial_Society/rest/lockerservice/keydetails/'+keynum // rest api
-									// key for which record is to be fetched		
-			)
-			.done(function(data){	// data is returned from the server
-				
-				//populate fields with the recieved data
-				populateForm($('form[id=frm_keyDetails]'),data);
-			})            
-			.fail(function(error){
-				//log error to console
-				console.log(error);
-			})
-	}
-	
-	
-	//call the rest api to get details for the given key num
-	$('#getDetails').on('click',function(){
-		
-		var keynum = $('input[name="KNO"]').val();
-		
-			getDetails(keynum);
-		})
-
-
-});
-
-</script>
 </head>
 <body>
 <jsp:include page="/jsp/mainmenu.jsp"></jsp:include>
@@ -231,6 +154,74 @@ $(function(){
 			<input type="reset" name="cleartext" value="Clear">
 		</form>
 	</div>
+<script type="text/javascript">
+	
+//equivalent of $(document).ready(function(){...
+$(function(){
+	
+	//generic function to populate form data 
+	//TODO need to be moved to the generic js file
+	function populateForm($form, data)
+	{
+	   // resetForm($form);
+	    $.each(data, function(key, value) {
+	        var $ctrl = $form.find('[name="'+key.toUpperCase()+'"]');
+	        if ($ctrl.is('select')){
+	            $('option', $ctrl).each(function() {
+	                if (this.value == value)
+	                    this.selected = true;
+	            });
+	        } else if ($ctrl.is('textarea')) {
+	            $ctrl.val(value);
+	        } else {
+	            switch($ctrl.attr("type")) {
+	                case "text":
+	                case "hidden":
+	                case "date":
+	                case "email":
+	                case "number":
+	                    $ctrl.val(value);   
+	                    break;
+	                case "checkbox":
+	                    if (value == '1')
+	                        $ctrl.prop('checked', true);
+	                    else
+	                        $ctrl.prop('checked', false);
+	                    break;
+	            } 
+	        }
+	    });
+	}
+	
+	function getDetails(keynum){
+		//get ajax call
+		$.get('/Locker_Financial_Society/rest/lockerservice/keydetails/'+keynum // rest api
+									// key for which record is to be fetched		
+			)
+			.done(function(data){	// data is returned from the server
+				
+				//populate fields with the recieved data
+				populateForm($('form[id=frm_keyDetails]'),data);
+			})            
+			.fail(function(error){
+				//log error to console
+				console.log(error);
+			})
+	}
+	
+	
+	//call the rest api to get details for the given key num
+	$('#getDetails').on('click',function(){
+		
+		var keynum = $('input[name="KNO"]').val();
+		
+			getDetails(keynum);
+		})
+
+
+});
+
+</script>
 
 </body>
 </html>

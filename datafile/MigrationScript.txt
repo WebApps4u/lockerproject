@@ -8,3 +8,9 @@ LRND= STR_TO_DATE(@LRND, '%d-%b-%y'),
 LSDT= STR_TO_DATE(@LSDT, '%d-%b-%y'),
 RELSD= STR_TO_DATE(@RELSD, '%d-%b-%y'),
 STPBD= STR_TO_DATE(@STPBD, '%d-%b-%y')
+
+
+
+-- Direct export of ACCDE is working now. Click on make ACCDe before export
+
+-- Make sure to rename table names to match the bean
