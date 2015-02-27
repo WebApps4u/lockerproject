@@ -4,6 +4,7 @@
 
         <mapping class="com.lok.model.PartyRecord"/>
         <mapping class="com.lok.model.BillRecord"/>
+        <mapping class="com.lok.model.ReceiptRecord"/>
 </session-factory>
 
 

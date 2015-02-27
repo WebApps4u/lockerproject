@@ -8,10 +8,8 @@ package com.lok.controller;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 import com.googlecode.genericdao.search.Search;
-import com.lok.config.ConfigurationLok;
 import com.lok.model.PartyRecord;
 import com.lok.model.PartyRecordField;
 import com.lok.service.PartyRecordService;
@@ -21,7 +19,7 @@ import com.lok.service.PartyRecordService;
  * Holds business logic for all party related functions
  *
  */
-public class PartyRecordController {
+public class PartyRecordController extends BaseController<PartyRecordService>{
 	
 	//add for logging
 	private static Logger logger = Logger.getLogger(PartyRecordController.class);
@@ -31,19 +29,14 @@ public class PartyRecordController {
 	private SessionFactory sessionFactory;
 	
 	//load required service
-	@Autowired
 	private PartyRecordService partyRecordService;
 	
-	private ApplicationContext context = null;  //invoke only when required using constructor
-	
 	public PartyRecordController(){
-		
+		super(PartyRecordService.class);
 		logger.debug(" enter constructor PartyRecordController");
-		//get the context 
-		context = ConfigurationLok.getAppContext();
 		
-		// get the bean
-		partyRecordService = context.getBean(PartyRecordService.class);
+		// get the service bean
+		partyRecordService = getService();
 		logger.debug(" Exit constructor PartyRecordController with partyRecordService"+partyRecordService);
 	}
 	

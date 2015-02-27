@@ -24,33 +24,27 @@ import com.lok.service.impl.LokUtility;
  * @author USER Holds business logic for all bill related functions
  *
  */
-public class BillRecordController {
+public class BillRecordController extends BaseController<BillRecordService>{
 
 	// add for logging
 	private static Logger logger = Logger.getLogger(BillRecordController.class);
 
-	// load required services and session factory
-	@Autowired
-	private SessionFactory sessionFactory;
-
 	// load required service
-	@Autowired
 	private BillRecordService billRecordService;
 	
 	//requires party details
 	private PartyRecordController partyCntrl = new PartyRecordController();
 
-	private ApplicationContext context = null; // invoke only when required
-												// using constructor
 
 	public BillRecordController() {
-
+        //Need to call super class to create service
+		super(BillRecordService.class);
 		logger.debug(" enter constructor BillRecordController");
-		// get the context
-		context = ConfigurationLok.getAppContext();
 
 		// get the bean
-		billRecordService = context.getBean(BillRecordService.class);
+		//billRecordService = context.getBean(BillRecordService.class);
+		
+		billRecordService = getService();
 		logger.debug(" Exit constructor BillRecordController with billRecordService"
 				+ billRecordService);
 	}
