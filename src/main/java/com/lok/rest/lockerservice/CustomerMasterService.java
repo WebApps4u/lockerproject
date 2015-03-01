@@ -3,11 +3,16 @@ package com.lok.rest.lockerservice;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,11 +37,12 @@ public class CustomerMasterService {
 	private static Logger logger = Logger.getLogger(CustomerMasterService.class);
 	
 	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder) {
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder webDataBinder) {
 		//TODO Keep this format at the properties level
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	dateFormat.setLenient(false);
 	webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	System.out.println( " init method called");
 	}
 	/**
 	 * Return booking details in the form of
@@ -86,5 +93,56 @@ public class CustomerMasterService {
 		}
 		return billDetails!=null?billDetails.toString():"";
 	}
+	
+	/**
+	 * Get the key details along with all the unpaid bills
+	 * In the order of latest bill at the top
+	 */
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/unpaidbills/{keynum}")
+	public String getKeyDetailsUnpaidBills(@PathParam("keynum") String keynum){
+		
+		logger.debug(" enter CustomerMasterService.getKeyDetailsUnpaidBills() with billnum "+keynum);
+		
+		JSONObject allDetails = null;
+		
+		try{
+			
+			List<BillRecord> unpaidBills = null;
+			BillRecordController contrl1 = new BillRecordController();
+			PartyRecordController contrl2 = new PartyRecordController();
+			
+			unpaidBills = contrl1.getUnpaidBills(keynum,"BDT");
+			
+			
+			JSONArray unpaidBillarr = new JSONArray();
+			//create jsonobjects and then put in jsonarray
+			for (int i=0;i<unpaidBills.size();i++){
+				
+				//create jsonobject and put in the array
+				JSONObject obj = new JSONObject(unpaidBills.get(i));
+				
+				unpaidBillarr.put(obj);
+			}
+			
+			//get the key details
+			PartyRecord partyRecord = contrl2.getActiveKeyRecord(keynum);
+			
+			//create json out of bean
+			allDetails = new JSONObject(partyRecord);
+			
+			//Append the unpaid bills to the list
+			if(allDetails!=null && allDetails.length()!=0){
+				
+				//allDetails.append("billlist", unpaidBillarr);
+				allDetails.put("bills",unpaidBillarr);
+			}
+			
+		}catch(Exception e){
+			//log to the logger
+		}
+		return allDetails!=null?allDetails.toString():"";
+	} 
 	
 }

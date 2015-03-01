@@ -11,13 +11,19 @@
 	href="/Locker_Financial_Society/css/jquery-ui.structure.css" />
 <link rel="stylesheet" type="text/css"
 	href="/Locker_Financial_Society/css/jquery-ui.theme.css" />
+	
 
 <!--  load jquery prior to the jquery ui which is using it -->
 <script src="/Locker_Financial_Society/js/jquery-1.11.1.js"
 	type="text/javascript"></script>
 <script src="/Locker_Financial_Society/js/jquery-ui.js"
 	type="text/javascript"></script>
-
+<link rel="stylesheet"
+	href="/Locker_Financial_Society/css/jquery.dynatable.css">
+<script src="/Locker_Financial_Society/js/jquery.dynatable.js"
+	type="text/javascript"></script>
+<script src="/Locker_Financial_Society/js/jquery.dataTables.min.js"
+	type="text/javascript"></script>
 <!-- IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>

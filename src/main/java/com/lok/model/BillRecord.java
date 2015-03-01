@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  */
 @Entity
-public class BillRecord implements Serializable {
+public class BillRecord implements Serializable,Comparable<BillRecord> {
 
 	// Bill number
 	@Id
@@ -102,6 +102,23 @@ public class BillRecord implements Serializable {
 
 	public BillRecord() {
 		super();
+	}
+	
+	/**
+	 * Compare based on the BDT (billing date)
+	 */
+	public int compareTo(BillRecord objToCompare){
+		
+		int i = 1;
+		
+		try{
+			if(objToCompare!=null && objToCompare.BDT!=null){
+				return this.BDT.compareTo(objToCompare.BDT);
+			}
+		}catch(Exception e){
+			
+		}
+		return i;
 	}
 
 	/**

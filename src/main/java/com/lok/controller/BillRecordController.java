@@ -5,6 +5,10 @@ it will act as a binding between REST api and Service layer (which is DB layer i
  */
 package com.lok.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.json.JSONObject;
@@ -17,6 +21,7 @@ import com.lok.config.ConfigurationLok;
 import com.lok.model.BillRecord;
 import com.lok.model.BillRecordField;
 import com.lok.model.PartyRecord;
+import com.lok.model.PartyRecordField;
 import com.lok.service.BillRecordService;
 import com.lok.service.impl.LokUtility;
 
@@ -106,5 +111,87 @@ public class BillRecordController extends BaseController<BillRecordService>{
 		}
 		return billDetails;
 	}
-
+	
+	/**
+	 * Returns the list of unpaid bills
+	 * @param: Keynum for which all the unpaid bills is to be fetched
+	 * @param: sortBy column name or attribute on which sorting is to be done
+	 */
+	public List<BillRecord> getUnpaidBills(String keynum,String sortBy){
+		
+		logger.debug(" enter BillRecordController.unpaidBills() with keynum "
+				+ keynum+" sortBy "+sortBy);
+		
+		List<BillRecord> listBills = null;
+		try{
+			listBills =  getUnpaidBills(keynum);
+			Collections.sort(listBills);
+		}
+		catch (Exception e) {
+			logger.error(" Exception caught in BillRecordController.unpaidBills(keynum,sortby) -> "
+					+e.getMessage());
+			e.printStackTrace();
+		}
+		return listBills;
+		
+	}
+	
+	
+	/**
+	 * Returns the list of unpaid bills
+	 * @param: Keynum for which all the unpaid bills is to be fetched
+	 * 
+	 */
+	public List<BillRecord> getUnpaidBills(String keynum){
+		
+		logger.debug(" enter BillRecordController.unpaidBills() with keynum "
+				+ keynum);
+		
+		List<BillRecord> listBills = new ArrayList<BillRecord>();
+		try{
+			
+			Search search = new Search();
+			search.addFilterEqual(BillRecordField.KNO.toString(), keynum);   
+			search.addFilterNull(BillRecordField.LRCTN.toString());  //No receipt number
+			listBills =  billRecordService.search(search);
+			
+			//will not throw null pointer since already initialized
+			logger.info(" List of unpaid Bills "+listBills.toString());
+			
+		}
+		catch (Exception e) {
+			logger.error(" Exception caught in BillRecordController.unpaidBills(keynum) -> "
+					+e.getMessage());
+			e.printStackTrace();
+		}
+		return listBills;
+		
+	}
+	
+	/**
+	 * Get all unpaid Bills
+	 */
+public List<BillRecord> getAllUnpaidBills(){
+		
+		logger.debug(" enter BillRecordController.getAllUnpaidBills() ");
+		
+		List<BillRecord> listBills = new ArrayList<BillRecord>();
+		try{
+			
+			Search search = new Search();
+			search.addFilterNull(BillRecordField.LRCTN.toString());  //No receipt number
+			listBills =  billRecordService.search(search);
+			
+			//will not throw null pointer since already initialized
+			logger.info(" List of unpaid Bills "+listBills.toString());
+			
+		}
+		catch (Exception e) {
+			logger.error(" Exception caught in BillRecordController.getAllUnpaidBills -> "
+					+e.getMessage());
+			e.printStackTrace();
+		}
+		return listBills;
+		
+	}
 }

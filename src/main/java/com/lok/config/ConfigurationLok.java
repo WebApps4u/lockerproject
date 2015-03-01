@@ -64,7 +64,7 @@ public class ConfigurationLok {
 	public static ApplicationContext getAppContext(){
 		
 		logger.debug(" enter Configuration.getAppContext()");
-		String path = System.getenv(Constant.CONFIG_ENV);
+		String path = System.getenv(ConstantLok.CONFIG_ENV);
 		
 		if (StringUtils.isEmpty(path)){
 			

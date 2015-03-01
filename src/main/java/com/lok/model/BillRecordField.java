@@ -1,5 +1,6 @@
 package com.lok.model;
 
-public class BillRecordField {
+public enum BillRecordField {
 
+	BNO,LRNO,KNO,LRCTN
 }
