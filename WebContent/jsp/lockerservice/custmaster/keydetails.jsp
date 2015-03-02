@@ -12,7 +12,7 @@
 <div style="clear: both;"></div>
 
 	<div id='BookingDetails' >
-		<form id="frm_keyDetails">
+		<form id="frm_keyDetails" action="/Locker_Financial_Society/rest/lockerservice/keydetails/" method="post">
 			<table>
 				<tr>
 					<td>Key no</td><td> <input name="KNO" size="6" type="text" onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()"/><input type="button" id='getDetails' value="Go" ></td>

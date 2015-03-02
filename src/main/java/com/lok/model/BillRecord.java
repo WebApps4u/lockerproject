@@ -26,8 +26,10 @@ public class BillRecord implements Serializable,Comparable<BillRecord> {
 	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private Date BDT;
 	// From date of bill
+	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private Date BFDT;
 	// To date of bill
+	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private Date BTDT;
 
 	// key number for billing
@@ -153,6 +155,7 @@ public class BillRecord implements Serializable,Comparable<BillRecord> {
 	 * @return the bFDT
 	 */
 	public Date getBFDT() {
+		
 		return BFDT;
 	}
 

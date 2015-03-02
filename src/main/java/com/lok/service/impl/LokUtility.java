@@ -1,5 +1,8 @@
 package com.lok.service.impl;
 
+import java.lang.reflect.Field;
+import java.sql.Date;
+
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +50,33 @@ public class LokUtility {
 	}
 	
 	
-	
+	/**
+	 * Changes the dateformat fields of the 
+	 * JSONObject based on the class object passed
+	 * change the values in original object
+	 */
+	public static void changeDateFormat(Class<?> beanClass, JSONObject obj){
+		logger.debug(" enter changeDateFormat LokUtility.changeDateFormat()  ");
+		try{
+		
+		
+		for (Field field : beanClass.getDeclaredFields()) {
+	         if (field.getType().isAssignableFrom(Date.class)) {
+	            
+	        	 //get the name of that field
+	        	 String key = field.getName();
+	        	 
+	        	 //get the value from json
+	        	 String value = (String)obj.getString(key);
+	        	 obj.put(key, value.split(" ")[0]);
+	         }
+	      }
+		}catch(JSONException e){
+			logger.debug(" enter changeDateFormat LokUtility.changeDateFormat()  "+e.getMessage());
+			e.printStackTrace();
+		}
+
+	}
 	
 	
 }

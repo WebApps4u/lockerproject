@@ -11,17 +11,6 @@
 	<jsp:include page="/jsp/mainmenu.jsp"></jsp:include>
 	<div style="clear: both;"></div>
 
-	<table>
-		<tr>
-			<td>Receipt Number</td>
-			<td>NEW</td>
-			<td></td>
-
-			<td>Date</td>
-			<td><input type="date" name='RCTD' /></td>
-		</tr>
-
-	</table>
 
 	<!--  Key details -->
 
@@ -29,7 +18,19 @@
 	<div id="ReceiptDetails">
 
 		<form name="frm_receiptDetails">
+
 			<div id="keyDetails">
+				<table>
+					<tr>
+						<td>Receipt Number</td>
+						<td>NEW</td>
+						<td></td>
+
+						<td>Date</td>
+						<td><input type="date" name='RCTD' /></td>
+					</tr>
+
+				</table>
 				<table>
 					<tr>
 						<td>Key no</td>
@@ -39,6 +40,9 @@
 						<td>Locker no</td>
 						<td><input disabled="disabled" name="LNO" size="6"
 							type="text" /></td>
+						<td>Locker rent</td>
+						<td><input disabled="disabled" name="LOKR" type="number"
+							step="0.01" /></td>
 					</tr>
 					<tr>
 						<td>Lease date</td>
@@ -46,9 +50,7 @@
 						<td>Booking no</td>
 						<td><input disabled="disabled" name="LSNO" size="6"
 							type="text" /></td>
-						<!-- <td>Locker rent</td>
-						<td><input disabled="disabled" name="LOKR" type="number"
-							step="0.01" /></td> -->
+
 					</tr>
 				</table>
 				<table>
@@ -60,7 +62,7 @@
 					<tr>
 						<td>1st</td>
 						<!-- Ist Name -->
-						<td><select name="PNM1">
+						<td><select disabled="disabled" name="PNM1">
 								<option value="MR">Mr</option>
 								<option value="MRS">Mrs</option>
 						</select> <input disabled="disabled" name="PNM2" type="text" /> <input
@@ -77,7 +79,8 @@
 					<tr>
 						<!-- 3rd Name -->
 						<td>3rd</td>
-						<td><input name="PNM5" size="40" type="text" /></td>
+						<td><input disabled="disabled" name="PNM5" size="40"
+							type="text" /></td>
 
 					</tr>
 
@@ -106,23 +109,23 @@
 					</tr>
 
 				</table>
-				
-					<!--  Bill Details -->
-			<div id="billDetails">
-				<table id="billRecords">
-					<thead>
-						<tr>
 
-							<th data-dynatable-column="BNO">Bill No.</th>
-							<th data-dynatable-column="LAMT">Locker Rent</th>
-							<th data-dynatable-column="LOUT">Prev Outstanding</th>
-							<th data-dynatable-column="LADV">Adv Payment</th>
-							<th data-dynatable-column="BFDT">From</th>
-							<th data-dynatable-column="BTDT">To</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
+				<!--  Bill Details -->
+				<div id="billDetails">
+					<table id="billRecords">
+						<thead>
+							<tr>
+
+								<th data-dynatable-column="BNO">Bill No.</th>
+								<th data-dynatable-column="LAMT">Locker Rent</th>
+								<th data-dynatable-column="LOUT">Prev Outstanding</th>
+								<th data-dynatable-column="LADV">Adv Payment</th>
+								<th data-dynatable-column="BFDT">From</th>
+								<th data-dynatable-column="BTDT">To</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
 			</div>
 
 			<!-- Particulars details -->
@@ -134,76 +137,117 @@
 					</tr>
 					<tr>
 						<td>Locker Rent</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RRNT" /></td>
 					</tr>
 					<tr>
 						<td>Less at credit(-)</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RADVP" /></td>
 					</tr>
 					<tr>
 						<td>Add previous due</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RPOUT" /></td>
 					</tr>
 					<tr></tr>
 					<tr>
 						<td>Interest</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RINT" /></td>
 					</tr>
 					<tr>
 						<td>Misc charges</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RINC" /></td>
 					</tr>
 					<tr>
 						<td>Bank charges</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RBC" /></td>
 					</tr>
 					<tr>
 						<td>Application Fees</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RAPF" /></td>
 					</tr>
 					<tr>
 						<td>Legal Fees</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RGLF" /></td>
 					</tr>
 					<tr>
 						<td>Advances</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RDAV" /></td>
 					</tr>
 					<tr>
 						<td>Access charges</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RACH" /></td>
 					</tr>
 					<tr>
 						<td>Suspense</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="RSUS" /></td>
 					</tr>
 					<tr>
 						<td>Breaking charges</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="BRKCH" /></td>
 					</tr>
 
 					<tr>
-						<td>Service charges@<input type="number" step="0.01" name="" />%
+						<td>Service charges@<input type="number" step="0.01"
+							name="STAXR" />%
 						</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td><input type="number" step="0.01" name="STAXA" /></td>
 					</tr>
 					<tr></tr>
 					<tr>
-						<td>total</td>
-						<td><input type="number" step="0.01" name="" /></td>
+						<td>Total</td>
+						<td><input type="number" step="0.01" name="RGTOT" /></td>
 					</tr>
 
 				</table>
 			</div>
 
 			<div class="sep_section"></div>
-		
+
+			<!--  Payment section -->
+			<div id="paymentmethod">
+			    <label>Payment Methods</label>
+				<section class="tabs">
+					<input id="tab-1" type="radio" name="radio-set"
+						class="tab-selector-1" checked="checked" value="CASH" /> <label for="tab-1"
+						class="tab-label-1">Cash</label> <input id="tab-2"
+						type="radio" name="radio-set" class="tab-selector-2" value="Draft" /> <label
+						for="tab-2" class="tab-label-2">Draft</label> <input
+						id="tab-3" type="radio" name="radio-set" class="tab-selector-3" value="Cheque"/>
+					<label for="tab-3" class="tab-label-3">Cheque</label> <input
+						id="tab-4" type="radio" name="radio-set" class="tab-selector-4" value="Online Both"/>
+					<label for="tab-4" class="tab-label-4">Online Both</label>
+
+					<div class="clear-shadow"></div>
+
+					<div class="content">
+						<div class="content-1">
+							<p>Amount Paid</p>
+							<input name="RAMT" type="number" step="0.01">
+						</div>
+						<div class="content-2">
+							<p>Some content</p>
+						</div>
+						<div class="content-3">
+							<p>Some content</p>
+						</div>
+						<div class="content-4">
+							<p>Some content</p>
+						</div>
+					</div>
+				</section>
+
+			</div>
+
 		</form>
 	</div>
 
 	<script type="text/javascript">
 		//equivalent of $(document).ready(function(){...
 		$(function() {
+
+			//change date format of all the date fields
+			//this will be invoked after each section is populated from the server
+			function changeDateFormat($form) {
+			}
 
 			//populate key details section
 			function populateForm($form, data) {

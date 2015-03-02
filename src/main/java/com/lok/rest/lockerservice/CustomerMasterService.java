@@ -13,6 +13,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -29,6 +31,7 @@ import com.lok.controller.BillRecordController;
 import com.lok.controller.PartyRecordController;
 import com.lok.model.BillRecord;
 import com.lok.model.PartyRecord;
+import com.lok.service.impl.LokUtility;
 
 @Path("/lockerservice")
 public class CustomerMasterService {
@@ -68,6 +71,17 @@ public class CustomerMasterService {
 		}
 		return partyRecord;
 	}
+	
+/*	*//**
+	 * Update the Key details of an existing key
+	 *//*
+	@POST
+	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+	@Produces(MediaType.TEXT_HTML)
+	@Path("/keydetails/")
+	public Response updateKeyDetails(){
+		
+	}*/
 	
 	/**
 	 * Return the Bill Details in the form of JSON
@@ -123,6 +137,9 @@ public class CustomerMasterService {
 				//create jsonobject and put in the array
 				JSONObject obj = new JSONObject(unpaidBills.get(i));
 				
+				//convert the date fields to the desired format
+				LokUtility.changeDateFormat(BillRecord.class, obj);
+				
 				unpaidBillarr.put(obj);
 			}
 			
@@ -131,6 +148,7 @@ public class CustomerMasterService {
 			
 			//create json out of bean
 			allDetails = new JSONObject(partyRecord);
+			LokUtility.changeDateFormat(PartyRecord.class, allDetails);
 			
 			//Append the unpaid bills to the list
 			if(allDetails!=null && allDetails.length()!=0){
