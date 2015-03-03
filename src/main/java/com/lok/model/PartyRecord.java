@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,7 +24,7 @@ import org.hibernate.annotations.ForeignKey;
  *
  */
 @Entity
-
+@IdClass(PartyRecordPK.class)
 public class PartyRecord implements Serializable {
 		
 	//key number
@@ -40,6 +41,7 @@ public class PartyRecord implements Serializable {
 	//old booking number
 	private String LSNO2;
 	//New booking number
+	@Id
 	private String LSNO;
 	//
 	private Date LSDT;

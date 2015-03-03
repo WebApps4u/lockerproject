@@ -330,3 +330,16 @@ tr.selected{
     opacity: 1;
     transition: all ease-out 0.2s 0.1s;
 }
+
+/* Message of the page */
+.nomsg{
+	display: hidden;
+}
+.errmsg{
+	display:block;
+	color: red;
+}
+.successmsg{
+	display:block;
+	color: green;
+}

@@ -22,6 +22,7 @@ import com.lok.model.BillRecord;
 import com.lok.model.BillRecordField;
 import com.lok.model.PartyRecord;
 import com.lok.model.PartyRecordField;
+import com.lok.model.ReturnMessage;
 import com.lok.service.BillRecordService;
 import com.lok.service.impl.LokUtility;
 
@@ -29,26 +30,25 @@ import com.lok.service.impl.LokUtility;
  * @author USER Holds business logic for all bill related functions
  *
  */
-public class BillRecordController extends BaseController<BillRecordService>{
+public class BillRecordController extends BaseController<BillRecordService> {
 
 	// add for logging
 	private static Logger logger = Logger.getLogger(BillRecordController.class);
 
 	// load required service
 	private BillRecordService billRecordService;
-	
-	//requires party details
+
+	// requires party details
 	private PartyRecordController partyCntrl = new PartyRecordController();
 
-
 	public BillRecordController() {
-        //Need to call super class to create service
+		// Need to call super class to create service
 		super(BillRecordService.class);
 		logger.debug(" enter constructor BillRecordController");
 
 		// get the bean
-		//billRecordService = context.getBean(BillRecordService.class);
-		
+		// billRecordService = context.getBean(BillRecordService.class);
+
 		billRecordService = getService();
 		logger.debug(" Exit constructor BillRecordController with billRecordService"
 				+ billRecordService);
@@ -89,109 +89,148 @@ public class BillRecordController extends BaseController<BillRecordService>{
 				+ billnum);
 		JSONObject billDetails = null;
 		try {
-            
-			 BillRecord billRecord =  billRecordService.findById(billnum); 
-			 
-			 //Get party details
-			 PartyRecord partyRecord = partyCntrl.getActiveKeyRecord(billRecord.getKNO());
-			 
-			 //create a flat json structure to return
-			 //merge two json using jsonparser
-			 billDetails =  LokUtility.mergeJSON(new JSONObject(billRecord), new JSONObject(partyRecord), true)  ;
-			 
-		
-		}catch(NullPointerException e){
+
+			BillRecord billRecord = billRecordService.findById(billnum);
+			
+			//create json out of it
+			JSONObject billjson = new JSONObject(billRecord);
+			//parse date
+			LokUtility.changeDateFormat(BillRecord.class, billjson);
+
+			// Get party details
+			PartyRecord partyRecord = partyCntrl.getActiveKeyRecord(billRecord
+					.getKNO());
+			//create json out of it
+			JSONObject partyjson = new JSONObject(partyRecord);
+			//parse date
+			LokUtility.changeDateFormat(BillRecord.class, partyjson);
+
+			
+			// create a flat json structure to return
+			// merge two json using jsonparser
+			billDetails = LokUtility.mergeJSON(billjson,
+					partyjson, true);
+
+		} catch (NullPointerException e) {
 			logger.info(" No record BillRecordController.getBillDetails() found for billnum "
 					+ billnum);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error(" Exception caught in BillRecordController.getBillDetails() -> "
 					+ e.getMessage());
 			e.printStackTrace();
 		}
 		return billDetails;
 	}
-	
+
 	/**
 	 * Returns the list of unpaid bills
+	 * 
 	 * @param: Keynum for which all the unpaid bills is to be fetched
 	 * @param: sortBy column name or attribute on which sorting is to be done
 	 */
-	public List<BillRecord> getUnpaidBills(String keynum,String sortBy){
-		
+	public List<BillRecord> getUnpaidBills(String keynum, String sortBy) {
+
 		logger.debug(" enter BillRecordController.unpaidBills() with keynum "
-				+ keynum+" sortBy "+sortBy);
-		
+				+ keynum + " sortBy " + sortBy);
+
 		List<BillRecord> listBills = null;
-		try{
-			listBills =  getUnpaidBills(keynum);
+		try {
+			listBills = getUnpaidBills(keynum);
 			Collections.sort(listBills);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error(" Exception caught in BillRecordController.unpaidBills(keynum,sortby) -> "
-					+e.getMessage());
+					+ e.getMessage());
 			e.printStackTrace();
 		}
 		return listBills;
-		
+
 	}
-	
-	
+
 	/**
 	 * Returns the list of unpaid bills
+	 * 
 	 * @param: Keynum for which all the unpaid bills is to be fetched
 	 * 
 	 */
-	public List<BillRecord> getUnpaidBills(String keynum){
-		
+	public List<BillRecord> getUnpaidBills(String keynum) {
+
 		logger.debug(" enter BillRecordController.unpaidBills() with keynum "
 				+ keynum);
-		
+
 		List<BillRecord> listBills = new ArrayList<BillRecord>();
-		try{
-			
+		try {
+
 			Search search = new Search();
-			search.addFilterEqual(BillRecordField.KNO.toString(), keynum);   
-			search.addFilterNull(BillRecordField.LRCTN.toString());  //No receipt number
-			listBills =  billRecordService.search(search);
-			
-			//will not throw null pointer since already initialized
-			logger.info(" List of unpaid Bills "+listBills.toString());
-			
-		}
-		catch (Exception e) {
+			search.addFilterEqual(BillRecordField.KNO.toString(), keynum);
+			search.addFilterNull(BillRecordField.LRCTN.toString()); // No
+																	// receipt
+																	// number
+			listBills = billRecordService.search(search);
+
+			// will not throw null pointer since already initialized
+			logger.info(" List of unpaid Bills " + listBills.toString());
+
+		} catch (Exception e) {
 			logger.error(" Exception caught in BillRecordController.unpaidBills(keynum) -> "
-					+e.getMessage());
+					+ e.getMessage());
 			e.printStackTrace();
 		}
 		return listBills;
-		
+
 	}
-	
+
 	/**
 	 * Get all unpaid Bills
 	 */
-public List<BillRecord> getAllUnpaidBills(){
-		
+	public List<BillRecord> getAllUnpaidBills() {
+
 		logger.debug(" enter BillRecordController.getAllUnpaidBills() ");
-		
+
 		List<BillRecord> listBills = new ArrayList<BillRecord>();
-		try{
-			
+		try {
+
 			Search search = new Search();
-			search.addFilterNull(BillRecordField.LRCTN.toString());  //No receipt number
-			listBills =  billRecordService.search(search);
-			
-			//will not throw null pointer since already initialized
-			logger.info(" List of unpaid Bills "+listBills.toString());
-			
-		}
-		catch (Exception e) {
+			search.addFilterNull(BillRecordField.LRCTN.toString()); // No
+																	// receipt
+																	// number
+			listBills = billRecordService.search(search);
+
+			// will not throw null pointer since already initialized
+			logger.info(" List of unpaid Bills " + listBills.toString());
+
+		} catch (Exception e) {
 			logger.error(" Exception caught in BillRecordController.getAllUnpaidBills -> "
-					+e.getMessage());
+					+ e.getMessage());
 			e.printStackTrace();
 		}
 		return listBills;
-		
+
+	}
+
+	/**
+	 * Update the Bill Record
+	 */
+	public ReturnMessage updateBillRecord(BillRecord record) {
+
+		logger.debug(" enter constructor BillRecordController.updateBillRecord() ");
+		ReturnMessage msg = new ReturnMessage();
+		try {
+
+			// call the service method to update
+			billRecordService.save(record);
+
+			// assuming saved successfully if no error is thrown
+			msg.setSuccessMsg(ReturnMessage.SuccessSet.UPDATE_SUCCESS
+					.toString());
+
+		} catch (Exception e) {
+			logger.error(" Exception caught in BillRecordController.updateBillRecord() -> "
+					+ e.getMessage());
+			e.printStackTrace();
+
+			msg.setErrMsg(ReturnMessage.ErrorSet.UNKNOWN_ERROR.toString());
+		}
+
+		return msg;
 	}
 }

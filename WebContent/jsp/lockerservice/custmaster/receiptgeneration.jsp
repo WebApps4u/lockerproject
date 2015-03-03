@@ -38,17 +38,17 @@
 							onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />
 							<input type="button" id='getDetails' value="Go"></td>
 						<td>Locker no</td>
-						<td><input disabled="disabled" name="LNO" size="6"
+						<td><input readonly="readonly" name="LNO" size="6"
 							type="text" /></td>
 						<td>Locker rent</td>
-						<td><input disabled="disabled" name="LOKR" type="number"
+						<td><input readonly="readonly" name="LOKR" type="number"
 							step="0.01" /></td>
 					</tr>
 					<tr>
 						<td>Lease date</td>
-						<td><input disabled="disabled" type="date" name="LSDT" /></td>
+						<td><input readonly="readonly" type="date" name="LSDT" /></td>
 						<td>Booking no</td>
-						<td><input disabled="disabled" name="LSNO" size="6"
+						<td><input readonly="readonly" name="LSNO" size="6"
 							type="text" /></td>
 
 					</tr>
@@ -62,24 +62,24 @@
 					<tr>
 						<td>1st</td>
 						<!-- Ist Name -->
-						<td><select disabled="disabled" name="PNM1">
+						<td><select readonly="readonly" name="PNM1">
 								<option value="MR">Mr</option>
 								<option value="MRS">Mrs</option>
-						</select> <input disabled="disabled" name="PNM2" type="text" /> <input
-							disabled="disabled" name="PNM3" type="text" /></td>
+						</select> <input readonly="readonly" name="PNM2" type="text" /> <input
+							readonly="readonly" name="PNM3" type="text" /></td>
 
 					</tr>
 					<tr>
 						<!-- 2nd Name -->
 						<td>2nd</td>
-						<td><input disabled="disabled" name="PNM4" size="40"
+						<td><input readonly="readonly" name="PNM4" size="40"
 							type="text" /></td>
 
 					</tr>
 					<tr>
 						<!-- 3rd Name -->
 						<td>3rd</td>
-						<td><input disabled="disabled" name="PNM5" size="40"
+						<td><input readonly="readonly" name="PNM5" size="40"
 							type="text" /></td>
 
 					</tr>
@@ -87,25 +87,25 @@
 
 					<tr>
 						<td>E-mail</td>
-						<td><input disabled="disabled" type="email" name="EMAILID"
+						<td><input readonly="readonly" type="email" name="EMAILID"
 							style="width: 200px;" /></td>
 					</tr>
 					<tr>
 						<td>Phones</td>
-						<td><input disabled="disabled" type="text" name="PHN" /></td>
+						<td><input readonly="readonly" type="text" name="PHN" /></td>
 
 					</tr>
 
 					<tr>
 						<td>Address</td>
-						<td class="tdAddress" colspan=5><input disabled="disabled"
-							name="PAD1" type="text" /> <input disabled="disabled"
+						<td class="tdAddress" colspan=5><input readonly="readonly"
+							name="PAD1" type="text" /> <input readonly="readonly"
 							name="PAD2" type="text" /></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input disabled="disabled" name="PAD3" type="text" /> <input
-							name="PAD4" type="text" disabled="disabled" /></td>
+						<td><input readonly="readonly" name="PAD3" type="text" /> <input
+							name="PAD4" type="text" readonly="readonly" /></td>
 					</tr>
 
 				</table>

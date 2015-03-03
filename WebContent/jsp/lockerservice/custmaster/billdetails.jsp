@@ -8,8 +8,11 @@
 <body>
 	<jsp:include page="/jsp/mainmenu.jsp"></jsp:include>
 	<div style="clear: both;"></div>
+	<div id="msg" class="nomsg"></div>
+	
+	<div style="clear: both;"></div>
 	<div id='BookingDetails'>
-		<form id="frm_billDetails">
+		<form id="frm_billDetails" autocomplete="on">
 			<table>
 				<tr>
 					<td>Bill no</td>
@@ -38,7 +41,7 @@
 
 			<!--  Contact details -->
 			<div class="sep_section"></div>
-			<table>
+			<table id="contactDetails">
 
 				<tr>
 					<th></th>
@@ -167,16 +170,36 @@
 					<!--  This is auto calculated, both frontend and backend -->
 					<td>Amount Payable</td>
 					<td><input type="number" step="0.01" name="LPYBA"
-						disabled="disabled"></td>
+						readonly="readonly"></td>
 				</tr>
 			</table>
-
+			<input type="button" name="submitNewBill" id="submitNewBill" value="Update">
+			<input type="reset" name="cleartext" value="Clear">
 		</form>
 	</div>
 <script type="text/javascript">
 	//equivalent of $(document).ready(function(){...
 	$(function() {
 
+		function ConvertFormToJSON(form){
+		    var array = $(form).serializeArray();
+		    var json = {};
+		    
+		    $.each(array, function() {
+		        json[this.name.toLowerCase()] = this.value || '';
+		    });
+		    json=JSON.stringify(json);
+		    return json;
+		}
+		
+		function disableElements(el) {
+	        for (var i = 0; i < el.length; i++) {
+	            el[i].disabled = true;
+
+	            disableElements(el[i].children);
+	        }
+	    }
+		
 		//generic function to populate form data 
 		//TODO need to be moved to the generic js file
 		function populateForm($form, data) {
@@ -220,6 +243,10 @@
 
 				//populate fields with the recieved data
 				populateForm($('form[id=frm_billDetails]'), data);
+			
+				//disable the contact details
+				disableElements($('#contactDetails'));
+				
 			}).fail(function(error) {
 				//log error to console
 				console.log(error);
@@ -233,6 +260,43 @@
 
 			getDetails(billnum);
 		})
+		
+		$('#submitNewBill').on(
+				'click',
+				function(e) {
+                    
+					e.preventDefault();
+					$.ajax({
+				           type: "POST",
+				           url: "/Locker_Financial_Society/rest/lockerservice/billdetails/",
+				           contentType: "application/json; charset=utf-8",
+				           dataType: "json",
+				           success: function (data) {
+				        	   
+				        	   //check the status of the response
+				        	   if(data.status == "SUCCESS"){
+									console.log("successfully updated");
+									//remove all classes
+									$('#msg').removeClass();
+									$('#msg').addClass("successmsg");
+									$('#msg').html(data.successMsg);
+				        	   }
+				        	   else{
+				        		   console.log("error in updated updated"+data.errMsg);
+				        		   $('#msg').removeClass();
+									$('#msg').addClass("errmsg");
+									$('#msg').html(data.errMsg);
+				        	   }
+				        	   
+				        	   
+				           },
+				           error : function(response, ajaxOptions, thrownError){
+				        	   console.log(thrownError)
+				           },
+				           data: ConvertFormToJSON($('form[id=frm_billDetails]'))
+				       });
+
+				})
 
 	});
 </script>

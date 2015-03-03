@@ -19,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -31,6 +32,7 @@ import com.lok.controller.BillRecordController;
 import com.lok.controller.PartyRecordController;
 import com.lok.model.BillRecord;
 import com.lok.model.PartyRecord;
+import com.lok.model.ReturnMessage;
 import com.lok.service.impl.LokUtility;
 
 @Path("/lockerservice")
@@ -38,6 +40,8 @@ public class CustomerMasterService {
 
 	//add for logging
 	private static Logger logger = Logger.getLogger(CustomerMasterService.class);
+	PartyRecordController partyContrl = new PartyRecordController();
+	BillRecordController billContrl = new BillRecordController();
 	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder webDataBinder) {
@@ -62,8 +66,8 @@ public class CustomerMasterService {
 		PartyRecord partyRecord = null;
 		try{
 			
-			PartyRecordController contrl = new PartyRecordController();
-			partyRecord = contrl.getActiveKeyRecord(keyNum);
+			
+			partyRecord = partyContrl.getActiveKeyRecord(keyNum);
 			
 			
 		}catch(Exception e){
@@ -72,17 +76,36 @@ public class CustomerMasterService {
 		return partyRecord;
 	}
 	
-/*	*//**
+	/**
 	 * Update the Key details of an existing key
-	 *//*
+	 */
 	@POST
-	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-	@Produces(MediaType.TEXT_HTML)
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/keydetails/")
-	public Response updateKeyDetails(){
+	public Response updateKeyDetails(PartyRecord partyRecord){
 		
-	}*/
+		JSONObject output = null;
+		try{
+			
+			ReturnMessage msg = partyContrl.updatePartyRecord(partyRecord);
+			
+			if(msg==null){
+				
+				//Set the default error message to unknown
+				output = new JSONObject(new ReturnMessage().setDefaultErr());
+			}
+			else{
+				output = new JSONObject(msg);
+			}
+		}catch(Exception e){
+			//log to the logger
+		}
+		
+		return Response.status(200).entity(output.toString()).build();
+	}
 	
+		
 	/**
 	 * Return the Bill Details in the form of JSON
 	 * Bill number will be provided
@@ -98,8 +121,8 @@ public class CustomerMasterService {
 		
 		try{
 			
-			BillRecordController contrl = new BillRecordController();
-			billDetails = contrl.getBillDetails(billnum);
+			
+			billDetails = billContrl.getBillDetails(billnum);
 			
 			
 		}catch(Exception e){
@@ -124,10 +147,8 @@ public class CustomerMasterService {
 		try{
 			
 			List<BillRecord> unpaidBills = null;
-			BillRecordController contrl1 = new BillRecordController();
-			PartyRecordController contrl2 = new PartyRecordController();
 			
-			unpaidBills = contrl1.getUnpaidBills(keynum,"BDT");
+			unpaidBills = billContrl.getUnpaidBills(keynum,"BDT");
 			
 			
 			JSONArray unpaidBillarr = new JSONArray();
@@ -144,7 +165,7 @@ public class CustomerMasterService {
 			}
 			
 			//get the key details
-			PartyRecord partyRecord = contrl2.getActiveKeyRecord(keynum);
+			PartyRecord partyRecord = partyContrl.getActiveKeyRecord(keynum);
 			
 			//create json out of bean
 			allDetails = new JSONObject(partyRecord);
@@ -162,5 +183,34 @@ public class CustomerMasterService {
 		}
 		return allDetails!=null?allDetails.toString():"";
 	} 
+	
+	/**
+	 * Update the Bill details of an existing bill
+	 */
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/billdetails/")
+	public Response updateBillDetails(BillRecord billRecord){
+		
+		JSONObject output = null;
+		try{
+			
+			ReturnMessage msg = billContrl.updateBillRecord(billRecord);
+			
+			if(msg==null){
+				
+				//Set the default error message to unknown
+				output = new JSONObject(new ReturnMessage().setDefaultErr());
+			}
+			else{
+				output = new JSONObject(msg);
+			}
+		}catch(Exception e){
+			//log to the logger
+		}
+		
+		return Response.status(200).entity(output.toString()).build();
+	}
 	
 }
