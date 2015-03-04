@@ -72,33 +72,33 @@ public class BillRecord implements Serializable,Comparable<BillRecord> {
 	// Reminder 1 date
 	private Date REMD1;
 	// penalty for 1st reminder
-	private Long REMDA1;
+	private Long REMDA1 = 0L;
 
 
 	// Reminder 2 date
 	private Date REMD2;
 	// penalty for 2 reminder
-	private Long REMDA2;
+	private Long REMDA2=0L;
 	
 	// Reminder 3 date
 	private Date REMD3;
 	// penalty for 3 reminder
-	private Long REMDA3;
+	private Long REMDA3= 0L;
 	
 	// Reminder 4 date
 	private Date REMD4;
 	// penalty for 4 reminder
-	private Long REMDA4;
+	private Long REMDA4=0L;
     
 	// Reminder 5 date
 	private Date REMD5;
 	// penalty for 5 reminder
-	private Long REMDA5;
+	private Long REMDA5=0L;
 	
 	// Reminder 6 date
 	private Date REMD6;
 	// penalty for 6 reminder
-	private Long REMDA6;
+	private Long REMDA6=0L;
 	
 	private static final Long serialVersionUID = 1L;
 

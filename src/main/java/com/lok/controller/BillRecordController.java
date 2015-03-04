@@ -103,7 +103,7 @@ public class BillRecordController extends BaseController<BillRecordService> {
 			//create json out of it
 			JSONObject partyjson = new JSONObject(partyRecord);
 			//parse date
-			LokUtility.changeDateFormat(BillRecord.class, partyjson);
+			LokUtility.changeDateFormat(PartyRecord.class, partyjson);
 
 			
 			// create a flat json structure to return

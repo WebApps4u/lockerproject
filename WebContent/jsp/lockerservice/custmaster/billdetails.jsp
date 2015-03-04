@@ -31,11 +31,11 @@
 					<td>Key no</td>
 					<td><input name="KNO" size="6" type="text" /></td>
 					<td>Locker no</td>
-					<td><input name="LNO" size="6" type="text" /></td>
+					<td><input disabled="disabled" name="LNO" size="6" type="text" /></td>
 					<td>Booking no</td>
 					<td><input name="LSNO" size="6" type="text" /></td>
 					<td>Lease date</td>
-					<td><input type="date" name="LSDT" /></td>
+					<td><input disabled="disabled" type="date" name="LSDT" /></td>
 				</tr>
 			</table>
 

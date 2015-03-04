@@ -33,7 +33,7 @@ public class PartyRecord implements Serializable {
 	//locker number
 	private String LNO;
 	//Locker Rent due date
-	private String LRDD;
+	private Date LRDD;
 	//Release status
 	private String RELS;
 	//release date
@@ -188,14 +188,14 @@ public class PartyRecord implements Serializable {
 	/**
 	 * @return the lRDD
 	 */
-	public String getLRDD() {
+	public Date getLRDD() {
 		return LRDD;
 	}
 
 	/**
 	 * @param lRDD the lRDD to set
 	 */
-	public void setLRDD(String lRDD) {
+	public void setLRDD(Date lRDD) {
 		LRDD = lRDD;
 	}
 

@@ -28,7 +28,13 @@
 <!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+<script type="text/javascript">
 
+//Load the datepicker, it will be required on all the pages
+$(function() {
+    $( "input[type='date']" ).datepicker({ dateFormat: 'yy-mm-dd' }).val();;
+  });
+</script>
 </head>
 
 <body>
