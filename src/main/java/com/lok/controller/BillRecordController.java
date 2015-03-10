@@ -233,4 +233,12 @@ public class BillRecordController extends BaseController<BillRecordService> {
 
 		return msg;
 	}
+	
+	/**
+	 * Auto generate bills for the given month
+	 */
+	public void generateAutoBills(String month){
+		
+		
+	}
 }
