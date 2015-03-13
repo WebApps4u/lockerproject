@@ -18,6 +18,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -211,6 +212,50 @@ public class CustomerMasterService {
 		}
 		
 		return Response.status(200).entity(output.toString()).build();
+	}
+	
+	/**
+	 * Generates bills lying in given month and year 
+	 */
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/bills")
+	public String getBills(@QueryParam("dueMonth") String dueMonth,
+									@QueryParam("dueYear") String dueYear){
+		logger.debug(" enter CustomerMasterService.getBills() with dueMonth-dueYear "+dueMonth+"-"+dueYear);
+		
+		JSONObject billsJson = null;
+		try{
+			
+			List<BillRecord> allBills = null;
+			
+			allBills = billContrl.getBills(dueMonth, dueYear);
+			
+			
+			JSONArray billarr = new JSONArray();
+			//create jsonobjects and then put in jsonarray
+			for (int i=0;i<allBills.size();i++){
+				
+				//create jsonobject and put in the array
+				JSONObject obj = new JSONObject(allBills.get(i));
+				
+				//convert the date fields to the desired format
+				LokUtility.changeDateFormat(BillRecord.class, obj);
+				
+				billarr.put(obj);
+			}
+			
+			billsJson = new JSONObject();
+			
+			//put arrays of bills to key 'bills'
+			billsJson.put("bills", billarr);
+			
+		}
+		catch(Exception e){
+			//log to the logger
+		}
+		
+		return billsJson!=null?billsJson.toString():"";
 	}
 	
 }

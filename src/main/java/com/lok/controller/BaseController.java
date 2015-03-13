@@ -25,6 +25,14 @@ public class BaseController<T> {
         @Autowired
 		private T service;
 		
+        //Constructor to only load the context without any service
+        public BaseController(){
+        	logger.debug(" enter constructor BaseController");
+			// get the context
+			context = ConfigurationLok.getAppContext();
+			
+			logger.debug(" Exit constructor BaseController");
+        }
 		
 		public BaseController(Class<T> classType){
 			logger.debug(" enter constructor BaseController");

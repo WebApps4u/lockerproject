@@ -241,4 +241,34 @@ public class BillRecordController extends BaseController<BillRecordService> {
 		
 		
 	}
+	
+	/**
+	 * Get bill details for the month-year
+	 */
+	public List<BillRecord> getBills(String dueMonth,String dueYear){
+		logger.debug(" enter BillRecordController.getBills() month-year"+dueMonth+"-"+dueYear);
+
+		List<BillRecord> listBills = new ArrayList<BillRecord>();
+		try {
+
+				
+			//have to create start date and end date from month and year
+			// not sure how to use db functions here
+			Search search = new Search();
+			
+			//create filter to get bills having bfdt in the given month-year
+			search.addFilterCustom(" month(bfdt) ='"+dueMonth+"' and year(bfdt)='"+dueYear+"'");
+			
+			listBills = billRecordService.search(search);
+
+			// will not throw null pointer since already initialized
+			logger.info(" List of Bills " + listBills.toString());
+
+		} catch (Exception e) {
+			logger.error(" Exception caught in BillRecordController.getBills -> "
+					+ e.getMessage());
+			e.printStackTrace();
+		}
+		return listBills;
+	}
 }

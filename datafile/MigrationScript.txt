@@ -14,3 +14,15 @@ STPBD= STR_TO_DATE(@STPBD, '%d-%b-%y')
 -- Direct export of ACCDE is working now. Click on make ACCDe before export
 
 -- Make sure to rename table names to match the bean
+
+-- Create new table lok_log_debug
+
+-- create procedure auto_bill_generation
+
+-- Create sequence for billing 
+
+-- Create trigger for billing
+
+-- create table having last sequence used for that object type lok_all_seq
+
+-- create trigger on billrecord table

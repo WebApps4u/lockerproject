@@ -49,7 +49,7 @@ $(function() {
 							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/billdetails.jsp">Bill
 								Editing</a></li>
 						<li><a
-							href="/Locker_Financial_Society/jsp/locker/AutoBill.jsp">Auto Bill Generation</a></li>
+							href="/Locker_Financial_Society/jsp/lockerservice/reports/AutoBillGeneration.jsp">Auto Bill Generation</a></li>
 						<li><a href="#">Reports &raquo;</a>
 							<ul>
 								<li><a href="#">Report I</a></li>
