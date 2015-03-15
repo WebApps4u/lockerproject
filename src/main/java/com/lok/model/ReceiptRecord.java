@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Implementation of Receipt (RCT) table
  * 
@@ -14,6 +16,7 @@ import javax.persistence.Id;
  */
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class ReceiptRecord implements Serializable {
 
 	@Id
@@ -27,48 +30,48 @@ public class ReceiptRecord implements Serializable {
 	// Receipt locker Serial num
 	private String RLSNO;
 	// Locker rent
-	private Long RRNT;
+	private Double RRNT;
 	// Advance Payment
-	private Long RADVP;
+	private Double RADVP;
 
 	// previous outstanding
-	private Long RPOUT;
+	private Double RPOUT;
 	// Interest
-	private Long RINT;
+	private Double RINT;
 	// incidental charges
-	private Long RINC;
+	private Double RINC;
 
 	// Bank charges
-	private Long RBC;
+	private Double RBC;
 	// Application Fees
-	private Long RAPF;
+	private Double RAPF;
 	//legal fee
-	private Long RGLF;
+	private Double RGLF;
 	//additional advance (for future)
-	private Long RADV;
+	private Double RADV;
 	
 	//advance rent
-	private Long RADVRT;
+	private Double RADVRT;
 	//advance tax
-	private Long RADVST;
+	private Double RADVST;
 	
 	//access charges
-	private Long RACH;
+	private Double RACH;
 	//new outstanding
-	private Long RCOUT;
+	private Double RCOUT;
 	//suspense
-	private Long RSUS;
+	private Double RSUS;
 	//breaking charges
-	private Long BRKCH;
+	private Double BRKCH;
 
 	//storage access num
 	private String RSAN;
 	//storage access tax rate
-	private Long STAXR;
+	private Double STAXR;
 	//storage access tax amount
-	private Long STAXA;
+	private Double STAXA;
 	//Grand total
-	private Long RGTOT;
+	private Double RGTOT;
 
 	//type of payment (cash, cheque..)
 	private String RTYP;
@@ -79,7 +82,7 @@ public class ReceiptRecord implements Serializable {
 	//bank name (for cheque payment)
 	private String RBKN;
 	//paid amount
-	private Long RCHA;
+	private Double RCHA;
     
 	//remarks
 	private String RREM;
@@ -157,210 +160,210 @@ public class ReceiptRecord implements Serializable {
 	/**
 	 * @return the rRNT
 	 */
-	public Long getRRNT() {
+	public Double getRRNT() {
 		return RRNT;
 	}
 
 	/**
 	 * @param rRNT the rRNT to set
 	 */
-	public void setRRNT(Long rRNT) {
+	public void setRRNT(Double rRNT) {
 		RRNT = rRNT;
 	}
 
 	/**
 	 * @return the rADVP
 	 */
-	public Long getRADVP() {
+	public Double getRADVP() {
 		return RADVP;
 	}
 
 	/**
 	 * @param rADVP the rADVP to set
 	 */
-	public void setRADVP(Long rADVP) {
+	public void setRADVP(Double rADVP) {
 		RADVP = rADVP;
 	}
 
 	/**
 	 * @return the rPOUT
 	 */
-	public Long getRPOUT() {
+	public Double getRPOUT() {
 		return RPOUT;
 	}
 
 	/**
 	 * @param rPOUT the rPOUT to set
 	 */
-	public void setRPOUT(Long rPOUT) {
+	public void setRPOUT(Double rPOUT) {
 		RPOUT = rPOUT;
 	}
 
 	/**
 	 * @return the rINT
 	 */
-	public Long getRINT() {
+	public Double getRINT() {
 		return RINT;
 	}
 
 	/**
 	 * @param rINT the rINT to set
 	 */
-	public void setRINT(Long rINT) {
+	public void setRINT(Double rINT) {
 		RINT = rINT;
 	}
 
 	/**
 	 * @return the rINC
 	 */
-	public Long getRINC() {
+	public Double getRINC() {
 		return RINC;
 	}
 
 	/**
 	 * @param rINC the rINC to set
 	 */
-	public void setRINC(Long rINC) {
+	public void setRINC(Double rINC) {
 		RINC = rINC;
 	}
 
 	/**
 	 * @return the rBC
 	 */
-	public Long getRBC() {
+	public Double getRBC() {
 		return RBC;
 	}
 
 	/**
 	 * @param rBC the rBC to set
 	 */
-	public void setRBC(Long rBC) {
+	public void setRBC(Double rBC) {
 		RBC = rBC;
 	}
 
 	/**
 	 * @return the rAPF
 	 */
-	public Long getRAPF() {
+	public Double getRAPF() {
 		return RAPF;
 	}
 
 	/**
 	 * @param rAPF the rAPF to set
 	 */
-	public void setRAPF(Long rAPF) {
+	public void setRAPF(Double rAPF) {
 		RAPF = rAPF;
 	}
 
 	/**
 	 * @return the rGLF
 	 */
-	public Long getRGLF() {
+	public Double getRGLF() {
 		return RGLF;
 	}
 
 	/**
 	 * @param rGLF the rGLF to set
 	 */
-	public void setRGLF(Long rGLF) {
+	public void setRGLF(Double rGLF) {
 		RGLF = rGLF;
 	}
 
 	/**
 	 * @return the rADV
 	 */
-	public Long getRADV() {
+	public Double getRADV() {
 		return RADV;
 	}
 
 	/**
 	 * @param rADV the rADV to set
 	 */
-	public void setRADV(Long rADV) {
+	public void setRADV(Double rADV) {
 		RADV = rADV;
 	}
 
 	/**
 	 * @return the rADVRT
 	 */
-	public Long getRADVRT() {
+	public Double getRADVRT() {
 		return RADVRT;
 	}
 
 	/**
 	 * @param rADVRT the rADVRT to set
 	 */
-	public void setRADVRT(Long rADVRT) {
+	public void setRADVRT(Double rADVRT) {
 		RADVRT = rADVRT;
 	}
 
 	/**
 	 * @return the rADVST
 	 */
-	public Long getRADVST() {
+	public Double getRADVST() {
 		return RADVST;
 	}
 
 	/**
 	 * @param rADVST the rADVST to set
 	 */
-	public void setRADVST(Long rADVST) {
+	public void setRADVST(Double rADVST) {
 		RADVST = rADVST;
 	}
 
 	/**
 	 * @return the rACH
 	 */
-	public Long getRACH() {
+	public Double getRACH() {
 		return RACH;
 	}
 
 	/**
 	 * @param rACH the rACH to set
 	 */
-	public void setRACH(Long rACH) {
+	public void setRACH(Double rACH) {
 		RACH = rACH;
 	}
 
 	/**
 	 * @return the rCOUT
 	 */
-	public Long getRCOUT() {
+	public Double getRCOUT() {
 		return RCOUT;
 	}
 
 	/**
 	 * @param rCOUT the rCOUT to set
 	 */
-	public void setRCOUT(Long rCOUT) {
+	public void setRCOUT(Double rCOUT) {
 		RCOUT = rCOUT;
 	}
 
 	/**
 	 * @return the rSUS
 	 */
-	public Long getRSUS() {
+	public Double getRSUS() {
 		return RSUS;
 	}
 
 	/**
 	 * @param rSUS the rSUS to set
 	 */
-	public void setRSUS(Long rSUS) {
+	public void setRSUS(Double rSUS) {
 		RSUS = rSUS;
 	}
 
 	/**
 	 * @return the bRKCH
 	 */
-	public Long getBRKCH() {
+	public Double getBRKCH() {
 		return BRKCH;
 	}
 
 	/**
 	 * @param bRKCH the bRKCH to set
 	 */
-	public void setBRKCH(Long bRKCH) {
+	public void setBRKCH(Double bRKCH) {
 		BRKCH = bRKCH;
 	}
 
@@ -381,42 +384,42 @@ public class ReceiptRecord implements Serializable {
 	/**
 	 * @return the sTAXR
 	 */
-	public Long getSTAXR() {
+	public Double getSTAXR() {
 		return STAXR;
 	}
 
 	/**
 	 * @param sTAXR the sTAXR to set
 	 */
-	public void setSTAXR(Long sTAXR) {
+	public void setSTAXR(Double sTAXR) {
 		STAXR = sTAXR;
 	}
 
 	/**
 	 * @return the sTAXA
 	 */
-	public Long getSTAXA() {
+	public Double getSTAXA() {
 		return STAXA;
 	}
 
 	/**
 	 * @param sTAXA the sTAXA to set
 	 */
-	public void setSTAXA(Long sTAXA) {
+	public void setSTAXA(Double sTAXA) {
 		STAXA = sTAXA;
 	}
 
 	/**
 	 * @return the rGTOT
 	 */
-	public Long getRGTOT() {
+	public Double getRGTOT() {
 		return RGTOT;
 	}
 
 	/**
 	 * @param rGTOT the rGTOT to set
 	 */
-	public void setRGTOT(Long rGTOT) {
+	public void setRGTOT(Double rGTOT) {
 		RGTOT = rGTOT;
 	}
 
@@ -479,14 +482,14 @@ public class ReceiptRecord implements Serializable {
 	/**
 	 * @return the rCHA
 	 */
-	public Long getRCHA() {
+	public Double getRCHA() {
 		return RCHA;
 	}
 
 	/**
 	 * @param rCHA the rCHA to set
 	 */
-	public void setRCHA(Long rCHA) {
+	public void setRCHA(Double rCHA) {
 		RCHA = rCHA;
 	}
 

@@ -18,7 +18,7 @@ import com.lok.controller.PartyRecordController;
  * @author USER
  *
  */
-public class ConfigurationLok {
+public final class ConfigurationLok {
 
 	//add for logging
 	private static Logger logger = Logger.getLogger(PartyRecordController.class);

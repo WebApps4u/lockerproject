@@ -11,7 +11,7 @@
 	<div id="msg" class="nomsg"></div>
 	
 	<div style="clear: both;"></div>
-	<div id='BookingDetails'>
+	<div id='BookingDetails' class="main_content">
 		<form id="frm_billDetails" autocomplete="on">
 			<table>
 				<tr>
@@ -181,16 +181,7 @@
 	//equivalent of $(document).ready(function(){...
 	$(function() {
 
-		function ConvertFormToJSON(form){
-		    var array = $(form).serializeArray();
-		    var json = {};
-		    
-		    $.each(array, function() {
-		        json[this.name.toLowerCase()] = this.value || '';
-		    });
-		    json=JSON.stringify(json);
-		    return json;
-		}
+		
 		
 		function disableElements(el) {
 	        for (var i = 0; i < el.length; i++) {

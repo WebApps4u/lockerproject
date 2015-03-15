@@ -24,6 +24,10 @@
 	type="text/javascript"></script>
 <script src="/Locker_Financial_Society/js/jquery.dataTables.min.js"
 	type="text/javascript"></script>
+<script src="/Locker_Financial_Society/js/lok_jsutil.js"
+	type="text/javascript"></script>
+	
+	
 <!-- IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -38,8 +42,11 @@ $(function() {
 </head>
 
 <body>
+	<div id="logo">
+	<img src="/Locker_Financial_Society/css/images/logo.png" alt="The Delhi Safe Deposit Co Ltd.">
+	</div>
 	<div id="wrapper">
-
+	
 		<nav id="nav">
 			<ul id="navigation">
 				<li><a href="#" class="first">Home</a></li>
@@ -70,6 +77,15 @@ $(function() {
 							</ul></li>
 						<li><a href="#">Help </a></li>
 					</ul></li>
+					
+				<li><a href="#">Receipt &raquo;</a>
+					<ul>
+						<li><a href="/Locker_Financial_Society/jsp/lockerservice/custmaster/receiptgeneration.jsp">New Receipt</a></li>
+						<li><a href="#">Edit Receipt</a></li>
+						<li><a href="#">Delete Receipt</a></li>
+						<li><a href="#">Report</a></li>
+						
+					</ul></li>	
 				<li><a href="#">Search</a></li>
 				<li><a href="#" class="last">Reports</a></li>
 				<!-- 		<li><a href="#" class="last">Data-transfer</a></li> -->

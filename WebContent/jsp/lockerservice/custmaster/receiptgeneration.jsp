@@ -11,13 +11,16 @@
 	<jsp:include page="/jsp/mainmenu.jsp"></jsp:include>
 	<div style="clear: both;"></div>
 
+	<div id="msg" class="nomsg"></div>
+
+	<div style="clear: both;"></div>
 
 	<!--  Key details -->
 
 	<div class="sep_section"></div>
-	<div id="ReceiptDetails">
+	<div id="ReceiptDetails" class="main_content">
 
-		<form name="frm_receiptDetails">
+		<form id="frm_receiptDetails">
 
 			<div id="keyDetails">
 				<table>
@@ -27,14 +30,14 @@
 						<td></td>
 
 						<td>Date</td>
-						<td><input type="date" name='RCTD' /></td>
+						<td><input type="date" name='RCTD' value="" /></td>
 					</tr>
 
 				</table>
 				<table>
 					<tr>
 						<td>Key no</td>
-						<td><input name="KNO" size="6" type="text"
+						<td><input name="RKNO" size="6" type="text"
 							onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />
 							<input type="button" id='getDetails' value="Go"></td>
 						<td>Locker no</td>
@@ -51,12 +54,24 @@
 						<td><input readonly="readonly" name="LSNO" size="6"
 							type="text" /></td>
 
+						<td>Outstanding</td>
+						<td><input readonly="readonly" name="POA" type="number"
+							step="0.01" /></td>
+
+					</tr>
+					<tr>
+						<td>Advance</td>
+						<td><input readonly="readonly" type="date" name="LPA" /></td>
+						<td></td>
+						<td></td>
+						<td></td>
+
 					</tr>
 				</table>
 				<table>
 					<tr>
 						<th></th>
-						<th>Name</th>
+						<th>Contact Details</th>
 
 					</tr>
 					<tr>
@@ -187,149 +202,91 @@
 
 					<tr>
 						<td>Service charges@<input type="number" step="0.01"
-							name="STAXR" />%
+							name="STAXR" value="12.3" />%
 						</td>
-						<td><input type="number" step="0.01" name="STAXA" /></td>
+						<td><input type="number" step="0.01" name="STAXA"
+							readonly="readonly" /></td>
 					</tr>
 					<tr></tr>
 					<tr>
 						<td>Total</td>
-						<td><input type="number" step="0.01" name="RGTOT" /></td>
+						<td><input type="number" step="0.01" name="RGTOT"
+							readonly="readonly" /></td>
 					</tr>
+					<tr>
+							<td>Advance for Future</td>
+							<td><input type="number" step="0.01" name="RADV" value="0" readonly="readonly">
+							</td>
+						</tr>
+						<tr>
+							<td>New Outstanding</td>
+							<td><input type="number" step="0.01" name="RCOUT" value="0" readonly="readonly"></td>
+						</tr>
 
 				</table>
+
+
+				<!--  Payment section -->
+				<div id="paymentmethod">
+					<label>Payment Methods</label>
+					<section class="tabs">
+						<input id="tab-1" type="radio" name="RTYP" class="tab-selector-1"
+							checked="checked" value="CASH" /> <label for="tab-1"
+							class="tab-label-1">Cash</label> <input id="tab-2" type="radio"
+							name="RTYP" class="tab-selector-2" value="Draft" /> <label
+							for="tab-2" class="tab-label-2">Draft</label> <input id="tab-3"
+							type="radio" name="RTYP" class="tab-selector-3" value="Cheque" />
+						<label for="tab-3" class="tab-label-3">Cheque</label> <input
+							id="tab-4" type="radio" name="RTYP" class="tab-selector-4"
+							value="Online Both" /> <label for="tab-4" class="tab-label-4">Online
+							Both</label>
+
+						<div class="clear-shadow"></div>
+
+						<div class="content">
+							<div class="content-1">
+								<p>Amount Paid</p>
+								<input name="RAMT" type="number" step="0.01" value="0">
+							</div>
+							<div class="content-2">
+								<p>Some content</p>
+							</div>
+							<div class="content-3">
+								<p>Some content</p>
+							</div>
+							<div class="content-4">
+								<p>Some content</p>
+							</div>
+						</div>
+					</section>
+
+				</div>
+
+				<div id="futurebalance">
+
+					<table>
+
+						
+					</table>
+				</div>
+
+
+			</div>
+			<div class="floating_buttons">
+				<input type="button" name="submitNewReceipt" id="submitNewReceipt"
+					value="" class="send"> <input type="reset" name="cleartext"
+					value="" class="clear">
 			</div>
 
 			<div class="sep_section"></div>
 
-			<!--  Payment section -->
-			<div id="paymentmethod">
-			    <label>Payment Methods</label>
-				<section class="tabs">
-					<input id="tab-1" type="radio" name="radio-set"
-						class="tab-selector-1" checked="checked" value="CASH" /> <label for="tab-1"
-						class="tab-label-1">Cash</label> <input id="tab-2"
-						type="radio" name="radio-set" class="tab-selector-2" value="Draft" /> <label
-						for="tab-2" class="tab-label-2">Draft</label> <input
-						id="tab-3" type="radio" name="radio-set" class="tab-selector-3" value="Cheque"/>
-					<label for="tab-3" class="tab-label-3">Cheque</label> <input
-						id="tab-4" type="radio" name="radio-set" class="tab-selector-4" value="Online Both"/>
-					<label for="tab-4" class="tab-label-4">Online Both</label>
-
-					<div class="clear-shadow"></div>
-
-					<div class="content">
-						<div class="content-1">
-							<p>Amount Paid</p>
-							<input name="RAMT" type="number" step="0.01">
-						</div>
-						<div class="content-2">
-							<p>Some content</p>
-						</div>
-						<div class="content-3">
-							<p>Some content</p>
-						</div>
-						<div class="content-4">
-							<p>Some content</p>
-						</div>
-					</div>
-				</section>
-
-			</div>
-
 		</form>
 	</div>
 
-	<script type="text/javascript">
-		//equivalent of $(document).ready(function(){...
-		$(function() {
+	<!--  Load the required js file -->
+	<script src="/Locker_Financial_Society/js/lok_receiptJS.js"
+		type="text/javascript"></script>
 
-			//change date format of all the date fields
-			//this will be invoked after each section is populated from the server
-			function changeDateFormat($form) {
-			}
-
-			//populate key details section
-			function populateForm($form, data) {
-				// resetForm($form);
-				$.each(data, function(key, value) {
-					var $ctrl = $form
-							.find('[name="' + key.toUpperCase() + '"]');
-					if ($ctrl.is('select')) {
-						$('option', $ctrl).each(function() {
-							if (this.value == value)
-								this.selected = true;
-						});
-					} else if ($ctrl.is('textarea')) {
-						$ctrl.val(value);
-					} else {
-						switch ($ctrl.attr("type")) {
-						case "text":
-						case "hidden":
-						case "email":
-						case "number":
-						case "date":
-							$ctrl.val(value);
-							break;
-						case "checkbox":
-							if (value == '1')
-								$ctrl.prop('checked', true);
-							else
-								$ctrl.prop('checked', false);
-							break;
-						}
-					}
-				});
-			}
-
-			//Create dynamic table with all the bill details
-			function populateBillDetails(billDetails) {
-
-				$('#billRecords').dynatable({
-
-					dataset : {
-						records : billDetails
-					}
-
-				});
-
-				$('#billRecords tbody').on('click', 'tr', function() {
-
-					$(this).toggleClass('selected');
-					$('td', this).toggleClass('selected');
-				});
-			}
-
-			function getDetails(keynum) {
-				//get ajax call
-				$.get(
-						'/Locker_Financial_Society/rest/lockerservice/unpaidbills/'
-								+ keynum // rest api
-				// key for which record is to be fetched		
-				).done(function(data) { // data is returned from the server
-
-					//populate fields with the recieved data
-					populateForm($('div[id=keyDetails]'), data);
-
-					//populateKeyDetails(data);
-					populateBillDetails(data.bills);
-					//populateParticulars(data);
-				}).fail(function(error) {
-					//log error to console
-					console.log(error);
-				})
-			}
-
-			//call the rest api to get details for the given key num
-			$('#getDetails').on('click', function() {
-
-				var keynum = $('input[name="KNO"]').val();
-				//clearform();
-				getDetails(keynum);
-			})
-
-		});
-	</script>
 
 </body>
 </html>

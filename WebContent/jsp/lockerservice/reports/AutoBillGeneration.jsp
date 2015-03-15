@@ -11,6 +11,7 @@
 	<jsp:include page="/jsp/mainmenu.jsp"></jsp:include>
 	<div style="clear: both;"></div>
 
+<div id='Auto_bill_gen' class="main_content">
 	<form id="frm_billgen">
 
 		<div id="selectMonth">
@@ -58,7 +59,7 @@
 		</div>
 
 	</form>
-
+</div>
 	<script>
 	$(function() {	
 		//inserts current and next year in the drop down

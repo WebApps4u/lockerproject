@@ -18,9 +18,10 @@ public class ReturnMessage {
 	}
 	
 	public enum SuccessSet{
-		SAVED_SUCCESS("Saved successfully"),
-		UPDATE_SUCCESS("Updated successfully"),
-		DELETE_SUCCSS("Deleted successfully");
+		SAVED_SUCCESS("Saved successfully "),
+		UPDATE_SUCCESS("Updated successfully "),
+		DELETE_SUCCSS("Deleted successfully "),
+		INSERT_SUCCESS("Created successfully ");
 		
 		private String success;
 		private SuccessSet(String success){

@@ -26,13 +26,17 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.JsonParser;
 import com.lok.controller.BillRecordController;
 import com.lok.controller.PartyRecordController;
+import com.lok.controller.ReceiptRecordController;
 import com.lok.model.BillRecord;
 import com.lok.model.PartyRecord;
+import com.lok.model.ReceiptRecord;
 import com.lok.model.ReturnMessage;
 import com.lok.service.impl.LokUtility;
 
@@ -43,6 +47,7 @@ public class CustomerMasterService {
 	private static Logger logger = Logger.getLogger(CustomerMasterService.class);
 	PartyRecordController partyContrl = new PartyRecordController();
 	BillRecordController billContrl = new BillRecordController();
+	ReceiptRecordController receiptContrl = new ReceiptRecordController();
 	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder webDataBinder) {
@@ -84,6 +89,7 @@ public class CustomerMasterService {
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/keydetails/")
+	@JsonIgnoreProperties(ignoreUnknown=true)
 	public Response updateKeyDetails(PartyRecord partyRecord){
 		
 		JSONObject output = null;
@@ -256,6 +262,37 @@ public class CustomerMasterService {
 		}
 		
 		return billsJson!=null?billsJson.toString():"";
+	}
+	
+	
+	//Receipt section starts
+	/**
+	 * Create a new receipt with update to party and bill tables
+	 */
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/receipt/")
+	public Response createReceipt(ReceiptRecord receiptRecord){
+		
+		JSONObject output = null;
+		try{
+			
+			ReturnMessage msg = receiptContrl.createReceipt(receiptRecord,partyContrl,billContrl);
+			
+			if(msg==null){
+				
+				//Set the default error message to unknown
+				output = new JSONObject(new ReturnMessage().setDefaultErr());
+			}
+			else{
+				output = new JSONObject(msg);
+			}
+		}catch(Exception e){
+			//log to the logger
+		}
+		
+		return Response.status(200).entity(output.toString()).build();
 	}
 	
 }

@@ -14,7 +14,7 @@
 	
 	<div style="clear: both;"></div>
 
-	<div id='BookingDetails'>
+	<div id='BookingDetails' class="main_content">
 		<form id="frm_keyDetails">
 			<table>
 				<tr>
@@ -183,8 +183,10 @@
 			</table>
 			<input type="hidden" name="LPA" value="0">
 			<input type="hidden" name="PUCD" value="0">
-			<input type="button" name="submitNewBooking" id="submitNewBooking" value="Update">
-			<input type="reset" name="cleartext" value="Clear">
+			<div class="floating_buttons">
+			<input type="button" name="submitNewBooking" id="submitNewBooking" value="" class="update">
+			<input type="reset" name="cleartext" value="" class="clear">
+			</div>
 		</form>
 	</div>
 <script type="text/javascript">
@@ -192,17 +194,6 @@
 	$(function() {
 		
 		
-		function ConvertFormToJSON(form){
-		    var array = $(form).serializeArray();
-		    var json = {};
-		    
-		    $.each(array, function() {
-		        json[this.name.toLowerCase()] = this.value || '';
-		    });
-		    json=JSON.stringify(json);
-		    return json;
-		}
-
 		//generic function to populate form data 
 		//TODO need to be moved to the generic js file
 		function populateForm($form, data) {
@@ -300,5 +291,9 @@
 
 	});
 </script>
+<div style="clear: both;"></div>
+<jsp:include page="/jsp/Footer.jsp"></jsp:include>
+	
+	
 </body>
 </html>
