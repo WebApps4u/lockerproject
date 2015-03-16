@@ -2,7 +2,7 @@ package com.lok.model;
 
 import java.io.Serializable;
 import java.lang.Integer;
-import java.lang.Long;
+import java.lang.Double;
 import java.lang.String;
 import java.util.Date;
 
@@ -46,17 +46,17 @@ public class PartyRecord implements Serializable {
 	//
 	private Date LSDT;
 	//Locker Rent
-	private Long LOKR;
+	private Double LOKR;
 	//locker deposit advance
-	private Long LSDA;
+	private Double LSDA;
 	//Previous outstanding
-	private Long POA;
+	private Double POA;
 	//
-	private Long LPA;
+	private Double LPA;
 	//Advance payment
-	private Long PCRA;
+	private Double PCRA;
 	//Advance tax
-	private Long PCRAST;
+	private Double PCRAST;
 	//Last Receipt number
 	private String LRNO;
 	//Last receipt number
@@ -89,7 +89,7 @@ public class PartyRecord implements Serializable {
 	//comma seperated in original data, thus keeping it to String
 	private String PHN;
 	//old locker rent
-	private Long OLOKR;
+	private Double OLOKR;
 	//OBSELETE
 	private String ACSN;
 	//Email id
@@ -99,7 +99,7 @@ public class PartyRecord implements Serializable {
 	//stop billing date
 	private Date STPBD;
 	//User code- logged in user
-	private Long PUCD;
+	private Double PUCD;
 	//2nd user address, line 1
 	private String PAD41;
 	//2nd user address, line 2
@@ -272,84 +272,84 @@ public class PartyRecord implements Serializable {
 	/**
 	 * @return the lOKR
 	 */
-	public Long getLOKR() {
+	public Double getLOKR() {
 		return LOKR;
 	}
 
 	/**
 	 * @param lOKR the lOKR to set
 	 */
-	public void setLOKR(Long lOKR) {
+	public void setLOKR(Double lOKR) {
 		LOKR = lOKR;
 	}
 
 	/**
 	 * @return the lSDA
 	 */
-	public Long getLSDA() {
+	public Double getLSDA() {
 		return LSDA;
 	}
 
 	/**
 	 * @param lSDA the lSDA to set
 	 */
-	public void setLSDA(Long lSDA) {
+	public void setLSDA(Double lSDA) {
 		LSDA = lSDA;
 	}
 
 	/**
 	 * @return the pOA
 	 */
-	public Long getPOA() {
+	public Double getPOA() {
 		return POA;
 	}
 
 	/**
 	 * @param pOA the pOA to set
 	 */
-	public void setPOA(Long pOA) {
+	public void setPOA(Double pOA) {
 		POA = pOA;
 	}
 
 	/**
 	 * @return the lPA
 	 */
-	public Long getLPA() {
+	public Double getLPA() {
 		return LPA;
 	}
 
 	/**
 	 * @param lPA the lPA to set
 	 */
-	public void setLPA(Long lPA) {
+	public void setLPA(Double lPA) {
 		LPA = lPA;
 	}
 
 	/**
 	 * @return the pCRA
 	 */
-	public Long getPCRA() {
+	public Double getPCRA() {
 		return PCRA;
 	}
 
 	/**
 	 * @param pCRA the pCRA to set
 	 */
-	public void setPCRA(Long pCRA) {
+	public void setPCRA(Double pCRA) {
 		PCRA = pCRA;
 	}
 
 	/**
 	 * @return the pCRAST
 	 */
-	public Long getPCRAST() {
+	public Double getPCRAST() {
 		return PCRAST;
 	}
 
 	/**
 	 * @param pCRAST the pCRAST to set
 	 */
-	public void setPCRAST(Long pCRAST) {
+	public void setPCRAST(Double pCRAST) {
 		PCRAST = pCRAST;
 	}
 
@@ -566,14 +566,14 @@ public class PartyRecord implements Serializable {
 	/**
 	 * @return the oLOKR
 	 */
-	public Long getOLOKR() {
+	public Double getOLOKR() {
 		return OLOKR;
 	}
 
 	/**
 	 * @param oLOKR the oLOKR to set
 	 */
-	public void setOLOKR(Long oLOKR) {
+	public void setOLOKR(Double oLOKR) {
 		OLOKR = oLOKR;
 	}
 
@@ -636,14 +636,14 @@ public class PartyRecord implements Serializable {
 	/**
 	 * @return the pUCD
 	 */
-	public Long getPUCD() {
+	public Double getPUCD() {
 		return PUCD;
 	}
 
 	/**
 	 * @param pUCD the pUCD to set
 	 */
-	public void setPUCD(Long pUCD) {
+	public void setPUCD(Double pUCD) {
 		PUCD = pUCD;
 	}
 

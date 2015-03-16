@@ -89,11 +89,18 @@ $(function() {
 			var lokr = 0;
 			var outstanding = 0;
 			var advance = 0;
+			var bills = "";
 			$.each(allBills,function(key,value){
+				
+				if(bills || bills != ""){
+				bills = bills + " ";       //append space only when required
+				}
+				bills = bills + value.children[0].textContent;  //   "B-1234 B-2123"  //white space separated multiple bills
 				
 				lokr += parseFloat(value.children[1].textContent) || 0;
 				outstanding += parseFloat(value.children[2].textContent) || 0;
 				advance += parseFloat(value.children[3].textContent) || 0;
+				
 			});
 			
 			//update particulars
@@ -101,6 +108,9 @@ $(function() {
 			
 			//calculate total
 			calculateTotal();
+			
+			//add the selected bill id to be submit to server
+			$('#frm_receiptDetails').append('<input type="hidden" name="RBNO" value="'+bills+'" />');
 		}
 	}
 	
