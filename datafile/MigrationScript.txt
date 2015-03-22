@@ -26,3 +26,11 @@ STPBD= STR_TO_DATE(@STPBD, '%d-%b-%y')
 -- create table having last sequence used for that object type lok_all_seq
 
 -- create trigger on billrecord table
+
+-- drop not null constrain from partyrecord table olokr, PCRA, PCRAST
+alter table partyrecord modify column olokr bigint null;
+alter table partyrecord modify column PCRAST bigint null;
+alter table partyrecord modify column PCRA bigint null;
+alter table partyrecord modify column PCRA bigint null;
+alter table partyrecord modify column POA bigint null;
+alter table partyrecord modify column PUCD bigint null;

@@ -11,7 +11,7 @@
 	href="/Locker_Financial_Society/css/jquery-ui.structure.css" />
 <link rel="stylesheet" type="text/css"
 	href="/Locker_Financial_Society/css/jquery-ui.theme.css" />
-	
+
 
 <!--  load jquery prior to the jquery ui which is using it -->
 <script src="/Locker_Financial_Society/js/jquery-1.11.1.js"
@@ -26,27 +26,30 @@
 	type="text/javascript"></script>
 <script src="/Locker_Financial_Society/js/lok_jsutil.js"
 	type="text/javascript"></script>
-	
-	
+
+
 <!-- IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 <script type="text/javascript">
-
-//Load the datepicker, it will be required on all the pages
-$(function() {
-    $( "input[type='date']" ).datepicker({ dateFormat: 'yy-mm-dd' }).val();;
-  });
+	//Load the datepicker, it will be required on all the pages
+	$(function() {
+		$("input[type='date']").datepicker({
+			dateFormat : 'yy-mm-dd'
+		}).val();
+		;
+	});
 </script>
 </head>
 
 <body>
 	<div id="logo">
-	<img src="/Locker_Financial_Society/css/images/logo.png" alt="The Delhi Safe Deposit Co Ltd.">
+		<img src="/Locker_Financial_Society/css/images/logo.png"
+			alt="The Delhi Safe Deposit Co Ltd.">
 	</div>
 	<div id="wrapper">
-	
+
 		<nav id="nav">
 			<ul id="navigation">
 				<li><a href="#" class="first">Home</a></li>
@@ -56,7 +59,8 @@ $(function() {
 							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/billdetails.jsp">Bill
 								Editing</a></li>
 						<li><a
-							href="/Locker_Financial_Society/jsp/lockerservice/reports/AutoBillGeneration.jsp">Auto Bill Generation</a></li>
+							href="/Locker_Financial_Society/jsp/lockerservice/reports/AutoBillGeneration.jsp">Auto
+								Bill Generation</a></li>
 						<li><a href="#">Reports &raquo;</a>
 							<ul>
 								<li><a href="#">Report I</a></li>
@@ -77,17 +81,44 @@ $(function() {
 							</ul></li>
 						<li><a href="#">Help </a></li>
 					</ul></li>
-					
+
 				<li><a href="#">Receipt &raquo;</a>
 					<ul>
-						<li><a href="/Locker_Financial_Society/jsp/lockerservice/custmaster/receiptgeneration.jsp">New Receipt</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/receiptgeneration.jsp">New
+								Receipt</a></li>
 						<li><a href="#">Edit Receipt</a></li>
 						<li><a href="#">Delete Receipt</a></li>
-						<li><a href="#">Report</a></li>
-						
-					</ul></li>	
+						<li><a href="#">Report &raquo;</a>
+
+							<ul>
+								<li><a href="#">Daily </a></li>
+								<li><a href="#">Monthly</a></li>
+							</ul></li>
+
+					</ul></li>
+
+				<li><a href="#" class="last">Reports &raquo;</a>
+					<ul>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/reports/billstatus.jsp">Bill
+								Status &raquo;</a>
+
+							<ul>
+								<!-- Bill status has all the below options, this is just a shortcut to display results directly   -->
+								<li><a href="#">Oustanding on Date </a></li>
+								<li><a href="#">Current Year position</a></li>
+								<li><a href="#">Outstanding yearly</a></li>
+								<li><a href="#">Outstanding bills</a></li>
+							</ul></li>
+						<li><a href="#">Receipt register &raquo;</a>
+
+							<ul>
+								<li><a href="#">Daily </a></li>
+								<li><a href="#">Monthly</a></li>
+							</ul></li>
+					</ul></li>
 				<li><a href="#">Search</a></li>
-				<li><a href="#" class="last">Reports</a></li>
 				<!-- 		<li><a href="#" class="last">Data-transfer</a></li> -->
 			</ul>
 		</nav>

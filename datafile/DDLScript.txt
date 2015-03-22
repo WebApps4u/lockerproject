@@ -1,0 +1,38 @@
+-- billrecord seq generator
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `kplok_dev_db`.`billrecord_BEFORE_INSERT` BEFORE INSERT ON `billrecord` FOR EACH ROW
+begin
+set @bill_seq = 0;
+set @bill_init = "";
+if NEW.bno is null then
+select t.last_seq,t.object_inital into @bill_seq,@bill_init from lok_master_seq t where t.object_type = 'billrecord';
+set @bill_seq = @bill_seq+1;
+
+
+set NEW.bno = concat(@bill_init, @bill_seq);
+end if;
+
+-- update the last seq
+update lok_master_seq set last_seq = @bill_seq where object_type = 'billrecord';
+end
+
+-- ----------------------------------------------------------------------------------------------------
+
+-- receipt record seq generator
+
+CREATE DEFINER = CURRENT_USER TRIGGER `kplok_dev_db`.`receiptrecord_BEFORE_INSERT` BEFORE INSERT ON `receiptrecord` FOR EACH ROW
+BEGIN
+set @rec_seq = 0;
+set @rec_init = "";
+if NEW.rctn is null then
+select t.last_seq,t.object_inital into @rec_seq,@rec_init from lok_master_seq t where t.object_type = 'receiptrecord';
+set @rec_seq = @rec_seq+1;
+
+
+set NEW.rctn = concat(@bill_init, @rec_seq);
+end if;
+
+-- update the last seq
+update lok_master_seq set last_seq = @rec_seq where object_type = 'receiptrecord';
+
+end

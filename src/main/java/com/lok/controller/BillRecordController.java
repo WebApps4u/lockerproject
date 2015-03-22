@@ -98,10 +98,9 @@ public class BillRecordController extends BaseController<BillRecordService> {
 			LokUtility.changeDateFormat(BillRecord.class, billjson);
 
 			// Get party details
-			PartyRecord partyRecord = partyCntrl.getActiveKeyRecord(billRecord
-					.getKNO());
 			//create json out of it
-			JSONObject partyjson = new JSONObject(partyRecord);
+			JSONObject partyjson = partyCntrl.getActiveKeyRecord(billRecord
+					.getKNO());
 			//parse date
 			LokUtility.changeDateFormat(PartyRecord.class, partyjson);
 

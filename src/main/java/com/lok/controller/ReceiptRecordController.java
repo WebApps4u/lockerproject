@@ -47,7 +47,7 @@ public class ReceiptRecordController extends BaseController<ReceiptRecordService
 				
 				//update the party record
 				//get the party record based on key no and booking number
-				PartyRecord partyRecord = partyContrl.getActiveKeyRecord(record.getRKNO());
+				PartyRecord partyRecord = partyContrl.getActiveKeyRecordBean(record.getRKNO());
 				
 				//set the partyRecord with update receipt details
 				partyRecord.setPOA(record.getRCOUT());

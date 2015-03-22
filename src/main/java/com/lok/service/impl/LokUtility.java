@@ -76,8 +76,7 @@ public class LokUtility {
 			e.printStackTrace();
 		}
 
-	}	
-	
-	
+	}
+		
 }
 

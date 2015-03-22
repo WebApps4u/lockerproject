@@ -287,6 +287,8 @@
 	<script src="/Locker_Financial_Society/js/lok_receiptJS.js"
 		type="text/javascript"></script>
 
+	<div style="clear: both;"></div>
+	<jsp:include page="/jsp/Footer.jsp"></jsp:include>
 
 </body>
 </html>

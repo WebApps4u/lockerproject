@@ -7,6 +7,7 @@ package com.lok.controller;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.googlecode.genericdao.search.Search;
@@ -14,6 +15,7 @@ import com.lok.model.PartyRecord;
 import com.lok.model.PartyRecordField;
 import com.lok.model.ReturnMessage;
 import com.lok.service.PartyRecordService;
+import com.lok.service.impl.LokUtility;
 
 /**
  * @author USER
@@ -44,12 +46,39 @@ public class PartyRecordController extends BaseController<PartyRecordService>{
 	/**
 	 * Search the record with key num and is not released yet
 	 */
-	public PartyRecord getActiveKeyRecord(String keynum){
+	public JSONObject getActiveKeyRecord(String keynum){
 		
 		logger.debug(" enter constructor PartyRecordController.getActiveKeyRecord() with keynum "+keynum);
+		JSONObject partyRecord = null;
+		
+		try{
+					
+			partyRecord = new JSONObject(getActiveKeyRecordBean(keynum));
+			
+			//create json out of it
+			//change the date format
+			LokUtility.changeDateFormat(PartyRecord.class, partyRecord);
+			
+			logger.info("PartyRecordController.getActiveKeyRecord() booking number for key num "+keynum+" is -> "+partyRecord);
+		}catch(NullPointerException e){
+			logger.info(" No record PartyRecordController.getActiveKeyRecord() found for keynum "+keynum);
+		}
+		catch(Exception e){
+			logger.error(" Exception caught in PartyRecordController.getActiveKeyRecord() -> "+e.getMessage());
+		}
+		return partyRecord;
+	}
+	
+	/**
+	 * Search the record with key num and is not released yet
+	 */
+	public PartyRecord getActiveKeyRecordBean(String keynum){
+		
+		logger.debug(" enter constructor PartyRecordController.getActiveKeyRecordBean() with keynum "+keynum);
 		PartyRecord record = null;
 		
 		try{
+			
 			
 			//object to search object using generic dao
 			Search search = new Search();
@@ -61,12 +90,13 @@ public class PartyRecordController extends BaseController<PartyRecordService>{
 			
 			record = partyRecordService.search(search).get(0);  //only one record is expected for this condition
 			
-			logger.info("PartyRecordController.getActiveKeyRecord() booking number for key num "+keynum+" is -> "+record.getLSNO());
+					
+			logger.info("PartyRecordController.getActiveKeyRecordBean() booking number for key num "+keynum+" is -> "+record);
 		}catch(NullPointerException e){
-			logger.info(" No record PartyRecordController.getActiveKeyRecord() found for keynum "+keynum);
+			logger.info(" No record PartyRecordController.getActiveKeyRecordBean() found for keynum "+keynum);
 		}
 		catch(Exception e){
-			logger.error(" Exception caught in PartyRecordController.getActiveKeyRecord() -> "+e.getMessage());
+			logger.error(" Exception caught in PartyRecordController.getActiveKeyRecordBean() -> "+e.getMessage());
 		}
 		return record;
 	}

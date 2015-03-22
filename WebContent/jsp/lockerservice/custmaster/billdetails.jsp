@@ -9,7 +9,7 @@
 	<jsp:include page="/jsp/mainmenu.jsp"></jsp:include>
 	<div style="clear: both;"></div>
 	<div id="msg" class="nomsg"></div>
-	
+
 	<div style="clear: both;"></div>
 	<div id='BookingDetails' class="main_content">
 		<form id="frm_billDetails" autocomplete="on">
@@ -18,10 +18,11 @@
 					<td>Bill no</td>
 					<td><input name="BNO" size="6" type="text"
 						onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" /><input
-						type="button" id='getDetails' value="Go"></td>
+						type="button" id='getDetails' value="Get Details"> <input
+						type="button" id='getNewBillNo' value="Create New"></td>
 					<td>Bill Date</td>
 					<td><input type="date" name="BDT"></td>
-					
+
 					<td>Rent</td>
 					<td><input type="date" name="BFDT"></td>
 					<td>TO</td>
@@ -29,7 +30,8 @@
 				</tr>
 				<tr>
 					<td>Key no</td>
-					<td><input name="KNO" size="6" type="text" /></td>
+					<td><input name="KNO" size="6" type="text" /><input
+						type="button" id='getKeyDetails' value="Get Details"></td>
 					<td>Locker no</td>
 					<td><input disabled="disabled" name="LNO" size="6" type="text" /></td>
 					<td>Booking no</td>
@@ -138,6 +140,7 @@
 			<!--  End of Contact Details -->
 
 			<!--  Particular Section -->
+			<div id="particulars">
 			<table>
 				<tr>
 					<th>Particulars</th>
@@ -153,8 +156,8 @@
 				</tr>
 				<tr>
 
-					<td>Service Tax</td>
-					<td><input type="number" step="0.01" name="LSTXR"></td>
+					<td>Service Tax<input type="number" step="0.01" name="LSTXR" value="12.3">%</td>
+					<td><input type="number" step="0.01" name="LSTXA" readonly="readonly"></td>
 				</tr>
 				<tr>
 
@@ -173,124 +176,229 @@
 						readonly="readonly"></td>
 				</tr>
 			</table>
-			<input type="button" name="submitNewBill" id="submitNewBill" value="Update">
-			<input type="reset" name="cleartext" value="Clear">
+			</div>
+			<div class="fixed_buttons">
+				<input type="button" name="submitNewBill" id="submitNewBill"
+					value="" class="update"> <input type="reset"
+					name="cleartext" value="" class="clear">
+			</div>
 		</form>
 	</div>
-<script type="text/javascript">
-	//equivalent of $(document).ready(function(){...
-	$(function() {
+	<script type="text/javascript">
+		//equivalent of $(document).ready(function(){...
+		$(function() {
 
-		
-		
-		function disableElements(el) {
-	        for (var i = 0; i < el.length; i++) {
-	            el[i].disabled = true;
+			function disableElements(el) {
+				for (var i = 0; i < el.length; i++) {
+					el[i].disabled = true;
 
-	            disableElements(el[i].children);
-	        }
-	    }
-		
-		//generic function to populate form data 
-		//TODO need to be moved to the generic js file
-		function populateForm($form, data) {
-			// resetForm($form);
-			$.each(data, function(key, value) {
-				var $ctrl = $form.find('[name="' + key.toUpperCase() + '"]');
-				if ($ctrl.is('select')) {
-					$('option', $ctrl).each(function() {
-						if (this.value == value)
-							this.selected = true;
-					});
-				} else if ($ctrl.is('textarea')) {
-					$ctrl.val(value);
-				} else {
-					switch ($ctrl.attr("type")) {
-					case "text":
-					case "hidden":
-					case "date":
-					case "email":
-					case "number":
-						$ctrl.val(value);
-						break;
-					case "checkbox":
-						if (value == '1')
-							$ctrl.prop('checked', true);
-						else
-							$ctrl.prop('checked', false);
-						break;
-					}
+					disableElements(el[i].children);
 				}
-			});
-		}
+			}
 
-		function getDetails(billnum) {
-			//get ajax call
-			$.get(
-					'/Locker_Financial_Society/rest/lockerservice/billdetails/'
-							+ billnum // rest api
-			// billnum for which record is to be fetched		
-			).done(function(data) { // data is returned from the server
+			//generic function to populate form data 
+			//TODO need to be moved to the generic js file
+			function populateForm($form, data) {
+				// resetForm($form);
+				$.each(data, function(key, value) {
+					var $ctrl = $form
+							.find('[name="' + key.toUpperCase() + '"]');
+					if ($ctrl.is('select')) {
+						$('option', $ctrl).each(function() {
+							if (this.value == value)
+								this.selected = true;
+						});
+					} else if ($ctrl.is('textarea')) {
+						$ctrl.val(value);
+					} else {
+						switch ($ctrl.attr("type")) {
+						case "text":
+						case "hidden":
+						case "date":
+						case "email":
+						case "number":
+							$ctrl.val(value);
+							break;
+						case "checkbox":
+							if (value == '1')
+								$ctrl.prop('checked', true);
+							else
+								$ctrl.prop('checked', false);
+							break;
+						}
+					}
+				});
+			}
 
-				//populate fields with the recieved data
-				populateForm($('form[id=frm_billDetails]'), data);
-			
-				//disable the contact details
-				disableElements($('#contactDetails'));
-				
-			}).fail(function(error) {
-				//log error to console
-				console.log(error);
+			function getDetails(billnum) {
+				//get ajax call
+				$.get(
+						'/Locker_Financial_Society/rest/lockerservice/billdetails/'
+								+ billnum // rest api
+				// billnum for which record is to be fetched		
+				).done(function(data) { // data is returned from the server
+
+					//populate fields with the recieved data
+					populateForm($('form[id=frm_billDetails]'), data);
+
+					//disable the contact details
+					disableElements($('#contactDetails'));
+
+				}).fail(function(error) {
+					//log error to console
+					console.log(error);
+				})
+			}
+
+			//call the rest api to get details for the given key num
+			$('#getDetails').on('click', function() {
+
+				var billnum = $('input[name="BNO"]').val();
+
+				getDetails(billnum);
 			})
-		}
+			
+			function getKeyDetails(keynum) {
+				//get ajax call
+				$.get(
+						'/Locker_Financial_Society/rest/lockerservice/keydetails/'
+								+ keynum // rest api
+				// key for which record is to be fetched		
+				).done(function(data) { // data is returned from the server
 
-		//call the rest api to get details for the given key num
-		$('#getDetails').on('click', function() {
+					//populate fields with the recieved data
+					populateForm($('form[id=frm_billDetails]'), data);
+					disableElements($('#contactDetails'));
+					populateParticulars(data.LOKR,data.POA, data.LPA);
+				}).fail(function(error) {
+					//log error to console
+					console.log(error);
+				})
+			}
 
-			var billnum = $('input[name="BNO"]').val();
+			//call the rest api to get details for the given key num
+			$('#getKeyDetails').on('click', function() {
 
-			getDetails(billnum);
-		})
-		
-		$('#submitNewBill').on(
-				'click',
-				function(e) {
-                    
-					e.preventDefault();
-					$.ajax({
-				           type: "POST",
-				           url: "/Locker_Financial_Society/rest/lockerservice/billdetails/",
-				           contentType: "application/json; charset=utf-8",
-				           dataType: "json",
-				           success: function (data) {
-				        	   
-				        	   //check the status of the response
-				        	   if(data.status == "SUCCESS"){
-									console.log("successfully updated");
-									//remove all classes
-									$('#msg').removeClass();
-									$('#msg').addClass("successmsg");
-									$('#msg').html(data.successMsg);
-				        	   }
-				        	   else{
-				        		   console.log("error in updated updated"+data.errMsg);
-				        		   $('#msg').removeClass();
-									$('#msg').addClass("errmsg");
-									$('#msg').html(data.errMsg);
-				        	   }
-				        	   
-				        	   
-				           },
-				           error : function(response, ajaxOptions, thrownError){
-				        	   console.log(thrownError)
-				           },
-				           data: ConvertFormToJSON($('form[id=frm_billDetails]'))
-				       });
+				var keynum = $('input[name="KNO"]').val();
 
+				getKeyDetails(keynum);
+			})
+
+
+			//call the rest api to new booking number available
+			$('#getNewBillNo').on('click', function() {
+				//get ajax call
+				$.get('/Locker_Financial_Society/rest/autogen/billnumber/'
+
+				).done(function(data) { // data is returned from the server
+
+					//populate Booking number field
+					$('input[name="BNO"]').val(data);
+
+				}).fail(function(error) {
+					//log error to console
+					console.log(error);
 				})
 
-	});
-</script>
+			})
 
+			$('#submitNewBill')
+					.on(
+							'click',
+							function(e) {
+
+								e.preventDefault();
+								$
+										.ajax({
+											type : "POST",
+											url : "/Locker_Financial_Society/rest/lockerservice/billdetails/",
+											contentType : "application/json; charset=utf-8",
+											dataType : "json",
+											success : function(data) {
+
+												//check the status of the response
+												if (data.status == "SUCCESS") {
+													console
+															.log("successfully updated");
+													//remove all classes
+													$('#msg').removeClass();
+													$('#msg').addClass(
+															"successmsg");
+													$('#msg').html(
+															data.successMsg);
+												} else {
+													console
+															.log("error in updated updated"
+																	+ data.errMsg);
+													$('#msg').removeClass();
+													$('#msg')
+															.addClass("errmsg");
+													$('#msg').html(data.errMsg);
+												}
+
+											},
+											error : function(response,
+													ajaxOptions, thrownError) {
+												console.log(thrownError)
+											},
+											data : ConvertFormToJSON($('form[id=frm_billDetails]'))
+										});
+
+							})
+
+		});
+		
+		
+		//populate the particulars section with the data
+		//need to get
+		//1st - Locker rent
+		//2nd - Outstanding
+		//3rd - Advance
+	    function populateParticulars(rrnt, rpout, radvp){
+			
+			//replace the value 
+			//locker rent 
+			$('input[name="LAMT"]').val(rrnt);   //locker rent
+			$('input[name="LOUT"]').val(rpout); //outstanding balance
+			$('input[name="LADV"]').val(radvp); //advance
+			
+			//calculate total
+			calculateTotal();
+		}
+		
+		//calculate all the sections
+		function calculateTotal(){
+			
+			// get all the particulars amounts
+			var lockerRent = parseFloat($('input[name="LAMT"]').val()) || 0;    //adding pipe to treat empty string as 0
+			var advancePay = parseFloat($('input[name="LOUT"]').val()) || 0;
+			var outstanding = parseFloat($('input[name="LADV"]').val()) || 0;
+			
+			var serviceTax = parseFloat($('input[name="LSTXR"]').val()) || 0;
+			
+			
+			var currentYrAmount = lockerRent+outstanding;
+							 	
+			//only this place is required to round off
+			var serviceTaxAmount = roundOff(((currentYrAmount* serviceTax)/100));
+			
+			//set the tax calculated
+			$('input[name="LSTXA"]').val(serviceTaxAmount);
+			
+			currentYrAmount = totalAmount+currentYrAmount;
+			//set the total
+			$('input[name="LCP"]').val(currentYrAmount);
+			
+			//TODO
+			//get the amount paid
+			
+			//set the outstanding or advance amount for the key
+			//if ramt > totalAmount, advance, else outstanding
+			$('input[name="LPYBA"]').val(subtract(currentYrAmount,advancePay));
+		}
+	</script>
+
+	<div style="clear: both;"></div>
+	<jsp:include page="/jsp/Footer.jsp"></jsp:include>
 </body>
 </html>

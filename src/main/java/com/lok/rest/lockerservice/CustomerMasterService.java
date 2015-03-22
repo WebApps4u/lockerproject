@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.JsonParser;
 import com.lok.controller.BillRecordController;
+import com.lok.controller.MasterSeqRecordController;
 import com.lok.controller.PartyRecordController;
 import com.lok.controller.ReceiptRecordController;
 import com.lok.model.BillRecord;
@@ -45,6 +46,7 @@ public class CustomerMasterService {
 
 	//add for logging
 	private static Logger logger = Logger.getLogger(CustomerMasterService.class);
+	
 	PartyRecordController partyContrl = new PartyRecordController();
 	BillRecordController billContrl = new BillRecordController();
 	ReceiptRecordController receiptContrl = new ReceiptRecordController();
@@ -66,10 +68,10 @@ public class CustomerMasterService {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/keydetails/{keynum}")
-	public PartyRecord getKeyDetails(@PathParam("keynum") String keyNum){
+	public String getKeyDetails(@PathParam("keynum") String keyNum){
 		
 		logger.debug(" enter CustomerMasterService.getKeyDetails() with keynum "+keyNum);
-		PartyRecord partyRecord = null;
+		JSONObject partyRecord = null;
 		try{
 			
 			
@@ -78,8 +80,10 @@ public class CustomerMasterService {
 			
 		}catch(Exception e){
 			//log to the logger
+			logger.debug(" Excep CustomerMasterService.getKeyDetails() with keynum "+keyNum);
 		}
-		return partyRecord;
+		
+		return partyRecord!=null?partyRecord.toString():"";
 	}
 	
 	/**
@@ -138,6 +142,8 @@ public class CustomerMasterService {
 		return billDetails!=null?billDetails.toString():"";
 	}
 	
+	
+	
 	/**
 	 * Get the key details along with all the unpaid bills
 	 * In the order of latest bill at the top
@@ -172,10 +178,8 @@ public class CustomerMasterService {
 			}
 			
 			//get the key details
-			PartyRecord partyRecord = partyContrl.getActiveKeyRecord(keynum);
-			
-			//create json out of bean
-			allDetails = new JSONObject(partyRecord);
+
+			allDetails = partyContrl.getActiveKeyRecord(keynum);
 			LokUtility.changeDateFormat(PartyRecord.class, allDetails);
 			
 			//Append the unpaid bills to the list

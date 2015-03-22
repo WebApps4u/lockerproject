@@ -7,6 +7,7 @@
 <title></title>
 </head>
 <body>
+<div id="footer">
 	<!-- Footer/Copyright -->
 	<table border='0' cellpadding='0' cellspacing='0' width='95%'>
 		<tr>
@@ -44,5 +45,6 @@
 		</tr>
 	</table>
 	<br>
+	</div>
 </body>
 </html>

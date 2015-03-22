@@ -235,7 +235,7 @@ $(function() {
 		//set the tax calculated
 		$('input[name="STAXA"]').val(serviceTaxAmount);
 		
-		totalAmount = totalAmount+serviceTaxAmount
+		totalAmount = totalAmount+serviceTaxAmount;
 		//set the total
 		$('input[name="RGTOT"]').val(totalAmount);
 		
