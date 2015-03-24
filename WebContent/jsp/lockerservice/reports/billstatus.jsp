@@ -26,18 +26,20 @@
 			<div class="heading">
 				<div class="cell">Saved Reports</div>
 			</div>
-			<div class="row">
+			<div class="row saved_search">
 				<div class="cell"><a href="#" name="currentyear">Current Year outstanding</a></div>
 				<div class="cell"><a href="#" name="outstandingbills">Outstanding bills</a></div>
 			</div>
 			<div class="heading">
 				<div class="cell">Customer Reports</div>
 			</div>
-			<div class="row">
-				<div class="cell"><a href="#">Outstanding on date</a></div>
-			</div>
-			<div class="row">
-				<div class="cell"><a href="#">Outstanding Yearly</a></div>
+			<div class="row custom_search">
+				<div class="cell"><input type="date" name='from_date' value="" placeholder="select from date"/></div>
+				<div class="cell"><input type="date" name='to_date' value="" placeholder="select to date(optional)"/></div>
+				<div class="cell"><a href="#" name="asondate">Outstanding As On date</a></div>
+				<div class="cell"><a href="#" name="inyear">Outstanding During the year</a></div>
+				<div class="cell"><a href="#" name="inperiod">Outstanding During the period</a></div>
+				<div class="cell"><a href="#" name="allbills">All bill raised</a></div>
 			</div>
 
 		</div>
@@ -87,7 +89,7 @@
 			// option which is clicked	alongwith values	
 			).done(function(data) { // data is returned from the server
 
-				populateBillDetails(data);
+				populateBillDetails(data.bills);
 				
 				//populateParticulars(data);
 			}).fail(function(error) {
@@ -99,10 +101,22 @@
 		
 		
 		// saved search capturing
-		$('form[name="frm_reportoptions"] a').on('click',function(){
+		$('form[name="frm_reportoptions"] .saved_search a').on('click',function(){
 			
 			//create request parameter
 			var reqParam = 'type=saved&name='+this.name;
+			getReport(reqParam);
+		})
+		
+		// custom search capturing
+		$('form[name="frm_reportoptions"] .custom_search a').on('click',function(){
+			
+			//use native JS wherever possible
+			var fromDate = document.getElementsByName('from_date')[0].value;
+			var toDate = document.getElementsByName('to_date')[0].value;
+			
+			//create request parameter
+			var reqParam = 'type=custom&name='+this.name+"&from-date="+fromDate+"&to-date="+toDate;
 			getReport(reqParam);
 		})
 		

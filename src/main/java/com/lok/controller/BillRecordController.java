@@ -8,6 +8,9 @@ package com.lok.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -40,6 +43,71 @@ public class BillRecordController extends BaseController<BillRecordService> {
 
 	// requires party details
 	private PartyRecordController partyCntrl = new PartyRecordController();
+	
+	/*
+	 * store all the sqls for saved reports
+	 */
+	private static class savedReportsSql{
+		
+		final static String currentYear = " and year(bdt)= year(sysdate()) ";
+		final static String outstandingBills = "and bflg <> '*'";
+		
+		final static String inYear = "and year(bdt) = year(%s)";
+		
+		/*
+		 *  @name: name of the saved search
+		 *  @firstQuery boolean true if it is the first query, add 1=1 at the beginning
+		 */
+		public static String getSql(String name,boolean firstQuery) throws Exception{
+			
+			//start with and
+			String sql="";
+			
+			if(firstQuery == true){
+				sql=" 1=1 ";
+			}
+			
+			switch(name){
+			case "currentyear":
+				sql += currentYear;
+			case "outstandingbills":
+				sql += outstandingBills;
+				break;
+				
+			}
+			
+			if(sql.isEmpty()){
+				throw new Exception(" Narrow the criteria ");
+			}
+			return sql;
+		}
+		
+		public static String getSql(String name) throws Exception{
+			return getSql(name,true);
+		}
+		
+		/**
+		 * Returns the query with replaced parameters
+		 */
+		public static String getSql(String name,boolean firstQuery,String... params){
+			String sql="";
+			
+			if(firstQuery == true){
+				sql=" 1=1 ";
+			}
+			
+			//take the corresponding string and pass the replacement variables to format it
+			switch(name){
+			
+			case "inyear":
+				//sql+=
+			}
+			
+			return sql;
+		}
+		
+		
+	}
 
 	public BillRecordController() {
 		// Need to call super class to create service
@@ -265,6 +333,87 @@ public class BillRecordController extends BaseController<BillRecordService> {
 
 		} catch (Exception e) {
 			logger.error(" Exception caught in BillRecordController.getBills -> "
+					+ e.getMessage());
+			e.printStackTrace();
+		}
+		return listBills;
+	}
+	
+	
+	
+	//Reports starts below
+	
+	 /* Return the saved search result
+	 * Going forward, the saved search query will be in database
+	 * or in properties file, so no code change is required
+	 * @param name Name of the saved search
+	 * @return JSON result of the 
+	 * 
+	 */
+	public List<BillRecord> getSavedReport(String name){
+		
+		logger.debug(" enter BillRecordController.getSavedReport() name "+name);
+
+			List<BillRecord> listBills = new ArrayList<BillRecord>();
+			try {
+
+					
+				//have to create start date and end date from month and year
+				// not sure how to use db functions here
+				Search search = new Search();
+				
+				//create filter to get bills having bfdt in the given month-year
+				search.addFilterCustom(savedReportsSql.getSql(name));
+				
+				listBills = billRecordService.search(search);
+
+				// will not throw null pointer since already initialized
+				logger.info(" List of Bills " + listBills.toString());
+
+			} catch (Exception e) {
+				logger.error(" Exception caught in BillRecordController.getSavedReport -> "
+						+ e.getMessage());
+				e.printStackTrace();
+			}
+			return listBills;
+	}
+	
+	
+	/**
+	 * Create smart queries for different types of custom searches
+	 * It should be more intelligent so as not to change on adding new options
+	 */
+	public List<BillRecord> getCustomReport(MultivaluedMap<String, String> allParams){
+		logger.debug(" enter BillRecordController.getCustomReport() params "+allParams);
+
+		List<BillRecord> listBills = new ArrayList<BillRecord>();
+		try {
+
+			//have to create start date and end date from month and year
+			// not sure how to use db functions here
+			Search search = new Search();
+			
+			String name = allParams.getFirst("name");
+			String fromDate = allParams.getFirst("from-date");
+			String toDate  = allParams.getFirst("to-date");
+			
+			
+			switch(name){
+				
+			case "asondate":
+				search.addFilterEqual("bdt", fromDate);
+				break;
+			}
+			//create filter to get bills having bfdt in the given month-year
+			//search.addFilterCustom(savedReportsSql.getSql(name));
+			
+			listBills = billRecordService.search(search);
+
+			// will not throw null pointer since already initialized
+			logger.info(" List of Bills " + listBills.toString());
+
+		} catch (Exception e) {
+			logger.error(" Exception caught in BillRecordController.getCustomReport -> "
 					+ e.getMessage());
 			e.printStackTrace();
 		}

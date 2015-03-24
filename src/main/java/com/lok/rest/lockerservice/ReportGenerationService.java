@@ -1,5 +1,6 @@
 package com.lok.rest.lockerservice;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +13,14 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.lok.controller.BillRecordController;
 import com.lok.controller.PartyRecordController;
+import com.lok.controller.ReportGenController;
 import com.lok.model.BillRecord;
+import com.lok.service.impl.LokUtility;
 
 /**
  * All reports are generated using this service class
@@ -33,6 +37,7 @@ public class ReportGenerationService {
 
 	PartyRecordController partyContrl = new PartyRecordController();
 	BillRecordController billContrl = new BillRecordController();
+	ReportGenController reportContrl = new ReportGenController();
 
 	/*
 	 * Get the bill report based on the type it can be 'saved' or 'custom' Based
@@ -49,6 +54,8 @@ public class ReportGenerationService {
 		JSONObject billsJson = null;
 		try {
 			
+			List<BillRecord> allBills = new ArrayList<BillRecord>();
+			
 			//Get the query parameters
 			MultivaluedMap<String, String> allParams = uriInfo.getQueryParameters();
 			
@@ -59,18 +66,34 @@ public class ReportGenerationService {
 			switch(type){
 			case "saved":
 				
-				allParams.getFirst("name");
+				allBills = billContrl.getSavedReport(allParams.getFirst("name"));
 				break;
 			case "custom":
 				//Pass all the additional parameters to the controller
 				break;
 			}
 			
+			JSONArray billarr = new JSONArray();
+			//create jsonobjects and then put in jsonarray
+			for (int i=0;i<allBills.size();i++){
+				
+				//create jsonobject and put in the array
+				JSONObject obj = new JSONObject(allBills.get(i));
+				
+				//convert the date fields to the desired format
+				LokUtility.changeDateFormat(BillRecord.class, obj);
+				
+				billarr.put(obj);
+			}
 			
-					
-			List<BillRecord> allBills = null;
+			billsJson = new JSONObject();
+			
+			//put arrays of bills to key 'bills'
+			billsJson.put("bills", billarr);
+
 		} catch (Exception e) {
 			// log to the logger
+			e.printStackTrace();
 		}
 
 		return billsJson != null ? billsJson.toString() : "";
