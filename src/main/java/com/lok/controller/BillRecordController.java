@@ -47,18 +47,20 @@ public class BillRecordController extends BaseController<BillRecordService> {
 	/*
 	 * store all the sqls for saved reports
 	 */
-	private static class savedReportsSql{
+	private static class ReportsSql{
 		
 		final static String currentYear = " and year(bdt)= year(sysdate()) ";
 		final static String outstandingBills = "and bflg <> '*'";
 		
-		final static String inYear = "and year(bdt) = year(%s)";
+		
+		//query which will be build using different queries
+		public static StringBuilder customSql;
 		
 		/*
 		 *  @name: name of the saved search
 		 *  @firstQuery boolean true if it is the first query, add 1=1 at the beginning
 		 */
-		public static String getSql(String name,boolean firstQuery) throws Exception{
+		public static String getSavedSql(String name,boolean firstQuery) {
 			
 			//start with and
 			String sql="";
@@ -69,44 +71,70 @@ public class BillRecordController extends BaseController<BillRecordService> {
 			
 			switch(name){
 			case "currentyear":
-				sql += currentYear;
+				sql += currentYear+outstandingBills;
+				break;
 			case "outstandingbills":
 				sql += outstandingBills;
 				break;
-				
-			}
-			
-			if(sql.isEmpty()){
-				throw new Exception(" Narrow the criteria ");
-			}
-			return sql;
-		}
-		
-		public static String getSql(String name) throws Exception{
-			return getSql(name,true);
-		}
-		
-		/**
-		 * Returns the query with replaced parameters
-		 */
-		public static String getSql(String name,boolean firstQuery,String... params){
-			String sql="";
-			
-			if(firstQuery == true){
-				sql=" 1=1 ";
-			}
-			
-			//take the corresponding string and pass the replacement variables to format it
-			switch(name){
-			
-			case "inyear":
-				//sql+=
 			}
 			
 			return sql;
 		}
 		
 		
+		
+		public static String getSavedSql(String name) {
+			return getSavedSql(name,true);
+		}
+		
+	}
+	
+	//Inner class for creating dynamic sql
+	private class CustomDynamicQuery{
+		
+		public StringBuilder sql;
+		
+		final static String inYear = " year(bdt) = year('%s')";
+		final static String billDateEqual = " Date(bdt) = '%s' ";
+		
+		
+		CustomDynamicQuery(){
+			sql = new StringBuilder(" 1=1 ");
+		}
+		
+		//
+		public CustomDynamicQuery createQuery(String queryConstant,String... params){ 
+			
+			and(queryConstant,params);
+			
+			return this;
+		}
+		//Keep adding new query
+		public CustomDynamicQuery and(String queryConstant,String... params){ 
+			
+			sql.append(" and ");
+			// return the formatted query 			
+			sql.append(String.format(queryConstant, params));
+			
+			return this;
+		} 
+		
+		//
+		public CustomDynamicQuery or(String queryConstant,String... params){ 
+			
+			sql.append(" or ");
+			// return the formatted query 			
+			sql.append(String.format(queryConstant, params));
+			
+			return this;
+		}
+		
+		
+		
+		//this will return the final sql formed
+		public String build(){
+			return sql.toString();
+		}
 	}
 
 	public BillRecordController() {
@@ -363,7 +391,7 @@ public class BillRecordController extends BaseController<BillRecordService> {
 				Search search = new Search();
 				
 				//create filter to get bills having bfdt in the given month-year
-				search.addFilterCustom(savedReportsSql.getSql(name));
+				search.addFilterCustom(ReportsSql.getSavedSql(name));
 				
 				listBills = billRecordService.search(search);
 
@@ -401,7 +429,11 @@ public class BillRecordController extends BaseController<BillRecordService> {
 			switch(name){
 				
 			case "asondate":
-				search.addFilterEqual("bdt", fromDate);
+				search.addFilterCustom(new CustomDynamicQuery().createQuery(CustomDynamicQuery.billDateEqual, fromDate).build());
+				break;
+			
+			case "inyear":
+				search.addFilterCustom(new CustomDynamicQuery().createQuery(CustomDynamicQuery.inYear, fromDate).build());
 				break;
 			}
 			//create filter to get bills having bfdt in the given month-year

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -47,8 +48,8 @@ public class ReportGenerationService {
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/bills")
-	public String getBillReport(@Context UriInfo uriInfo) {
+	@Path("/bills/{type}")
+	public String getBillReport(@PathParam("type") String type,  @Context UriInfo uriInfo) {
 		logger.debug(" enter CustomerMasterService.getBillReport() ");
 
 		JSONObject billsJson = null;
@@ -59,9 +60,6 @@ public class ReportGenerationService {
 			//Get the query parameters
 			MultivaluedMap<String, String> allParams = uriInfo.getQueryParameters();
 			
-			//Get the type of the report
-			final String type = allParams.getFirst("type");
-			
 			//if type is saved, get the name of the saved search
 			switch(type){
 			case "saved":
@@ -70,6 +68,7 @@ public class ReportGenerationService {
 				break;
 			case "custom":
 				//Pass all the additional parameters to the controller
+				allBills = billContrl.getCustomReport(allParams);
 				break;
 			}
 			

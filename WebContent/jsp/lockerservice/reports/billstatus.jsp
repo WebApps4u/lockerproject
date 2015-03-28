@@ -82,10 +82,10 @@
 		}
 		
 		//jquery function to invoke the request for the report
-		function getReport(reqParam){
+		function getReport(type,reqParam){
 			$.get(
-					'/Locker_Financial_Society/rest/reports/bills?'
-							+ reqParam // rest api
+					'/Locker_Financial_Society/rest/reports/bills/'
+							+ type+"?"+reqParam // rest api
 			// option which is clicked	alongwith values	
 			).done(function(data) { // data is returned from the server
 
@@ -104,8 +104,8 @@
 		$('form[name="frm_reportoptions"] .saved_search a').on('click',function(){
 			
 			//create request parameter
-			var reqParam = 'type=saved&name='+this.name;
-			getReport(reqParam);
+			var reqParam = 'name='+this.name;
+			getReport("saved",reqParam);
 		})
 		
 		// custom search capturing
@@ -116,8 +116,8 @@
 			var toDate = document.getElementsByName('to_date')[0].value;
 			
 			//create request parameter
-			var reqParam = 'type=custom&name='+this.name+"&from-date="+fromDate+"&to-date="+toDate;
-			getReport(reqParam);
+			var reqParam = 'name='+this.name+"&from-date="+fromDate+"&to-date="+toDate;
+			getReport("custom",reqParam);
 		})
 		
 	</script>
