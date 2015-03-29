@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.lok.excelutil.DownloadableAsExcel;
+
 /**
  * Implementation for LRNT table entity
  * 
@@ -17,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  */
 @Entity
-public class BillRecord implements Serializable,Comparable<BillRecord> {
+public class BillRecord implements Serializable,Comparable<BillRecord>,DownloadableAsExcel {
 
 	// Bill number
 	@Id

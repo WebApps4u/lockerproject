@@ -41,6 +41,21 @@
 				<div class="cell"><a href="#" name="inperiod">Outstanding During the period</a></div>
 				<div class="cell"><a href="#" name="allbills">All bill raised</a></div>
 			</div>
+			<div class="heading">
+				<div class="cell">Download Reports</div>
+			</div>
+			<div class="row saved_search">
+				<div class="cell"><a href="#" name="currentyear_d">Current Year outstanding</a></div>
+				<div class="cell"><a href="#" name="outstandingbills_d">Outstanding bills</a></div>
+			</div>
+			<div class="row custom_search">
+				<div class="cell"><input type="date" name='from_date_d' value="" placeholder="select from date"/></div>
+				<div class="cell"><input type="date" name='to_date_d' value="" placeholder="select to date(optional)"/></div>
+				<div class="cell"><a href="#" name="asondate_d">Outstanding As On date</a></div>
+				<div class="cell"><a href="#" name="inyear_d">Outstanding During the year</a></div>
+				<div class="cell"><a href="#" name="inperiod_d">Outstanding During the period</a></div>
+				<div class="cell"><a href="#" name="allbills_d">All bill raised</a></div>
+			</div>
 
 		</div>
 
@@ -99,13 +114,33 @@
 
 		}
 		
+		//Function to send a download request, for xls
+		//jquery function to invoke the request for the report
+		//This must not be a ajax call, since Ajax is not currently supported for Downloads
+		function getDownload(type,reqParam){
+			var link = document.createElement('a');
+			link.href = "/Locker_Financial_Society/rest/downloads/billreport/"+ type+"?"+reqParam;
+			link.id = "dummyLink";
+			window.location = link.href;
+		}
+
+		
 		
 		// saved search capturing
 		$('form[name="frm_reportoptions"] .saved_search a').on('click',function(){
 			
+			
 			//create request parameter
-			var reqParam = 'name='+this.name;
+			//remove additional _d from the name
+			var reqName = this.name.contains('_d')==true?this.name.slice(0,this.name.indexOf('_')):this.name;
+			var reqParam = 'name='+reqName;
+		//if the link ends with _d, its a download request
+		if(this.name.contains('_d')){
+			getDownload("saved",reqParam)
+		}
+		else{
 			getReport("saved",reqParam);
+		}
 		})
 		
 		// custom search capturing
@@ -116,8 +151,16 @@
 			var toDate = document.getElementsByName('to_date')[0].value;
 			
 			//create request parameter
-			var reqParam = 'name='+this.name+"&from-date="+fromDate+"&to-date="+toDate;
+			var reqName = this.name.contains('_d')==true?this.name.slice(0,this.name.indexOf('_')):this.name;
+			
+			var reqParam = 'name='+reqName+"&from-date="+fromDate+"&to-date="+toDate;
+			
+			if(this.name.contains('_d')){
+				getDownload("custom",reqParam)
+			}
+			else{
 			getReport("custom",reqParam);
+			}
 		})
 		
 	</script>

@@ -13,7 +13,7 @@ import com.lok.service.ReceiptRecordService;
 public class ReceiptRecordController extends BaseController<ReceiptRecordService> {
 
 	   // add for logging
-		private static Logger logger = Logger.getLogger(BillRecordController.class);
+		private static Logger logger = Logger.getLogger(ReceiptRecordController.class);
 
        //Load the service
 		private ReceiptRecordService receiptService;

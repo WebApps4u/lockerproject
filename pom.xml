@@ -161,6 +161,13 @@
 			<version>20090211</version>
 		</dependency>
 
+		<!-- Apache poi for excel download -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.12-beta1</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>

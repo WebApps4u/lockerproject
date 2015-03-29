@@ -43,96 +43,94 @@ public class BillRecordController extends BaseController<BillRecordService> {
 
 	// requires party details
 	private PartyRecordController partyCntrl = new PartyRecordController();
-	
+
 	/*
 	 * store all the sqls for saved reports
 	 */
-	private static class ReportsSql{
-		
+	private static class ReportsSql {
+
 		final static String currentYear = " and year(bdt)= year(sysdate()) ";
 		final static String outstandingBills = "and bflg <> '*'";
-		
-		
-		//query which will be build using different queries
+
+		// query which will be build using different queries
 		public static StringBuilder customSql;
-		
+
 		/*
-		 *  @name: name of the saved search
-		 *  @firstQuery boolean true if it is the first query, add 1=1 at the beginning
+		 * @name: name of the saved search
+		 * 
+		 * @firstQuery boolean true if it is the first query, add 1=1 at the
+		 * beginning
 		 */
-		public static String getSavedSql(String name,boolean firstQuery) {
-			
-			//start with and
-			String sql="";
-			
-			if(firstQuery == true){
-				sql=" 1=1 ";
+		public static String getSavedSql(String name, boolean firstQuery) {
+
+			// start with and
+			String sql = "";
+
+			if (firstQuery == true) {
+				sql = " 1=1 ";
 			}
-			
-			switch(name){
+
+			switch (name) {
 			case "currentyear":
-				sql += currentYear+outstandingBills;
+				sql += currentYear + outstandingBills;
 				break;
 			case "outstandingbills":
 				sql += outstandingBills;
 				break;
 			}
-			
+
 			return sql;
 		}
-		
-		
-		
+
 		public static String getSavedSql(String name) {
-			return getSavedSql(name,true);
+			return getSavedSql(name, true);
 		}
-		
+
 	}
-	
-	//Inner class for creating dynamic sql
-	private class CustomDynamicQuery{
-		
+
+	// Inner class for creating dynamic sql
+	private class CustomDynamicQuery {
+
 		public StringBuilder sql;
-		
+
 		final static String inYear = " year(bdt) = year('%s')";
 		final static String billDateEqual = " Date(bdt) = '%s' ";
-		
-		
-		CustomDynamicQuery(){
+
+		CustomDynamicQuery() {
 			sql = new StringBuilder(" 1=1 ");
 		}
-		
+
 		//
-		public CustomDynamicQuery createQuery(String queryConstant,String... params){ 
-			
-			and(queryConstant,params);
-			
+		public CustomDynamicQuery createQuery(String queryConstant,
+				String... params) {
+
+			and(queryConstant, params);
+
 			return this;
 		}
-		//Keep adding new query
-		public CustomDynamicQuery and(String queryConstant,String... params){ 
-			
+
+		// Keep adding new query
+		public CustomDynamicQuery and(String queryConstant, String... params) {
+
 			sql.append(" and ");
-			// return the formatted query 			
+			// return the formatted query
 			sql.append(String.format(queryConstant, params));
-			
-			return this;
-		} 
-		
-		//
-		public CustomDynamicQuery or(String queryConstant,String... params){ 
-			
-			sql.append(" or ");
-			// return the formatted query 			
-			sql.append(String.format(queryConstant, params));
-			
+
 			return this;
 		}
-		
-		
-		
-		//this will return the final sql formed
-		public String build(){
+
+		//
+		public CustomDynamicQuery or(String queryConstant, String... params) {
+
+			sql.append(" or ");
+			// return the formatted query
+			sql.append(String.format(queryConstant, params));
+
+			return this;
+		}
+
+		// this will return the final sql formed
+		public String build() {
 			return sql.toString();
 		}
 	}
@@ -187,24 +185,22 @@ public class BillRecordController extends BaseController<BillRecordService> {
 		try {
 
 			BillRecord billRecord = billRecordService.findById(billnum);
-			
-			//create json out of it
+
+			// create json out of it
 			JSONObject billjson = new JSONObject(billRecord);
-			//parse date
+			// parse date
 			LokUtility.changeDateFormat(BillRecord.class, billjson);
 
 			// Get party details
-			//create json out of it
+			// create json out of it
 			JSONObject partyjson = partyCntrl.getActiveKeyRecord(billRecord
 					.getKNO());
-			//parse date
+			// parse date
 			LokUtility.changeDateFormat(PartyRecord.class, partyjson);
 
-			
 			// create a flat json structure to return
 			// merge two json using jsonparser
-			billDetails = LokUtility.mergeJSON(billjson,
-					partyjson, true);
+			billDetails = LokUtility.mergeJSON(billjson, partyjson, true);
 
 		} catch (NullPointerException e) {
 			logger.info(" No record BillRecordController.getBillDetails() found for billnum "
@@ -328,32 +324,32 @@ public class BillRecordController extends BaseController<BillRecordService> {
 
 		return msg;
 	}
-	
+
 	/**
 	 * Auto generate bills for the given month
 	 */
-	public void generateAutoBills(String month){
-		
-		
+	public void generateAutoBills(String month) {
+
 	}
-	
+
 	/**
 	 * Get bill details for the month-year
 	 */
-	public List<BillRecord> getBills(String dueMonth,String dueYear){
-		logger.debug(" enter BillRecordController.getBills() month-year"+dueMonth+"-"+dueYear);
+	public List<BillRecord> getBills(String dueMonth, String dueYear) {
+		logger.debug(" enter BillRecordController.getBills() month-year"
+				+ dueMonth + "-" + dueYear);
 
 		List<BillRecord> listBills = new ArrayList<BillRecord>();
 		try {
 
-				
-			//have to create start date and end date from month and year
+			// have to create start date and end date from month and year
 			// not sure how to use db functions here
 			Search search = new Search();
-			
-			//create filter to get bills having bfdt in the given month-year
-			search.addFilterCustom(" month(bfdt) ='"+dueMonth+"' and year(bfdt)='"+dueYear+"'");
-			
+
+			// create filter to get bills having bfdt in the given month-year
+			search.addFilterCustom(" month(bfdt) ='" + dueMonth
+					+ "' and year(bfdt)='" + dueYear + "'");
+
 			listBills = billRecordService.search(search);
 
 			// will not throw null pointer since already initialized
@@ -366,79 +362,84 @@ public class BillRecordController extends BaseController<BillRecordService> {
 		}
 		return listBills;
 	}
-	
-	
-	
-	//Reports starts below
-	
-	 /* Return the saved search result
-	 * Going forward, the saved search query will be in database
-	 * or in properties file, so no code change is required
-	 * @param name Name of the saved search
-	 * @return JSON result of the 
+
+	// Reports starts below
+
+	/*
+	 * Return the saved search result Going forward, the saved search query will
+	 * be in database or in properties file, so no code change is required
 	 * 
+	 * @param name Name of the saved search
+	 * 
+	 * @return JSON result of the
 	 */
-	public List<BillRecord> getSavedReport(String name){
-		
-		logger.debug(" enter BillRecordController.getSavedReport() name "+name);
+	public List<BillRecord> getSavedReport(String name) {
 
-			List<BillRecord> listBills = new ArrayList<BillRecord>();
-			try {
-
-					
-				//have to create start date and end date from month and year
-				// not sure how to use db functions here
-				Search search = new Search();
-				
-				//create filter to get bills having bfdt in the given month-year
-				search.addFilterCustom(ReportsSql.getSavedSql(name));
-				
-				listBills = billRecordService.search(search);
-
-				// will not throw null pointer since already initialized
-				logger.info(" List of Bills " + listBills.toString());
-
-			} catch (Exception e) {
-				logger.error(" Exception caught in BillRecordController.getSavedReport -> "
-						+ e.getMessage());
-				e.printStackTrace();
-			}
-			return listBills;
-	}
-	
-	
-	/**
-	 * Create smart queries for different types of custom searches
-	 * It should be more intelligent so as not to change on adding new options
-	 */
-	public List<BillRecord> getCustomReport(MultivaluedMap<String, String> allParams){
-		logger.debug(" enter BillRecordController.getCustomReport() params "+allParams);
+		logger.debug(" enter BillRecordController.getSavedReport() name "
+				+ name);
 
 		List<BillRecord> listBills = new ArrayList<BillRecord>();
 		try {
 
-			//have to create start date and end date from month and year
+			// have to create start date and end date from month and year
 			// not sure how to use db functions here
 			Search search = new Search();
-			
+
+			// create filter to get bills having bfdt in the given month-year
+			search.addFilterCustom(ReportsSql.getSavedSql(name));
+
+			listBills = billRecordService.search(search);
+
+			// will not throw null pointer since already initialized
+			logger.info(" List of Bills " + listBills.toString());
+
+		} catch (Exception e) {
+			logger.error(" Exception caught in BillRecordController.getSavedReport -> "
+					+ e.getMessage());
+			e.printStackTrace();
+		}
+		return listBills;
+	}
+
+	/**
+	 * Create smart queries for different types of custom searches It should be
+	 * more intelligent so as not to change on adding new options
+	 */
+	public List<BillRecord> getCustomReport(
+			MultivaluedMap<String, String> allParams) {
+		logger.debug(" enter BillRecordController.getCustomReport() params "
+				+ allParams);
+
+		List<BillRecord> listBills = new ArrayList<BillRecord>();
+		try {
+
+			// have to create start date and end date from month and year
+			// not sure how to use db functions here
+			Search search = new Search();
+
 			String name = allParams.getFirst("name");
 			String fromDate = allParams.getFirst("from-date");
-			String toDate  = allParams.getFirst("to-date");
-			
-			
-			switch(name){
-				
+			String toDate = allParams.getFirst("to-date");
+
+			switch (name) {
+
 			case "asondate":
-				search.addFilterCustom(new CustomDynamicQuery().createQuery(CustomDynamicQuery.billDateEqual, fromDate).build());
+				search.addFilterCustom(new CustomDynamicQuery().createQuery(
+						CustomDynamicQuery.billDateEqual, fromDate).build());
 				break;
-			
+
 			case "inyear":
-				search.addFilterCustom(new CustomDynamicQuery().createQuery(CustomDynamicQuery.inYear, fromDate).build());
+				search.addFilterCustom(new CustomDynamicQuery().createQuery(
+						CustomDynamicQuery.inYear, fromDate).build());
 				break;
-			}
-			//create filter to get bills having bfdt in the given month-year
-			//search.addFilterCustom(savedReportsSql.getSql(name));
 			
+			default:
+				//No search criteria found, send back error
+				throw new IllegalArgumentException();
+			}
+			// create filter to get bills having bfdt in the given month-year
+			// search.addFilterCustom(savedReportsSql.getSql(name));
+
 			listBills = billRecordService.search(search);
 
 			// will not throw null pointer since already initialized
