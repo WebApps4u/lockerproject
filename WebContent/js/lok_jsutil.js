@@ -29,3 +29,13 @@ $.each(array, function() {
 json=JSON.stringify(json);
 return json;
 }
+
+//Function to print 
+function printData(divToPrint)
+{
+   //var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}

@@ -63,7 +63,7 @@
 </form>
 	<!--  Report starts below  -->
 	<div id="billReport">
-
+		<a href="#" onclick="printData(document.getElementById('billRecords'))">Click to Print</a>
 		<table id="billRecords">
 			<thead>
 				<tr>
