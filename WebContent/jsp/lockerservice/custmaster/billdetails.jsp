@@ -12,6 +12,10 @@
 
 	<div style="clear: both;"></div>
 	<div id='BookingDetails' class="main_content">
+	<!--  Page Name -->
+	    <div class="breadcrums">
+	    <span itemprop="title">Create New or Edit existing Bill</span>
+	    </div>
 		<form id="frm_billDetails" autocomplete="on">
 			<table>
 				<tr>
@@ -187,7 +191,7 @@
 	<script type="text/javascript">
 		//equivalent of $(document).ready(function(){...
 		$(function() {
-
+			
 			function disableElements(el) {
 				for (var i = 0; i < el.length; i++) {
 					el[i].disabled = true;
@@ -345,6 +349,13 @@
 										});
 
 							})
+							
+				//on change of any input inside particulars, invoke calculateTotal
+			$('#particulars input').on('change', function(){
+				
+				//recalculate total
+				calculateTotal();
+			})
 
 		});
 		
@@ -371,8 +382,8 @@
 			
 			// get all the particulars amounts
 			var lockerRent = parseFloat($('input[name="LAMT"]').val()) || 0;    //adding pipe to treat empty string as 0
-			var advancePay = parseFloat($('input[name="LOUT"]').val()) || 0;
-			var outstanding = parseFloat($('input[name="LADV"]').val()) || 0;
+			var advancePay = parseFloat($('input[name="LADV"]').val()) || 0;
+			var outstanding = parseFloat($('input[name="LOUT"]').val()) || 0;
 			
 			var serviceTax = parseFloat($('input[name="LSTXR"]').val()) || 0;
 			
@@ -385,17 +396,20 @@
 			//set the tax calculated
 			$('input[name="LSTXA"]').val(serviceTaxAmount);
 			
-			currentYrAmount = totalAmount+currentYrAmount;
+			currentYrAmount = serviceTaxAmount+currentYrAmount;
 			//set the total
 			$('input[name="LCP"]').val(currentYrAmount);
 			
 			//TODO
 			//get the amount paid
+			var amountPaid = parseFloat($('input[name="LADV"]').val()) || 0;
 			
 			//set the outstanding or advance amount for the key
 			//if ramt > totalAmount, advance, else outstanding
-			$('input[name="LPYBA"]').val(subtract(currentYrAmount,advancePay));
+			$('input[name="LPYBA"]').val(subtract(currentYrAmount,amountPaid));
 		}
+		
+	
 	</script>
 
 	<div style="clear: both;"></div>

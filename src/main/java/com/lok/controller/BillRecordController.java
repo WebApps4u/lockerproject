@@ -307,9 +307,40 @@ public class BillRecordController extends BaseController<BillRecordService> {
 		ReturnMessage msg = new ReturnMessage();
 		try {
 
+			if(record.getLPYBA() <0){
+				throw new Exception(" Invalid Amount Payable ");
+			}
+			
+			// Get the party details, which needs to be updated
+			PartyRecord partyRecord = partyCntrl.getActiveKeyRecordBean(record.getKNO());
+			
+			//all the previous outstanding has been added to this bill
+			partyRecord.setPOA(0D);
+			
+			//if advance is given, it should be updated by subtracting the current amount paid.
+			//it cannot be negative
+			if(record.getLADV() > 0 ){
+				
+				
+				if( record.getLPYBA()>0){
+					//all advance is used in new bill, thus clear advance available
+					partyRecord.setLSDA(0D);
+				}
+				else {
+					//bill is cleared, and so advance amount as well
+					record.setBFLG("*");
+					record.setLRNO(partyRecord.getLRNO());
+					
+					partyRecord.setPOA(0D);
+				}
+			}
+			
 			// call the service method to update
 			billRecordService.save(record);
-
+            
+			//update party master
+			partyCntrl.getService().save(partyRecord);
+			
 			// assuming saved successfully if no error is thrown
 			msg.setSuccessMsg(ReturnMessage.SuccessSet.UPDATE_SUCCESS
 					.toString());

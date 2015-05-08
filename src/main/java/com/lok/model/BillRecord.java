@@ -41,23 +41,23 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	// release
 	private String LRELS;
 	// Locker Rent
-	private Long LAMT;
+	private Double LAMT;
 
 	// Previous outstanding
-	private Long LOUT;
+	private Double LOUT;
 	// total amount to be paid LAMT+LOUT, current year payment
-	private Long LCP;
+	private Double LCP;
 	// Locker Advance payment
-	private Long LADV;
+	private Double LADV;
 	// Service tax rate
-	private Long LSTXR;
+	private Double LSTXR;
 
 	// Service tax amount calcualated
-	private Long LSTXA;
+	private Double LSTXA;
 	// Receipt number, if there is any advance payment
 	private String LRNO;
 	// payable amount
-	private Long LPYBA;
+	private Double LPYBA;
 	// Bill clarify flag
 	private String BFLG;
 
@@ -70,37 +70,37 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	// pre reminder date
 	private Date PREMD;
 	// number of reminders, will be updated by each reminders
-	private Long REMN;
+	private Double REMN;
 	// Reminder 1 date
 	private Date REMD1;
 	// penalty for 1st reminder
-	private Long REMDA1 = 0L;
+	private Double REMDA1 = 0D;
 
 
 	// Reminder 2 date
 	private Date REMD2;
 	// penalty for 2 reminder
-	private Long REMDA2=0L;
+	private Double REMDA2=0D;
 	
 	// Reminder 3 date
 	private Date REMD3;
 	// penalty for 3 reminder
-	private Long REMDA3= 0L;
+	private Double REMDA3= 0D;
 	
 	// Reminder 4 date
 	private Date REMD4;
 	// penalty for 4 reminder
-	private Long REMDA4=0L;
+	private Double REMDA4=0D;
     
 	// Reminder 5 date
 	private Date REMD5;
 	// penalty for 5 reminder
-	private Long REMDA5=0L;
+	private Double REMDA5=0D;
 	
 	// Reminder 6 date
 	private Date REMD6;
 	// penalty for 6 reminder
-	private Long REMDA6=0L;
+	private Double REMDA6=0D;
 	
 	private static final Long serialVersionUID = 1L;
 
@@ -227,84 +227,84 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the lAMT
 	 */
-	public Long getLAMT() {
+	public Double getLAMT() {
 		return LAMT;
 	}
 
 	/**
 	 * @param lAMT the lAMT to set
 	 */
-	public void setLAMT(Long lAMT) {
+	public void setLAMT(Double lAMT) {
 		LAMT = lAMT;
 	}
 
 	/**
 	 * @return the lOUT
 	 */
-	public Long getLOUT() {
+	public Double getLOUT() {
 		return LOUT;
 	}
 
 	/**
 	 * @param lOUT the lOUT to set
 	 */
-	public void setLOUT(Long lOUT) {
+	public void setLOUT(Double lOUT) {
 		LOUT = lOUT;
 	}
 
 	/**
 	 * @return the lCP
 	 */
-	public Long getLCP() {
+	public Double getLCP() {
 		return LCP;
 	}
 
 	/**
 	 * @param lCP the lCP to set
 	 */
-	public void setLCP(Long lCP) {
+	public void setLCP(Double lCP) {
 		LCP = lCP;
 	}
 
 	/**
 	 * @return the lADV
 	 */
-	public Long getLADV() {
+	public Double getLADV() {
 		return LADV;
 	}
 
 	/**
 	 * @param lADV the lADV to set
 	 */
-	public void setLADV(Long lADV) {
+	public void setLADV(Double lADV) {
 		LADV = lADV;
 	}
 
 	/**
 	 * @return the lSTXR
 	 */
-	public Long getLSTXR() {
+	public Double getLSTXR() {
 		return LSTXR;
 	}
 
 	/**
 	 * @param lSTXR the lSTXR to set
 	 */
-	public void setLSTXR(Long lSTXR) {
+	public void setLSTXR(Double lSTXR) {
 		LSTXR = lSTXR;
 	}
 
 	/**
 	 * @return the lSTXA
 	 */
-	public Long getLSTXA() {
+	public Double getLSTXA() {
 		return LSTXA;
 	}
 
 	/**
 	 * @param lSTXA the lSTXA to set
 	 */
-	public void setLSTXA(Long lSTXA) {
+	public void setLSTXA(Double lSTXA) {
 		LSTXA = lSTXA;
 	}
 
@@ -325,14 +325,14 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the lPYBA
 	 */
-	public Long getLPYBA() {
+	public Double getLPYBA() {
 		return LPYBA;
 	}
 
 	/**
 	 * @param lPYBA the lPYBA to set
 	 */
-	public void setLPYBA(Long lPYBA) {
+	public void setLPYBA(Double lPYBA) {
 		LPYBA = lPYBA;
 	}
 
@@ -395,14 +395,14 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the rEMN
 	 */
-	public Long getREMN() {
+	public Double getREMN() {
 		return REMN;
 	}
 
 	/**
 	 * @param rEMN the rEMN to set
 	 */
-	public void setREMN(Long rEMN) {
+	public void setREMN(Double rEMN) {
 		REMN = rEMN;
 	}
 
@@ -423,14 +423,14 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the rEMDA1
 	 */
-	public Long getREMDA1() {
+	public Double getREMDA1() {
 		return REMDA1;
 	}
 
 	/**
 	 * @param rEMDA1 the rEMDA1 to set
 	 */
-	public void setREMDA1(Long rEMDA1) {
+	public void setREMDA1(Double rEMDA1) {
 		REMDA1 = rEMDA1;
 	}
 
@@ -451,14 +451,14 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the rEMDA2
 	 */
-	public Long getREMDA2() {
+	public Double getREMDA2() {
 		return REMDA2;
 	}
 
 	/**
 	 * @param rEMDA2 the rEMDA2 to set
 	 */
-	public void setREMDA2(Long rEMDA2) {
+	public void setREMDA2(Double rEMDA2) {
 		REMDA2 = rEMDA2;
 	}
 
@@ -479,14 +479,14 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the rEMDA3
 	 */
-	public Long getREMDA3() {
+	public Double getREMDA3() {
 		return REMDA3;
 	}
 
 	/**
 	 * @param rEMDA3 the rEMDA3 to set
 	 */
-	public void setREMDA3(Long rEMDA3) {
+	public void setREMDA3(Double rEMDA3) {
 		REMDA3 = rEMDA3;
 	}
 
@@ -507,14 +507,14 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the rEMDA4
 	 */
-	public Long getREMDA4() {
+	public Double getREMDA4() {
 		return REMDA4;
 	}
 
 	/**
 	 * @param rEMDA4 the rEMDA4 to set
 	 */
-	public void setREMDA4(Long rEMDA4) {
+	public void setREMDA4(Double rEMDA4) {
 		REMDA4 = rEMDA4;
 	}
 
@@ -535,14 +535,14 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the rEMDA5
 	 */
-	public Long getREMDA5() {
+	public Double getREMDA5() {
 		return REMDA5;
 	}
 
 	/**
 	 * @param rEMDA5 the rEMDA5 to set
 	 */
-	public void setREMDA5(Long rEMDA5) {
+	public void setREMDA5(Double rEMDA5) {
 		REMDA5 = rEMDA5;
 	}
 
@@ -563,14 +563,14 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	/**
 	 * @return the rEMDA6
 	 */
-	public Long getREMDA6() {
+	public Double getREMDA6() {
 		return REMDA6;
 	}
 
 	/**
 	 * @param rEMDA6 the rEMDA6 to set
 	 */
-	public void setREMDA6(Long rEMDA6) {
+	public void setREMDA6(Double rEMDA6) {
 		REMDA6 = rEMDA6;
 	}
 

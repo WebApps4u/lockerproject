@@ -1,3 +1,26 @@
+----------------------------------------------
+-- Set up table
+----------------------------------------------
+CREATE TABLE `lok_master_seq` (
+  `idlok_all_seq` int(11) NOT NULL AUTO_INCREMENT,
+  `object_type` varchar(45) NOT NULL COMMENT 'The table name for which sequence is to be created',
+  `last_seq` int(11) NOT NULL DEFAULT '100000',
+  `last_updated_by` varchar(45) DEFAULT NULL,
+  `last_updated_date` date DEFAULT NULL,
+  `object_intial` varchar(2) NOT NULL COMMENT 'It is the start which gets appended to the seq geneated. ',
+  PRIMARY KEY (`idlok_all_seq`),
+  UNIQUE KEY `object_type_UNIQUE` (`object_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Generate sequences for all the tables. It stores last used sequence';
+
+
+----------------------------------------------------------
+
+
+
+
+
+
+
 -- billrecord seq generator
 
 CREATE DEFINER=`root`@`localhost` TRIGGER `kplok_dev_db`.`billrecord_BEFORE_INSERT` BEFORE INSERT ON `billrecord` FOR EACH ROW
@@ -29,10 +52,68 @@ select t.last_seq,t.object_inital into @rec_seq,@rec_init from lok_master_seq t 
 set @rec_seq = @rec_seq+1;
 
 
-set NEW.rctn = concat(@bill_init, @rec_seq);
+set NEW.rctn = concat(@rec_init, @rec_seq);
 end if;
 
 -- update the last seq
 update lok_master_seq set last_seq = @rec_seq where object_type = 'receiptrecord';
 
 end
+
+
+-- --- --------------------------------
+-- KYC Documents, storage
+--------------------------------------
+create table customer_table (
+customerid varchar(7),
+firstname  varchar(100),
+lastname   varchar(100),
+pppath    varchar(255),
+aadharpath varchar(255),
+dlicensepath varchar(255),
+electricitybillpath varchar(255),
+photopath  varchar(255),
+signpath   varchar(255),
+emailid    varchar(255),
+altemailid    varchar(255),
+mobilenum  varchar(15),
+altmobilenum  varchar(15),
+phonenum   varchar(15),
+altphonenum   varchar(15),
+address1   varchar(255),
+address2   varchar(255),
+address3   varchar(255),
+city       varchar(255),
+state      varchar(255),
+country    varchar(255),
+pincode    varchar(255),
+landmark   varchar(255),
+createdby  varchar(100),
+createddate datetime,
+modifiedby  varchar(100),
+modifieddate datetime,
+notes     varchar(4000));
+
+ALTER TABLE `kplok_dev_db`.`customer_table` 
+ADD COLUMN `folionum` VARCHAR(45) NULL AFTER `notes`;
+
+
+--------------------------------------------
+--trigger to create primary key
+------------------------------
+CREATE DEFINER=`root`@`localhost` TRIGGER `kplok_dev_db`.`customer_table_BEFORE_INSERT` BEFORE INSERT ON `customer_table` FOR EACH ROW
+begin
+set @cust_seq = 0;
+set @cust_init = "";
+if NEW.customerid is null then
+select t.last_seq,t.object_inital into @cust_seq,@cust_init from lok_master_seq t where t.object_type = 'customer_table';
+set @cust_seq = @cust_seq+1;
+
+
+set NEW.customerid = concat(@cust_init, @cust_seq);
+end if;
+
+-- update the last seq
+update lok_master_seq set last_seq = @cust_seq where object_type = 'customer_table';
+end
+

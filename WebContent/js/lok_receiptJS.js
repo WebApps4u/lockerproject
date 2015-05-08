@@ -253,6 +253,11 @@ $(function() {
 			$('input[name="RADV"]').val(subtract(amountPaid,totalAmount));
 			$('input[name="RCOUT"]').val(0);
 		}
+		else{
+			//Clear outstanding and advance
+			$('input[name="RADV"]').val(0);
+			$('input[name="RCOUT"]').val(0);
+		}
 	}
 	
 	//on change of any input inside particulars, invoke calculateTotal

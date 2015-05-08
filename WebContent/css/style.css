@@ -436,3 +436,17 @@ input.send, input.clear, input.update {
         padding-left: 5px;
         padding-right: 5px;
     }
+    
+ /** Breadcrumbs, to show the path of the current page **/
+ .breadcrums{
+
+  padding: 5px 0 0 10px;
+  width: 96%;
+    font-size: 1.2em;
+      margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  border: none;
+  -webkit-border-radius: 0;
+  outline: none;
+ }

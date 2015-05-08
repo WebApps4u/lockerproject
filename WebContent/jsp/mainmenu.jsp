@@ -70,8 +70,8 @@
 					</ul></li>
 				<li><a href="#">Locker Service &raquo;</a>
 					<ul>
-						<li><a href="#">Customer Master</a></li>
-						<li><a href="#">Locker Rent</a></li>
+						<li><a href="/Locker_Financial_Society/jsp/lockerservice/custmaster/keydetails.jsp">New Booking</a></li>
+						<li><a href="/Locker_Financial_Society/jsp/lockerservice/custmaster/CustomerDetails.jsp">Customer KYC</a></li>
 						<li><a href="#">Delete Receipt</a></li>
 						<li><a href="#">Calligraphy</a></li>
 						<li><a href="#">Reminder &raquo;</a>
@@ -125,6 +125,6 @@
 
 	</div>
 	<!--end wrapper-->
-
+    
 </body>
 </html>

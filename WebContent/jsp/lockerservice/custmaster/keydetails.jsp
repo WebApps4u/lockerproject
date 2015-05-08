@@ -8,13 +8,17 @@
 </head>
 <body>
 	<jsp:include page="/jsp/mainmenu.jsp"></jsp:include>
-
+    
 	<div style="clear: both;"></div>
+	
 	<div id="msg" class="nomsg"></div>
 
 	<div style="clear: both;"></div>
-
 	<div id='BookingDetails' class="main_content">
+	    <!--  Page Name -->
+	    <div class="breadcrums">
+	    <span itemprop="title">Create New Booking</span>
+	    </div>
 		<form id="frm_keyDetails">
 			<table>
 				<tr>

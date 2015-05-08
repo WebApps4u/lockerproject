@@ -61,9 +61,12 @@ public class ReceiptRecordController extends BaseController<ReceiptRecordService
 				partyContrl.updatePartyRecord(partyRecord);
 				
 				//get the bill records
-				//there can be multiple bills, separated by spaces 
-				String[] billNums = record.getRBNO().trim().split(" ");
+				//there can be multiple bills, separated by spaces 				
+				String[] billNums = {};
 				
+				if (record.getRBNO()!=null && record.getRBNO().trim()!=null){
+					billNums = record.getRBNO().trim().split(" ");
+				}
 				
 				for(String bill: billNums){
 					BillRecord billRecord = billContrl.getBillRecord(bill);
