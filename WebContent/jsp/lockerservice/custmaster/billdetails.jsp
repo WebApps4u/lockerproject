@@ -160,7 +160,7 @@
 				</tr>
 				<tr>
 
-					<td>Service Tax<input type="number" step="0.01" name="LSTXR" value="12.3">%</td>
+					<td>Service Tax<input type="number" step="0.01" name="LSTXR" value="14">%</td>
 					<td><input type="number" step="0.01" name="LSTXA" readonly="readonly"></td>
 				</tr>
 				<tr>

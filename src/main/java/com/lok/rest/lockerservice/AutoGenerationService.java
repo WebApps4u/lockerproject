@@ -28,7 +28,7 @@ public class AutoGenerationService {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/bills")
-	public void genBills(@QueryParam("dueMonth") String dueMonth,
+	public String genBills(@QueryParam("dueMonth") String dueMonth,
 									@QueryParam("dueYear") String dueYear){
 		logger.debug(" enter AutoGeneration.getBills() with dueMonth-dueYear "+dueMonth+"-"+dueYear);
 		
@@ -39,6 +39,7 @@ public class AutoGenerationService {
 		}catch(Exception e){
 			//log to the logger
 		}
+		return "";
 	}
 	
 	/**

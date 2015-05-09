@@ -102,7 +102,7 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	// penalty for 6 reminder
 	private Double REMDA6=0D;
 	
-	private static final Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	public BillRecord() {
 		super();

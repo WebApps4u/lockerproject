@@ -62,40 +62,38 @@ end
 
 
 -- --- --------------------------------
--- KYC Documents, storage
---------------------------------------
-create table customer_table (
-customerid varchar(7),
-firstname  varchar(100),
-lastname   varchar(100),
-pppath    varchar(255),
-aadharpath varchar(255),
-dlicensepath varchar(255),
-electricitybillpath varchar(255),
-photopath  varchar(255),
-signpath   varchar(255),
-emailid    varchar(255),
-altemailid    varchar(255),
-mobilenum  varchar(15),
-altmobilenum  varchar(15),
-phonenum   varchar(15),
-altphonenum   varchar(15),
-address1   varchar(255),
-address2   varchar(255),
-address3   varchar(255),
-city       varchar(255),
-state      varchar(255),
-country    varchar(255),
-pincode    varchar(255),
-landmark   varchar(255),
-createdby  varchar(100),
-createddate datetime,
-modifiedby  varchar(100),
-modifieddate datetime,
-notes     varchar(4000));
-
-ALTER TABLE `kplok_dev_db`.`customer_table` 
-ADD COLUMN `folionum` VARCHAR(45) NULL AFTER `notes`;
+-- KYC Documents, store
+----
+create table customerdetails (
+CUSTOMERID varchar(7),
+FIRSTNAME  varchar(100),
+LASTNAME   varchar(100),
+PPPATH    varchar(255),
+AADHARPATH varchar(255),
+DLICENSEPATH varchar(255),
+ELECTRICITY varchar(255),
+PHOTOPATH  varchar(255),
+SIGNPATH   varchar(255),
+EMAILID    varchar(255),
+ALTEMAILID    varchar(255),
+MOBILENUM  varchar(15),
+ALTMOBILENUM  varchar(15),
+PHONENUM   varchar(15),
+ALTPHONENUM   varchar(15),
+ADDRESS1   varchar(255),
+ADDRESS2   varchar(255),
+ADDRESS3   varchar(255),
+CITY       varchar(255),
+STATE      varchar(255),
+COUNTRY    varchar(255),
+PINCODE    varchar(255),
+LANDMARK   varchar(255),
+CREATEDBY  varchar(100),
+CREATEDDATE datetime,
+MODIFIEDBY  varchar(100),
+MODIFIEDDATE datetime,
+NOTES     varchar(4000),
+FOLIONUM  VARCHAR(45));
 
 
 --------------------------------------------

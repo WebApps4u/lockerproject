@@ -201,8 +201,8 @@
 					</tr>
 
 					<tr>
-						<td>Service charges@<input type="number" step="0.01"
-							name="STAXR" value="12.3" />%
+						<td>Service tax@<input type="number" step="0.01"
+							name="STAXR" value="14" />%
 						</td>
 						<td><input type="number" step="0.01" name="STAXA"
 							readonly="readonly" /></td>

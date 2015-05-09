@@ -31,7 +31,7 @@ public class DownloadGenService {
 	
 	@GET
 	@Path("/billreport/{type}")
-	public void getBillReport(@Context HttpServletResponse response,  @PathParam("type") String type,  @Context UriInfo uriInfo) {
+	public String getBillReport(@Context HttpServletResponse response,  @PathParam("type") String type,  @Context UriInfo uriInfo) {
 		logger.debug(" enter CustomerMasterService.getBillReport() ");
 		
 		
@@ -64,6 +64,6 @@ public class DownloadGenService {
 			// log to the logger
 			e.printStackTrace();
 		}
-		
+		return "";
 	}
 }
