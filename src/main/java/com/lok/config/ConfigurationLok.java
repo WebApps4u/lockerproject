@@ -8,10 +8,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 
-import com.lok.controller.PartyRecordController;
 
 /**
  * Have all the required configuration to boot the application
@@ -21,8 +18,12 @@ import com.lok.controller.PartyRecordController;
 public final class ConfigurationLok {
 
 	//add for logging
-	private static Logger logger = Logger.getLogger(PartyRecordController.class);
-		
+	private static Logger logger = Logger.getLogger(ConfigurationLok.class);
+	
+	public static final String DEFAULT_FILE_UPLOAD_PATH ="C:\\lockeruploads";
+	
+	public static final String CONFIG_FILE_VAR = "config.fileupload";
+			
 	//to get the context of all the services
 	private static ApplicationContext context =
 		    null;
@@ -82,4 +83,17 @@ public final class ConfigurationLok {
 	dateFormat.setLenient(false);
 	webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}*/
+	
+	//Configuration for absolute path to store uploaded files
+	//this is not the final path, but the base location for all documents
+	public static String getFileUploadPath(){
+		
+		String path = System.getProperty(CONFIG_FILE_VAR);
+		
+		if(path==null || path.isEmpty()){
+			path= DEFAULT_FILE_UPLOAD_PATH;
+		}
+		
+		return path;
+	}
 }

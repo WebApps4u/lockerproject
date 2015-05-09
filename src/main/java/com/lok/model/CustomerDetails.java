@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Implementation for Customer_table entity
@@ -18,6 +19,8 @@ public class CustomerDetails implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
 	private String CUSTOMERID;
 	private String FIRSTNAME;
 	private String LASTNAME;
