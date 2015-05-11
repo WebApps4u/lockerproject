@@ -115,3 +115,11 @@ end if;
 update lok_master_seq set last_seq = @cust_seq where object_type = 'customer_table';
 end
 
+
+-----------------------------------------------------
+----- added columns for customer id, kyc documents linking
+-----------------------------------------------------
+ALTER TABLE `kplok_dev_db`.`partyrecord` 
+ADD COLUMN `FIRSTCUSTOMER` VARCHAR(45) NULL AFTER `STPBL`,
+ADD COLUMN `SECONDCUSTOMER` VARCHAR(45) NULL AFTER `FIRSTCUSTOMER`,
+ADD COLUMN `THIRDCUSTOMER` VARCHAR(45) NULL AFTER `SECONDCUSTOMER`;

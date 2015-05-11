@@ -15,6 +15,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,10 +33,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.JsonParser;
 import com.lok.controller.BillRecordController;
+import com.lok.controller.CustomerDetailsController;
 import com.lok.controller.MasterSeqRecordController;
 import com.lok.controller.PartyRecordController;
 import com.lok.controller.ReceiptRecordController;
 import com.lok.model.BillRecord;
+import com.lok.model.CustomerDetails;
 import com.lok.model.PartyRecord;
 import com.lok.model.ReceiptRecord;
 import com.lok.model.ReturnMessage;
@@ -50,6 +53,7 @@ public class CustomerMasterService {
 	PartyRecordController partyContrl = new PartyRecordController();
 	BillRecordController billContrl = new BillRecordController();
 	ReceiptRecordController receiptContrl = new ReceiptRecordController();
+	CustomerDetailsController custDetailsContrl = new CustomerDetailsController();
 	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder webDataBinder) {
@@ -299,4 +303,32 @@ public class CustomerMasterService {
 		return Response.status(200).entity(output.toString()).build();
 	}
 	
+	//Get customer details. It will fetch KYC documents details, name, email & address for the given customer
+	//NOT READY
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/link/{keynum}/{customerid}/{index}")
+	public String getCustomerDetails(@PathParam("customerid") String customerid,
+									@PathParam("keyid") String keynum,
+									@PathParam("index") String index){
+		logger.debug(" enter CustomerMasterService.getKeyDetailsUnpaidBills() with billnum "+customerid);
+		
+		JSONObject allDetails = null;
+		
+		try{
+			
+			partyContrl.linkCustomer(keynum,customerid,index);
+			
+			//get the customer details to be shown to key details
+			//it has specific fields, thus cannot be used directly
+			CustomerDetails custDetails = custDetailsContrl.getCustomerRecordBean(customerid);
+			
+			//set the 
+			
+			
+		}catch(Exception e){
+			//log to the logger
+		}
+		return allDetails!=null?allDetails.toString():"";
+	}
 }

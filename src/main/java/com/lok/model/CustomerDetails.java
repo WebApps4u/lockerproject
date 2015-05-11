@@ -22,6 +22,7 @@ public class CustomerDetails implements Serializable{
 	
 	@Id
 	private String CUSTOMERID;
+	
 	private String FIRSTNAME;
 	private String LASTNAME;
 	private String PPPATH;
@@ -398,6 +399,5 @@ public class CustomerDetails implements Serializable{
 	public void setFOLIONUM(String fOLIONUM) {
 		FOLIONUM = fOLIONUM;
 	}
-	
 	
 }

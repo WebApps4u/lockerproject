@@ -6,6 +6,11 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
+
+import com.lok.rest.lockerservice.UploadService;
+
 /**
  * For servlet 3.0, this class is required to boot rest APIs
  * 
@@ -15,4 +20,6 @@ import javax.ws.rs.core.Application;
  */
 @ApplicationPath("/rest")
 public class RestApplication extends Application {
+	
+
 }

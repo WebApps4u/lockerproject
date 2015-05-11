@@ -150,6 +150,12 @@ public class PartyRecord implements Serializable {
 	private String KYC44;
 	//remarks
 	private String REMARKS;
+	
+	//added for KYC documents, add customer
+	private String FIRSTCUSTOMER;
+	
+	private String SECONDCUSTOMER;
+	private String THIRDCUSTOMER;
 					
 	private static final Long serialVersionUID = 1L;
 
@@ -1002,6 +1008,48 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setREMARKS(String rEMARKS) {
 		REMARKS = rEMARKS;
+	}
+
+	/**
+	 * @return the fIRSTCUSTOMER
+	 */
+	public String getFIRSTCUSTOMER() {
+		return FIRSTCUSTOMER;
+	}
+
+	/**
+	 * @param fIRSTCUSTOMER the fIRSTCUSTOMER to set
+	 */
+	public void setFIRSTCUSTOMER(String fIRSTCUSTOMER) {
+		FIRSTCUSTOMER = fIRSTCUSTOMER;
+	}
+
+	/**
+	 * @return the sECONDCUSTOMER
+	 */
+	public String getSECONDCUSTOMER() {
+		return SECONDCUSTOMER;
+	}
+
+	/**
+	 * @param sECONDCUSTOMER the sECONDCUSTOMER to set
+	 */
+	public void setSECONDCUSTOMER(String sECONDCUSTOMER) {
+		SECONDCUSTOMER = sECONDCUSTOMER;
+	}
+
+	/**
+	 * @return the tHIRDCUSTOMER
+	 */
+	public String getTHIRDCUSTOMER() {
+		return THIRDCUSTOMER;
+	}
+
+	/**
+	 * @param tHIRDCUSTOMER the tHIRDCUSTOMER to set
+	 */
+	public void setTHIRDCUSTOMER(String tHIRDCUSTOMER) {
+		THIRDCUSTOMER = tHIRDCUSTOMER;
 	}   
 	   
 }

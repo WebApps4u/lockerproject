@@ -111,12 +111,17 @@ public class LokUtility {
 		if (node.getUserObject() instanceof FileItem) {
 			FileItem item = (FileItem) node.getUserObject();
 
-			path = path + File.separator + item.getName();
+			// item can be accidently left blank. This might be the final
+			// directory
+			// leave the file creation then
+			if (StringUtils.isNotBlank(item.getName())) {
+				path = path + File.separator + item.getName();
 
-			File storeFile = new File(path);
+				File storeFile = new File(path);
 
-			// saves the file on disk
-			item.write(storeFile);
+				// saves the file on disk
+				item.write(storeFile);
+			}
 		}
 
 		else if (node.getUserObject() instanceof String) {
@@ -157,8 +162,8 @@ public class LokUtility {
 	 * 
 	 * @throws FileUploadException
 	 */
-	public static List<FileItem> getFileItemsFromRequest(HttpServletRequest request)
-			throws FileUploadException {
+	public static List<FileItem> getFileItemsFromRequest(
+			HttpServletRequest request) throws FileUploadException {
 
 		logger.debug(" enter getFileItemsFromRequest with request " + request);
 		// configures some settings

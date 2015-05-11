@@ -69,7 +69,7 @@
 					<th>Photograph</th>
 				</tr>
 				<tr>
-					<td>1st</td>
+					<td>Link Existing Customer <input name="FIRSTCUSTOMER" type="text"></td>
 					<!-- Ist Name -->
 					<td><select name="PNM1">
 							<option value="MR">Mr</option>
@@ -158,7 +158,7 @@
 					<td>Outstanding:</td>
 					<td><input type="number" name="POA" step="0.01"></td>
 					<td>Advance Rent</td>
-					<td><input type="number" name="PCRA" step="0.01"></td>
+					<td><input type="number" name="PCRA" step="0.01"></td>  <!--  TODO, this is temporary done, it is PCRA -->
 					<td>Receipt No.</td>
 					<td><input type="text" name="LRNO"></td>
 					<td>Receipt Date</td>
