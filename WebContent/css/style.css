@@ -383,11 +383,11 @@ input.send, input.clear, input.update {
 }
 
 .floating_buttons{
-	position: fixed;
+/*	position: fixed;
 	bottom: -50px;
 	left: 45px;
 	float: left;
-	z-index: 100;
+	z-index: 100;*/
 	
 }
 

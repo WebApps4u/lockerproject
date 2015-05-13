@@ -34,12 +34,12 @@
 	<![endif]-->
 <script type="text/javascript">
 	//Load the datepicker, it will be required on all the pages
-	$(function() {
+	/* $(function() {
 		$("input[type='date']").datepicker({
 			dateFormat : 'yy-mm-dd'
 		}).val();
 		;
-	});
+	}); */
 </script>
 </head>
 
@@ -52,50 +52,71 @@
 
 		<nav id="nav">
 			<ul id="navigation">
-				<li><a href="#" class="first">Home</a></li>
-				<li><a href="#">Locker &raquo;</a>
+				<li><a href="/Locker_Financial_Society/index.jsp" class="first">Home</a></li>
+				<li><a href="#">New Entry &raquo;</a>
 					<ul>
 						<li><a
-							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/billdetails.jsp">Bill
-								Editing</a></li>
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/keydetails.jsp">New
+								Booking</a></li>
 						<li><a
-							href="/Locker_Financial_Society/jsp/lockerservice/reports/AutoBillGeneration.jsp">Auto
-								Bill Generation</a></li>
-						<li><a href="#">Reports &raquo;</a>
-							<ul>
-								<li><a href="#">Report I</a></li>
-								<li><a href="#">Report II</a></li>
-							</ul></li>
-						<li><a href="#">Due Letters</a></li>
-					</ul></li>
-				<li><a href="#">Locker Service &raquo;</a>
-					<ul>
-						<li><a href="/Locker_Financial_Society/jsp/lockerservice/custmaster/keydetails.jsp">New Booking</a></li>
-						<li><a href="/Locker_Financial_Society/jsp/lockerservice/custmaster/CustomerDetails.jsp">Customer KYC</a></li>
-						<li><a href="#">Delete Receipt</a></li>
-						<li><a href="#">Calligraphy</a></li>
-						<li><a href="#">Reminder &raquo;</a>
-							<ul>
-								<li><a href="#">Reminder </a></li>
-								<li><a href="#">Reminder Prt</a></li>
-							</ul></li>
-						<li><a href="#">Help </a></li>
-					</ul></li>
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/CustomerDetails.jsp">New
+								Customer(KYC)</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/billdetails.jsp">New
+								Manual Bill</a></li>
 
-				<li><a href="#">Receipt &raquo;</a>
-					<ul>
 						<li><a
 							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/receiptgeneration.jsp">New
 								Receipt</a></li>
-						<li><a href="#">Edit Receipt</a></li>
-						<li><a href="#">Delete Receipt</a></li>
-						<li><a href="#">Report &raquo;</a>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/sdreceiptgeneration.jsp">New
+								SD Receipt</a></li>
 
-							<ul>
-								<li><a href="#">Daily </a></li>
-								<li><a href="#">Monthly</a></li>
-							</ul></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/accessrecord.jsp">New
+								Access Record</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/debitnote.jsp">New
+								Debit Note</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/creditnote.jsp">New
+								Credit Note</a></li>
 
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/reports/AutoBillGeneration.jsp">Auto
+								Bill Generation</a></li>
+
+						<li><a href="#">Due Letters</a></li>
+					</ul></li>
+				<li><a href="#">Existing Entry &raquo;</a>
+					<ul>
+
+					<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/keydetails.jsp?id=EXISTING">
+								Booking</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/CustomerDetails.jsp?id=EXISTING">
+								Customer(KYC)</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/billdetails.jsp?id=EXISTING">
+								Manual Bill</a></li>
+
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/receiptgeneration.jsp?id=EXISTING">
+								Receipt</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/sdreceiptgeneration.jsp?id=EXISTING">
+								SD Receipt</a></li>
+
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/accessrecord.jsp?id=EXISTING">
+								Access Record</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/debitnote.jsp?id=EXISTING">
+								Debit Note</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/creditnote.jsp?id=EXISTING">
+								Credit Note</a></li>
 					</ul></li>
 
 				<li><a href="#" class="last">Reports &raquo;</a>
@@ -125,6 +146,6 @@
 
 	</div>
 	<!--end wrapper-->
-    
+
 </body>
 </html>

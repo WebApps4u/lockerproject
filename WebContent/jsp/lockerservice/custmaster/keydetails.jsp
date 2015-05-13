@@ -17,7 +17,9 @@
 	<div id='BookingDetails' class="main_content">
 	    <!--  Page Name -->
 	    <div class="breadcrums">
-	    <span itemprop="title">Create New Booking</span>
+	    <span itemprop="title">
+	    ${(param.id==''||param.id==null) ?'Create New Booking':(param.id=='EXISTING'?'Modify Existing Booking':param.id) }
+	    </span>
 	    </div>
 		<form id="frm_keyDetails">
 			<table>
