@@ -16,16 +16,16 @@
 	    <div class="breadcrums">
 	    <span itemprop="title">Create New or Edit Customer KYC Documents</span>
 	    </div>
-		<form id="frm_custDetails" autocomplete="on" enctype="multipart/form-data" action="/Locker_Financial_Society/rest/upload/customerdetails/" method="POST">
+		<form id="frm_custDetails" autocomplete="on" enctype="multipart/form-data" action="/Locker_Financial_Society/rest/upload/customerdetails?CUSTOMERID=${it.CUSTOMERID}" method="POST">
 					<table>
 
 				<tr>
 				<td>Customer Id:</td>
-				<td></td>
+				<td>${it.CUSTOMERID==""?"NEW":it.CUSTOMERID}</td>
 				</tr>
 				<tr>
 				<td>Name:</td>
-				<td><input name="FIRSTNAME" type="text" /> </td><td><input name="LASTNAME" type="text" /></td>
+				<td><input name="FIRSTNAME" type="text" value=${it.FIRSTNAME }/> </td><td><input name="LASTNAME" type="text" /></td>
 				</tr>
 				<tr>
 				<td>Address:</td>

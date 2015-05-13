@@ -13,9 +13,11 @@ import javax.swing.tree.TreeNode;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.json.JSONObject;
+import org.springframework.util.StringUtils;
 
 import com.googlecode.genericdao.search.Search;
 import com.lok.config.ConfigurationLok;
@@ -155,22 +157,36 @@ public class CustomerDetailsController extends
 	 * 
 	 * Weird parameter, required for file upload during customer creation
 	 */
-	public CustomerDetails createNewCustomerT(List<FileItem> listOfFileItems) {
+	public CustomerDetails createNewCustomerT(List<FileItem> listOfFileItems,String incustId) {
 
 		logger.debug(" Enter into createNewCustomern " + listOfFileItems);
 		ReturnMessage retrnMessage = new ReturnMessage();
 		
 		//Create new customer details object, which is the entity to be saved to database
-		CustomerDetails custDetails = new CustomerDetails();
+		CustomerDetails custDetails = null;
 
 		try {
 
 			// create customer id from next sequence for customer details
-			String nextCustomerId = MasterSeqRecordController
+			String nextCustomerId = "";
+			
+			if(StringUtils.isEmpty(incustId) || incustId.equalsIgnoreCase("NEW")){
+			
+			//listOfFileItems.indexOf();
+			nextCustomerId = MasterSeqRecordController
 					.generateNextId(CustomerDetails.class);
 			
+			custDetails = new CustomerDetails();
 			custDetails.setCUSTOMERID(nextCustomerId);
-
+			}else{
+				
+				custDetails = custDetailsService.findById(incustId);
+			}
+			
+			//if custDetails is null, throw error invalid customer id
+			if(custDetails == null){
+				throw new Exception(" Invalid Customer id");
+			}
 			// create directory structure tree for KYC documents
 			DefaultMutableTreeNode kycDir = new DefaultMutableTreeNode(
 					ConstantLok.KYC_UPLOAD_DIRECTORY);

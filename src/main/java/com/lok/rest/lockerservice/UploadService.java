@@ -56,7 +56,7 @@ public class UploadService {
 	 */
 
 	@POST
-	@Path("/customerdetails/")
+	@Path("/customerdetails")
 	@Consumes({ MediaType.MULTIPART_FORM_DATA })
 	public void uploadCustomerDetails(// FormDataMultiPart input
 			// @FormDataParam("file") InputStream uploadedInputStream,
@@ -69,8 +69,8 @@ public class UploadService {
 		
 		try {
 		//	custDetailsCntrl.createNewCustomer(LokUtility.getFileItemsFromRequest(request));
-			
-			CustomerDetails custDetails = custDetailsCntrl.createNewCustomerT(LokUtility.getFileItemsFromRequest(request));
+			String custId = request.getParameter("CUSTOMERID");
+			CustomerDetails custDetails = custDetailsCntrl.createNewCustomerT(LokUtility.getFileItemsFromRequest(request),custId);
 			
 			request.setAttribute("customer", custDetails);
 			
@@ -95,11 +95,11 @@ public class UploadService {
 	}*/
 	
 	@GET
-	@Path("/test/{customerid}")
+	@Path("/customerdetails/{customerid}")
 	public Viewable getCustomerDetails(@PathParam("customerid") String customerid){
 		
-		//return new Viewable("/jsp/lockerservice/custmaster/customerkyc",custDetailsCntrl.getCustomerRecordBean(customerid));
-		return new Viewable("/jsp/lockerservice/custmaster/customerkyc");
+		CustomerDetails custDetails = custDetailsCntrl.getCustomerRecordBean(customerid);
+		return new Viewable("/jsp/lockerservice/custmaster/CustomerDetails",custDetails);
 	}
 	
 
