@@ -19,14 +19,19 @@
 
 	<div class="sep_section"></div>
 	<div id="ReceiptDetails" class="main_content">
-
+<!--  Page Name -->
+	    <div class="breadcrums">
+	    <span itemprop="title">
+	    ${(param.id==''||param.id==null) ?'Create New Receipt':(param.id=='EXISTING'?'Modify Existing Receipt':param.id) }
+	    </span>
+	    </div>
 		<form id="frm_receiptDetails">
 
 			<div id="keyDetails">
 				<table>
 					<tr>
 						<td>Receipt Number</td>
-						<td>NEW</td>
+						<td><input name="RCTN" placeholder="NEW" readonly="" /></td>
 						<td></td>
 
 						<td>Date</td>
@@ -154,13 +159,13 @@
 						<td>Locker Rent</td>
 						<td><input type="number" step="0.01" name="RRNT" /></td>
 					</tr>
+					
 					<tr>
-						<td>Less at credit(-)</td>
-						<td><input type="number" step="0.01" name="RADVP" /></td>
-					</tr>
-					<tr>
-						<td>Add previous due</td>
-						<td><input type="number" step="0.01" name="RPOUT" /></td>
+						<td>Service tax@<input type="number" step="0.01"
+							name="STAXR" value="14" />%
+						</td>
+						<td><input type="number" step="0.01" name="STAXA"
+							readonly="readonly" /></td>
 					</tr>
 					<tr></tr>
 					<tr>
@@ -200,19 +205,28 @@
 						<td><input type="number" step="0.01" name="BRKCH" /></td>
 					</tr>
 
-					<tr>
-						<td>Service tax@<input type="number" step="0.01"
-							name="STAXR" value="14" />%
-						</td>
-						<td><input type="number" step="0.01" name="STAXA"
-							readonly="readonly" /></td>
-					</tr>
+					
 					<tr></tr>
+										<tr>
+						<td>Less at credit(-)</td>
+						<td><input type="number" step="0.01" name="RADVP" /></td>
+					</tr>
+					<tr>
+						<td>Add previous due</td>
+						<td><input type="number" step="0.01" name="RPOUT" /></td>
+					</tr>
+					
 					<tr>
 						<td>Total</td>
 						<td><input type="number" step="0.01" name="RGTOT"
 							readonly="readonly" /></td>
 					</tr>
+						<tr>
+						<td>Amount Paid</td>
+						<td><input name="RAMT" type="number" step="0.01" value="0">
+					</tr>
+					<tr></tr>
+					
 					<tr>
 							<td>Advance for Future</td>
 							<td><input type="number" step="0.01" name="RADV" value="0" readonly="readonly">
@@ -246,7 +260,7 @@
 						<div class="content">
 							<div class="content-1">
 								<p>Amount Paid</p>
-								<input name="RAMT" type="number" step="0.01" value="0">
+								
 							</div>
 							<div class="content-2">
 								<p>Some content</p>

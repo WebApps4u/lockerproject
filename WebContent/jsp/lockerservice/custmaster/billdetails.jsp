@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" 
+           uri="http://java.sun.com/jsp/jstl/core" %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,16 +17,24 @@
 	<div id='BookingDetails' class="main_content">
 	<!--  Page Name -->
 	    <div class="breadcrums">
-	    <span itemprop="title">Create New or Edit existing Bill</span>
+	    <span itemprop="title">
+	    ${(param.id==''||param.id==null) ?'Create New Bill':(param.id=='EXISTING'?'Modify Existing Bill':param.id) }
+	    </span>
 	    </div>
 		<form id="frm_billDetails" autocomplete="on">
-			<table>
+		<div >
+		
+			<table id ="billDetails">
 				<tr>
 					<td>Bill no</td>
-					<td><input name="BNO" size="6" type="text"
-						onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" /><input
-						type="button" id='getDetails' value="Get Details"> <input
-						type="button" id='getNewBillNo' value="Create New"></td>
+					<td><input name="BNO" size="6" placeholder="NEW" type="text" ${param.id!='EXISTING'?"readonly":'' }
+						onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />
+						<c:if test="${param.id=='EXISTING' }">	
+						<input
+						type="button" id='getDetails' value="Get Details">
+					</c:if>	</td>
+					<!-- 	<input
+						type="button" id='getNewBillNo' value="Create New"></td> -->
 					<td>Bill Date</td>
 					<td><input type="date" name="BDT"></td>
 
@@ -34,7 +45,10 @@
 				</tr>
 				<tr>
 					<td>Key no</td>
-					<td><input name="KNO" size="6" type="text" /><input
+					<td><input name="KNO" size="6" type="text" 
+					onkeydown="javascript:clickOnEnter('getKeyDetails')"
+					/>
+					<input
 						type="button" id='getKeyDetails' value="Get Details"></td>
 					<td>Locker no</td>
 					<td><input disabled="disabled" name="LNO" size="6" type="text" /></td>
@@ -52,10 +66,6 @@
 				<tr>
 					<th></th>
 					<th>Name</th>
-					<th>PP/Aadhar/DL</th>
-					<th>Electricity bill</th>
-					<th>PAN</th>
-					<th>Photograph</th>
 				</tr>
 				<tr>
 					<td>1st</td>
@@ -65,30 +75,13 @@
 							<option value="MRS">Mrs</option>
 					</select> <input name="PNM2" type="text" /> <input name="PNM3" type="text" /></td>
 
-					<!--  KYC doc -->
-					<td class="tdMiddle"><input name="KYC1" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC12" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC13" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC14" type="text"
-						maxlength="1" size="1" /></td>
 				</tr>
 				<tr>
 					<!-- 2nd Name -->
 					<td>2nd</td>
 					<td><input name="PNM4" size="40" type="text" /></td>
 
-					<!--  KYC doc -->
-					<td class="tdMiddle"><input name="KYC2" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC22" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC23" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC24" type="text"
-						maxlength="1" size="1" /></td>
+					
 				</tr>
 				<tr>
 					<!-- 3rd Name -->
@@ -96,15 +89,7 @@
 					<td><input name="PNM5" size="40" type="text" /></td>
 
 
-					<!--  KYC doc -->
-					<td class="tdMiddle"><input name="KYC3" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC32" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC33" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC34" type="text"
-						maxlength="1" size="1" /></td>
+					
 				</tr>
 				<tr>
 					<!-- Deputy Name -->
@@ -112,37 +97,29 @@
 					<td><input type="text" size="40" /></td>
 
 
-					<!--  KYC doc -->
-					<td class="tdMiddle"><input name="KYC4" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC42" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC43" type="text"
-						maxlength="1" size="1" /></td>
-					<td class="tdMiddle"><input name="KYC44" type="text"
-						maxlength="1" size="1" /></td>
+					
 				</tr>
 
 				<tr>
 					<td>E-mail</td>
-					<td><input type="email" name="EMAILID" style="width: 392px;" />
+					<td><input type="email" name="EMAILID" style="width: 100px;" />
 					</td>
-
+				</tr>
+				<tr>
 					<td>Phones</td>
 					<td><input type="text" name="PHN" /></td>
-					<td></td>
-					<td></td>
+
 				</tr>
 
 				<tr>
 					<td>Address</td>
-					<td class="tdAddress" colspan=5><input name="PAD1" type="text" />
-						<input name="PAD2" type="text" /> <input name="PAD3" type="text" />
+					<td class="tdAddress" ><input name="PAD1" type="text" />
+						<input name="PAD2" type="text" /> <br><input name="PAD3" type="text" />
 						<input name="PAD4" type="text" /></td>
 				</tr>
 			</table>
 			<!--  End of Contact Details -->
-
+			<div class="sep_section"></div>
 			<!--  Particular Section -->
 			<div id="particulars">
 			<table>
@@ -154,10 +131,7 @@
 					<td>Locker Rent</td>
 					<td><input type="number" step="0.01" name="LAMT"></td>
 				</tr>
-				<tr>
-					<td>OutStanding Amount</td>
-					<td><input type="number" step="0.01" name="LOUT"></td>
-				</tr>
+				
 				<tr>
 
 					<td>Service Tax<input type="number" step="0.01" name="LSTXR" value="14">%</td>
@@ -168,6 +142,10 @@
 					<td>Current Year Payment</td>
 					<td><input type="number" step="0.01" name="LCP"></td>
 
+				</tr>
+				<tr>
+					<td>OutStanding Amount</td>
+					<td><input type="number" step="0.01" name="LOUT"></td>
 				</tr>
 				<tr>
 					<td>Amount Paid</td>
@@ -186,6 +164,7 @@
 					value="" class="update"> <input type="reset"
 					name="cleartext" value="" class="clear">
 			</div>
+		</div>
 		</form>
 	</div>
 	<script type="text/javascript">
@@ -330,6 +309,8 @@
 															"successmsg");
 													$('#msg').html(
 															data.successMsg);
+													
+													$('input[name=BNO]').val(data.obj);
 												} else {
 													console
 															.log("error in updated updated"
@@ -388,7 +369,7 @@
 			var serviceTax = parseFloat($('input[name="LSTXR"]').val()) || 0;
 			
 			
-			var currentYrAmount = lockerRent+outstanding;
+			var currentYrAmount = lockerRent;
 							 	
 			//only this place is required to round off
 			var serviceTaxAmount = roundOff(((currentYrAmount* serviceTax)/100));
@@ -406,7 +387,7 @@
 			
 			//set the outstanding or advance amount for the key
 			//if ramt > totalAmount, advance, else outstanding
-			$('input[name="LPYBA"]').val(subtract(currentYrAmount,amountPaid));
+			$('input[name="LPYBA"]').val(subtract(currentYrAmount+outstanding,amountPaid));
 		}
 		
 	

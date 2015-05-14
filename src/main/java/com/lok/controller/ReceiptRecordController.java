@@ -80,6 +80,8 @@ public class ReceiptRecordController extends BaseController<ReceiptRecordService
 				// assuming saved successfully if no error is thrown
 				msg.setSuccessMsg(ReturnMessage.SuccessSet.INSERT_SUCCESS
 						.toString()+" : "+nextRCTN);
+				
+				msg.setObj(nextRCTN);
 
 			}catch(IllegalArgumentException e){
 				

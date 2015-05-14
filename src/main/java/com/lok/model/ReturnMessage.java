@@ -12,6 +12,7 @@ public class ReturnMessage {
 	private String successMsg;
 	private String status;
 	
+	private Object obj;
 	//Set of statuses of all return messages
 	public enum StatusOfMessage{
 		FAILURE,SUCCESS
@@ -109,4 +110,20 @@ public class ReturnMessage {
 		
 		return this;
 	}
+
+	/**
+	 * @return the obj
+	 */
+	public Object getObj() {
+		return obj;
+	}
+
+	/**
+	 * @param obj the obj to set
+	 */
+	public void setObj(Object obj) {
+		this.obj = obj;
+	}
+	
+	
 }

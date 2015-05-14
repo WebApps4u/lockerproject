@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.log4j.Logger;
+import org.codehaus.plexus.util.StringUtils;
 import org.hibernate.SessionFactory;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -308,7 +309,18 @@ public class BillRecordController extends BaseController<BillRecordService> {
 		try {
 
 			if(record.getLPYBA() <0){
-				throw new Exception(" Invalid Amount Payable ");
+				msg.setErrMsg("Open Key Already Exists in the System");
+				msg.setStatus(ReturnMessage.StatusOfMessage.FAILURE);
+				return msg;
+			}
+			
+			//TODO Validate all the key details. It should recalculate everything again, just to make sure any false input
+			//validateBillRecord(record);
+			
+			if (StringUtils.isBlank(record.getBNO())   ||record.getBNO().equalsIgnoreCase("NEW")){
+				//Get the new Bill number from DB
+				record.setBNO(MasterSeqRecordController.generateNextId(BillRecord.class));
+
 			}
 			
 			// Get the party details, which needs to be updated
@@ -343,7 +355,8 @@ public class BillRecordController extends BaseController<BillRecordService> {
 			
 			// assuming saved successfully if no error is thrown
 			msg.setSuccessMsg(ReturnMessage.SuccessSet.UPDATE_SUCCESS
-					.toString());
+					.toString()+record.getBNO());
+			msg.setObj(record.getBNO());
 
 		} catch (Exception e) {
 			logger.error(" Exception caught in BillRecordController.updateBillRecord() -> "

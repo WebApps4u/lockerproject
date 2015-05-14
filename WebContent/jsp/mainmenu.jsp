@@ -24,6 +24,8 @@
 	type="text/javascript"></script>
 <script src="/Locker_Financial_Society/js/jquery.dataTables.min.js"
 	type="text/javascript"></script>
+	<script src="/Locker_Financial_Society/js/jquery.blockUI.js"
+	type="text/javascript"></script>
 <script src="/Locker_Financial_Society/js/lok_jsutil.js"
 	type="text/javascript"></script>
 

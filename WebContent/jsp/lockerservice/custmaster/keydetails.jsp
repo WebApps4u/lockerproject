@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" 
+           uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +28,17 @@
 			<table>
 				<tr>
 					<td>Key no</td>
+					<!--  	onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />-->
 					<td><input name="KNO" size="6" type="text"
-						onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" /><input
-						type="button" id='getDetails' value="Get Details"></td>
+					
+							onkeydown="javascript:clickOnEnter(event,'getDetails')" />
+					<!--  Show Get details, only if the page is  -->
+					<c:if test="${param.id=='EXISTING' }">	
+						<input
+						type="button" id='getDetails' value="Get Details">
+					</c:if>	
+						</td>
+					
 					<td>Locker no</td>
 					<td><input name="LNO" size="6" type="text" /></td>
 					<td>R box</td>
@@ -39,8 +50,11 @@
 				<tr>
 					<td>Booking no</td>
 					<td><input name="LSNO" size="6" type="text"
-						readonly="readonly" /> <input type="button" id='getNewBookingNo'
+						readonly="readonly" placeholder="NEW"/>
+						<!--  
+						 <input type="button" id='getNewBookingNo'
 						value="Create New"></td>
+						-->
 					<td>Locker rent</td>
 					<td><input name="LOKR" type="number" step="0.01" /></td>
 					<td>Old Rent</td>
@@ -298,6 +312,9 @@
 															"successmsg");
 													$('#msg').html(
 															data.successMsg);
+													
+													//TODO, must be dynamic
+													$('input[name=LSNO]').val(data.obj);
 												} else {
 													console
 															.log("error in updated updated"

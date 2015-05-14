@@ -118,7 +118,11 @@ public class PartyRecordController extends BaseController<PartyRecordService>{
 			
 			//add another filter to fetch only Alive records
 			//which will have released box unchecked
-			search.addFilterIn(PartyRecordField.RBOX.toString(),"","F","f");
+			//search.addFilterIn(PartyRecordField.RBOX.toString(),"","F","f");
+			
+			//Modified on 14 May 2015
+			//The release condition is Release flag should be R
+			search.addFilterNotIn(PartyRecordField.RELS.toString(),"R","r");
 			
 			record = partyRecordService.search(search).get(0);  //only one record is expected for this condition
 			
@@ -142,17 +146,34 @@ public class PartyRecordController extends BaseController<PartyRecordService>{
 		ReturnMessage msg = new ReturnMessage();
 		try{
 			
+			//TODO Validate all the key details. It should recalculate everything again, just to make sure any false input
+			//validatePartyRecord(record);
+			
+			//check if key already active, and booking number is NEW. It is invalid, and should be returned with error
+			if(getActiveKeyRecordBean(record.getKNO())!=null && (StringUtils.isBlank(record.getLSNO())   ||record.getLSNO().equalsIgnoreCase("NEW"))){
+				msg.setErrMsg("Open Key Already Exists in the System");
+				msg.setStatus(ReturnMessage.StatusOfMessage.FAILURE);
+				return msg;
+			}
+			else if (StringUtils.isBlank(record.getLSNO())   ||record.getLSNO().equalsIgnoreCase("NEW")){
+				//Get the new Booking number from DB
+				record.setLSNO(MasterSeqRecordController.generateNextId(PartyRecord.class));
+			}
+			
 			//call the service method to update
 			partyRecordService.save(record);
 			
 			//assuming saved successfully if no error is thrown
-			msg.setSuccessMsg(ReturnMessage.SuccessSet.UPDATE_SUCCESS.toString());
+			msg.setSuccessMsg(ReturnMessage.SuccessSet.UPDATE_SUCCESS.toString()+record.getLSNO());
+			
+			msg.setObj(record.getLSNO());
 			
 		}catch(Exception e){
 			logger.error(" Exception caught in PartyRecordController.updatePartyRecord() -> "+e.getMessage());
 			e.printStackTrace();
 			
 			msg.setErrMsg(ReturnMessage.ErrorSet.UNKNOWN_ERROR.toString());
+			
 		}
 		
 		return msg;

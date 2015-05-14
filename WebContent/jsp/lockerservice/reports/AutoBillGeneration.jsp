@@ -80,7 +80,7 @@
 		
 		//insert the years
 	    insertYears();
-		
+	/* 	
 	  //Create dynamic table with all the bill details
 		function populateBillDetails(billDetails) {
 
@@ -91,6 +91,22 @@
 				}
 
 			});
+
+		} */
+	  
+		//Create dynamic table with all the bill details
+		function populateBillDetails(billDetails) {
+
+			
+			var dynatable = $('#billRecords').dynatable({
+	            dataset: {
+	                records: billDetails
+	            }
+	        }).data('dynatable');
+
+			//to clear old table data and use new data
+	        dynatable.settings.dataset.originalRecords = billDetails;
+	        dynatable.process();
 
 		}
 	  

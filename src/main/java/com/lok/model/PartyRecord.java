@@ -28,7 +28,7 @@ import org.hibernate.annotations.ForeignKey;
 public class PartyRecord implements Serializable {
 		
 	//key number
-	@Id 
+	//@Id 
 	private String KNO;
 	//locker number
 	private String LNO;

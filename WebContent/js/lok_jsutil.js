@@ -39,3 +39,13 @@ function printData(divToPrint)
    newWin.print();
    newWin.close();
 }
+
+//Function to click on the passing argument (should be id of button)
+//on pressing enter on a text field
+function clickOnEnter(e,idOfButton){
+	
+	if(e.keyCode==13){
+	document.getElementById(idOfButton).click();
+	}
+	return;
+}

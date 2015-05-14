@@ -46,5 +46,10 @@
 	</table>
 	<br>
 	</div>
+	
+	<script type="text/javascript">
+	
+	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+	</script>
 </body>
 </html>

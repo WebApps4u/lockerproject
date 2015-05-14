@@ -168,6 +168,8 @@ $(function() {
 									$('#msg').removeClass();
 									$('#msg').addClass("successmsg");
 									$('#msg').html(data.successMsg);
+									
+									$('input[name=RCTN]').val(data.obj);
 				        	   }
 				        	   else{
 				        		   console.log("error in updated updated"+data.errMsg);
@@ -226,11 +228,11 @@ $(function() {
 		
 		var serviceTax = parseFloat($('input[name="STAXR"]').val()) || 0;
 		
-		
-		var totalAmount = subtract(lockerRent+outstanding+interest+misc+bankCharges+appFee+legalFee+advances+accessCharges+suspense+breakingCharges,advancePay);
+		var totalAmount = lockerRent;
 						 	
 		//only this place is required to round off
 		var serviceTaxAmount = roundOff(((totalAmount* serviceTax)/100));
+		totalAmount = subtract(totalAmount+interest+misc+bankCharges+appFee+legalFee+advances+accessCharges+suspense+breakingCharges+serviceTaxAmount+outstanding,advancePay);
 		
 		//set the tax calculated
 		$('input[name="STAXA"]').val(serviceTaxAmount);

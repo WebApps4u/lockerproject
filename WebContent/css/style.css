@@ -195,7 +195,7 @@ tr.selected{
 	background : blue;
 }
 
-#keyDetails{
+#keyDetails, #contactDetails{
 	float: left;
 	display: inline-block;
 }
