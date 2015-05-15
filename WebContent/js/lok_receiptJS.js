@@ -6,6 +6,11 @@
 $(function() {
 
 
+	//set Bill date as sysdate if it is not already set
+	if($('input[name=RCTD]').val()==""){
+		$('input[name=RCTD]').val($.datepicker.formatDate('yy-mm-dd',new Date()));
+	}
+	
 	//populate key details section
 	function populateForm($form, data) {
 		// resetForm($form);
@@ -232,12 +237,13 @@ $(function() {
 						 	
 		//only this place is required to round off
 		var serviceTaxAmount = roundOff(((totalAmount* serviceTax)/100));
-		totalAmount = subtract(totalAmount+interest+misc+bankCharges+appFee+legalFee+advances+accessCharges+suspense+breakingCharges+serviceTaxAmount+outstanding,advancePay);
+		
 		
 		//set the tax calculated
 		$('input[name="STAXA"]').val(serviceTaxAmount);
 		
-		totalAmount = totalAmount+serviceTaxAmount;
+		totalAmount = subtract(totalAmount+interest+misc+bankCharges+appFee+legalFee+advances+accessCharges+suspense+breakingCharges+serviceTaxAmount+outstanding,advancePay);
+		//totalAmount = totalAmount+serviceTaxAmount;
 		//set the total
 		$('input[name="RGTOT"]').val(totalAmount);
 		

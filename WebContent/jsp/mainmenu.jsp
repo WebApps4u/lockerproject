@@ -36,12 +36,13 @@
 	<![endif]-->
 <script type="text/javascript">
 	//Load the datepicker, it will be required on all the pages
-	/* $(function() {
+	 $(function() {
 		$("input[type='date']").datepicker({
-			dateFormat : 'yy-mm-dd'
+			dateFormat : 'yy-mm-dd',
+			changeYear : true
 		}).val();
-		;
-	}); */
+		
+	}); 
 </script>
 </head>
 

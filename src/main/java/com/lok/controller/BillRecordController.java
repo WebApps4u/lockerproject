@@ -5,6 +5,7 @@ it will act as a binding between REST api and Service layer (which is DB layer i
  */
 package com.lok.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.plexus.util.StringUtils;
 import org.hibernate.SessionFactory;
@@ -346,6 +348,9 @@ public class BillRecordController extends BaseController<BillRecordService> {
 					partyRecord.setPOA(0D);
 				}
 			}
+			
+			//update rent due date for party master
+			partyRecord.setLRDD(DateUtils.addDays(record.getBTDT(), 1));
 			
 			// call the service method to update
 			billRecordService.save(record);

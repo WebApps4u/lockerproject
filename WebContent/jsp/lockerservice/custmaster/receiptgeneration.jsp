@@ -30,42 +30,42 @@
 			<div id="keyDetails">
 				<table>
 					<tr>
-						<td>Receipt Number</td>
+						<td class="displayTextLbl">Receipt Number</td>
 						<td><input name="RCTN" placeholder="NEW" readonly="" /></td>
 						<td></td>
 
-						<td>Date</td>
+						<td class="displayTextLbl">Date</td>
 						<td><input type="date" name='RCTD' value="" /></td>
 					</tr>
 
 				</table>
 				<table>
 					<tr>
-						<td>Key no</td>
+						<td class="displayTextLbl">Key no</td>
 						<td><input name="RKNO" size="6" type="text"
 							onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />
 							<input type="button" id='getDetails' value="Go"></td>
-						<td>Locker no</td>
+						<td class="displayTextLbl">Locker no</td>
 						<td><input readonly="readonly" name="LNO" size="6"
 							type="text" /></td>
-						<td>Locker rent</td>
+						<td class="displayTextLbl">Locker rent</td>
 						<td><input readonly="readonly" name="LOKR" type="number"
 							step="0.01" /></td>
 					</tr>
 					<tr>
-						<td>Lease date</td>
+						<td class="displayTextLbl">Lease date</td>
 						<td><input readonly="readonly" type="date" name="LSDT" /></td>
-						<td>Booking no</td>
+						<td class="displayTextLbl">Booking no</td>
 						<td><input readonly="readonly" name="LSNO" size="6"
 							type="text" /></td>
 
-						<td>Outstanding</td>
+						<td class="displayTextLbl">Outstanding</td>
 						<td><input readonly="readonly" name="POA" type="number"
 							step="0.01" /></td>
 
 					</tr>
 					<tr>
-						<td>Advance</td>
+						<td class="displayTextLbl">Advance</td>
 						<td><input readonly="readonly" type="date" name="LPA" /></td>
 						<td></td>
 						<td></td>
@@ -75,12 +75,10 @@
 				</table>
 				<table>
 					<tr>
-						<th></th>
 						<th>Contact Details</th>
 
 					</tr>
 					<tr>
-						<td>1st</td>
 						<!-- Ist Name -->
 						<td><select readonly="readonly" name="PNM1">
 								<option value="MR">Mr</option>
@@ -90,15 +88,13 @@
 
 					</tr>
 					<tr>
-						<!-- 2nd Name -->
-						<td>2nd</td>
+
 						<td><input readonly="readonly" name="PNM4" size="40"
 							type="text" /></td>
 
 					</tr>
 					<tr>
-						<!-- 3rd Name -->
-						<td>3rd</td>
+
 						<td><input readonly="readonly" name="PNM5" size="40"
 							type="text" /></td>
 
@@ -106,25 +102,21 @@
 
 
 					<tr>
-						<td>E-mail</td>
 						<td><input readonly="readonly" type="email" name="EMAILID"
 							style="width: 200px;" /></td>
 					</tr>
 					<tr>
-						<td>Phones</td>
 						<td><input readonly="readonly" type="text" name="PHN" /></td>
 
 					</tr>
 
 					<tr>
-						<td>Address</td>
 						<td class="tdAddress" colspan=5><input readonly="readonly"
 							name="PAD1" type="text" /> <input readonly="readonly"
-							name="PAD2" type="text" /></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input readonly="readonly" name="PAD3" type="text" /> <input
+							name="PAD2" type="text" />
+	                    <br>
+
+						<input readonly="readonly" name="PAD3" type="text" /> <input
 							name="PAD4" type="text" readonly="readonly" /></td>
 					</tr>
 
@@ -156,12 +148,12 @@
 						<th>Amount</th>
 					</tr>
 					<tr>
-						<td>Locker Rent</td>
+						<td class="displayTextLbl">Locker Rent</td>
 						<td><input type="number" step="0.01" name="RRNT" /></td>
 					</tr>
 					
 					<tr>
-						<td>Service tax@<input type="number" step="0.01"
+						<td class="displayTextLbl">Service tax@<input type="number" step="0.01"
 							name="STAXR" value="14" />%
 						</td>
 						<td><input type="number" step="0.01" name="STAXA"
@@ -169,71 +161,74 @@
 					</tr>
 					<tr></tr>
 					<tr>
-						<td>Interest</td>
+						<td class="displayTextLbl">Interest</td>
 						<td><input type="number" step="0.01" name="RINT" /></td>
 					</tr>
 					<tr>
-						<td>Misc charges</td>
+						<td class="displayTextLbl">Misc charges</td>
 						<td><input type="number" step="0.01" name="RINC" /></td>
 					</tr>
 					<tr>
-						<td>Bank charges</td>
+						<td class="displayTextLbl">Bank charges</td>
 						<td><input type="number" step="0.01" name="RBC" /></td>
 					</tr>
 					<tr>
-						<td>Application Fees</td>
+						<td class="displayTextLbl">Application Fees</td>
 						<td><input type="number" step="0.01" name="RAPF" /></td>
 					</tr>
 					<tr>
-						<td>Legal Fees</td>
+						<td class="displayTextLbl">Legal Fees</td>
 						<td><input type="number" step="0.01" name="RGLF" /></td>
 					</tr>
 					<tr>
-						<td>Advances</td>
+						<td class="displayTextLbl">Advances</td>
 						<td><input type="number" step="0.01" name="RDAV" /></td>
 					</tr>
 					<tr>
-						<td>Access charges</td>
+						<td class="displayTextLbl">Access charges</td>
 						<td><input type="number" step="0.01" name="RACH" /></td>
 					</tr>
 					<tr>
-						<td>Suspense</td>
+						<td class="displayTextLbl">Suspense</td>
 						<td><input type="number" step="0.01" name="RSUS" /></td>
 					</tr>
 					<tr>
-						<td>Breaking charges</td>
+						<td class="displayTextLbl">Breaking charges</td>
 						<td><input type="number" step="0.01" name="BRKCH" /></td>
 					</tr>
 
 					
 					<tr></tr>
 										<tr>
-						<td>Less at credit(-)</td>
+						<td class="displayTextLbl">Less at credit(-)</td>
 						<td><input type="number" step="0.01" name="RADVP" /></td>
 					</tr>
 					<tr>
-						<td>Add previous due</td>
+						<td class="displayTextLbl">Add previous due</td>
 						<td><input type="number" step="0.01" name="RPOUT" /></td>
 					</tr>
-					
+					<tr></tr>
+					<tr></tr>
 					<tr>
-						<td>Total</td>
+						<td class="displayTextLbl">Total</td>
 						<td><input type="number" step="0.01" name="RGTOT"
 							readonly="readonly" /></td>
 					</tr>
+					<tr></tr>
+					<tr></tr>
 						<tr>
-						<td>Amount Paid</td>
+						<td class="displayTextLbl">Amount Paid</td>
 						<td><input name="RAMT" type="number" step="0.01" value="0">
 					</tr>
 					<tr></tr>
 					
 					<tr>
-							<td>Advance for Future</td>
+							<td class="displayTextLbl">Advance for Future</td>
 							<td><input type="number" step="0.01" name="RADV" value="0" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
-							<td>New Outstanding</td>
+							<td class="displayTextLbl">New Outstanding</td>
 							<td><input type="number" step="0.01" name="RCOUT" value="0" readonly="readonly"></td>
 						</tr>
 

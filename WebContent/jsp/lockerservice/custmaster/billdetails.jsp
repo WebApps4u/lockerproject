@@ -26,27 +26,27 @@
 		
 			<table id ="billDetails">
 				<tr>
-					<td>Bill no</td>
+					<td class="displayTextLbl">Bill no</td>
 					<td><input name="BNO" size="6" placeholder="NEW" type="text" ${param.id!='EXISTING'?"readonly":'' }
-						onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />
+						onkeydown="javascript:clickOnEnter(event,'getDetails')" />
 						<c:if test="${param.id=='EXISTING' }">	
 						<input
 						type="button" id='getDetails' value="Get Details">
 					</c:if>	</td>
 					<!-- 	<input
 						type="button" id='getNewBillNo' value="Create New"></td> -->
-					<td>Bill Date</td>
+					<td class="displayTextLbl">Bill Date</td>
 					<td><input type="date" name="BDT"></td>
 
-					<td>Rent</td>
-					<td><input type="date" name="BFDT"></td>
-					<td>TO</td>
-					<td><input type="date" name="BTDT"></td>
+					<td class="displayTextLbl">Rent</td>
+					<td><input type="date" name="BFDT"  required="required" id="from" onchange="setToDate()"></td>
+					<td class="displayTextLbl">TO</td>
+					<td><input type="date" name="BTDT" id="to" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<td>Key no</td>
+					<td class="displayTextLbl">Key no</td>
 					<td><input name="KNO" size="6" type="text" 
-					onkeydown="javascript:clickOnEnter('getKeyDetails')"
+					onkeydown="javascript:clickOnEnter(event,'getKeyDetails')"
 					/>
 					<input
 						type="button" id='getKeyDetails' value="Get Details"></td>
@@ -64,12 +64,10 @@
 			<table id="contactDetails">
 
 				<tr>
-					<th></th>
-					<th>Name</th>
+					<th>Contact Details</th>
 				</tr>
 				<tr>
-					<td>1st</td>
-					<!-- Ist Name -->
+
 					<td><select name="PNM1">
 							<option value="MR">Mr</option>
 							<option value="MRS">Mrs</option>
@@ -77,42 +75,31 @@
 
 				</tr>
 				<tr>
-					<!-- 2nd Name -->
-					<td>2nd</td>
+
 					<td><input name="PNM4" size="40" type="text" /></td>
 
 					
 				</tr>
 				<tr>
-					<!-- 3rd Name -->
-					<td>3rd</td>
+
 					<td><input name="PNM5" size="40" type="text" /></td>
 
 
 					
 				</tr>
 				<tr>
-					<!-- Deputy Name -->
-					<td>Deputy</td>
-					<td><input type="text" size="40" /></td>
 
-
-					
-				</tr>
-
-				<tr>
-					<td>E-mail</td>
 					<td><input type="email" name="EMAILID" style="width: 100px;" />
 					</td>
 				</tr>
 				<tr>
-					<td>Phones</td>
+	
 					<td><input type="text" name="PHN" /></td>
 
 				</tr>
 
 				<tr>
-					<td>Address</td>
+	
 					<td class="tdAddress" ><input name="PAD1" type="text" />
 						<input name="PAD2" type="text" /> <br><input name="PAD3" type="text" />
 						<input name="PAD4" type="text" /></td>
@@ -128,32 +115,32 @@
 					<th>Amount</th>
 				</tr>
 				<tr>
-					<td>Locker Rent</td>
+					<td class="displayTextLbl">Locker Rent</td>
 					<td><input type="number" step="0.01" name="LAMT"></td>
 				</tr>
 				
 				<tr>
 
-					<td>Service Tax<input type="number" step="0.01" name="LSTXR" value="14">%</td>
+					<td class="displayTextLbl">Service Tax<input type="number" step="0.01" name="LSTXR" value="14">%</td>
 					<td><input type="number" step="0.01" name="LSTXA" readonly="readonly"></td>
 				</tr>
 				<tr>
 
-					<td>Current Year Payment</td>
+					<td class="displayTextLbl">Current Year Payment</td>
 					<td><input type="number" step="0.01" name="LCP"></td>
 
 				</tr>
 				<tr>
-					<td>OutStanding Amount</td>
+					<td class="displayTextLbl">OutStanding Amount</td>
 					<td><input type="number" step="0.01" name="LOUT"></td>
 				</tr>
 				<tr>
-					<td>Amount Paid</td>
+					<td class="displayTextLbl">Amount Paid</td>
 					<td><input type="number" step="0.01" name="LADV"></td>
 				</tr>
 				<tr>
 					<!--  This is auto calculated, both frontend and backend -->
-					<td>Amount Payable</td>
+					<td class="displayTextLbl">Amount Payable</td>
 					<td><input type="number" step="0.01" name="LPYBA"
 						readonly="readonly"></td>
 				</tr>
@@ -170,6 +157,11 @@
 	<script type="text/javascript">
 		//equivalent of $(document).ready(function(){...
 		$(function() {
+			
+			//set Bill date as sysdate if it is not already set
+			if($('input[name=BDT]').val()==""){
+				$('input[name=BDT]').val($.datepicker.formatDate('yy-mm-dd',new Date()));
+			}
 			
 			function disableElements(el) {
 				for (var i = 0; i < el.length; i++) {
@@ -253,6 +245,10 @@
 					populateForm($('form[id=frm_billDetails]'), data);
 					disableElements($('#contactDetails'));
 					populateParticulars(data.LOKR,data.POA, data.LPA);
+					
+					//fill bill from date. This should be the 
+					$('#from').val(data.LRDD);
+					setToDate();
 				}).fail(function(error) {
 					//log error to console
 					console.log(error);
@@ -269,7 +265,8 @@
 
 
 			//call the rest api to new booking number available
-			$('#getNewBillNo').on('click', function() {
+			//Depreciated
+		/* 	$('#getNewBillNo').on('click', function() {
 				//get ajax call
 				$.get('/Locker_Financial_Society/rest/autogen/billnumber/'
 
@@ -283,7 +280,7 @@
 					console.log(error);
 				})
 
-			})
+			}) */
 
 			$('#submitNewBill')
 					.on(
@@ -390,7 +387,21 @@
 			$('input[name="LPYBA"]').val(subtract(currentYrAmount+outstanding,amountPaid));
 		}
 		
-	
+		//Sets To date, which should 1 day less than the From date
+		function setToDate(){
+			var fromDate = $('#from').val();
+			
+			//if no from date, then do nothing
+			if(!fromDate){
+				return;
+			}
+			
+			var t = new Date(fromDate);
+			t.setFullYear(t.getFullYear()+1);
+			t.setDate(t.getDate()-1);
+			
+			$('#to').val($.datepicker.formatDate('yy-mm-dd',t));
+		}
 	</script>
 
 	<div style="clear: both;"></div>

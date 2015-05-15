@@ -82,7 +82,9 @@ public class LokUtility {
 
 					// get the value from json
 					String value = (String) obj.getString(key);
-					obj.put(key, value.split(" ")[0]);
+					
+					//Get only the date part, if null, then replace it by empty String
+					obj.put(key, (value==null||value.equals("null"))?"":value.split(" ")[0]);
 				}
 			}
 		} catch (JSONException e) {

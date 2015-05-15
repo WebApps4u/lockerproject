@@ -27,7 +27,7 @@
 		<form id="frm_keyDetails">
 			<table>
 				<tr>
-					<td>Key no</td>
+					<td class="displayTextLbl">Key no</td>
 					<!--  	onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />-->
 					<td><input name="KNO" size="6" type="text"
 					
@@ -39,36 +39,36 @@
 					</c:if>	
 						</td>
 					
-					<td>Locker no</td>
+					<td class="displayTextLbl">Locker no</td>
 					<td><input name="LNO" size="6" type="text" /></td>
-					<td>R box</td>
+					<td class="displayTextLbl">R box</td>
 					<td><input name="RBOX" maxlength="1" size="1" type="text" />
 					</td>
-					<td>Lease date</td>
+					<td class="displayTextLbl">Lease date</td>
 					<td><input type="date" name="LSDT" /></td>
 				</tr>
 				<tr>
-					<td>Booking no</td>
+					<td class="displayTextLbl">Booking no</td>
 					<td><input name="LSNO" size="6" type="text"
 						readonly="readonly" placeholder="NEW"/>
 						<!--  
 						 <input type="button" id='getNewBookingNo'
 						value="Create New"></td>
 						-->
-					<td>Locker rent</td>
+					<td class="displayTextLbl">Locker rent</td>
 					<td><input name="LOKR" type="number" step="0.01" /></td>
-					<td>Old Rent</td>
+					<td class="displayTextLbl">Old Rent</td>
 					<td><input type="number" name="OLOKR" step="0.01" />
-					<td>S deposit</td>
+					<td class="displayTextLbl">S deposit</td>
 					<td><input name="LSDA" type="number" step="0.01" /></td>
 
 				</tr>
 				<tr>
-					<td>Old Booking no</td>
+					<td class="displayTextLbl">Old Booking no</td>
 					<td><input name="LSNO2" size="6" type="text" /></td>
-					<td>Rent due date</td>
+					<td class="displayTextLbl">Rent due date</td>
 					<td><input type="date" name="LRDD" /></td>
-					<td>Folio no</td>
+					<td class="displayTextLbl">Folio no</td>
 					<td><input name="FLON" size="6" type="text" /></td>
 				</tr>
 
@@ -77,7 +77,7 @@
 			<table>
 
 				<tr>
-					<th></th>
+					<th>Link Customer</th>
 					<th>Name</th>
 					<th>PP/Aadhar/DL</th>
 					<th>Electricity bill</th>
@@ -85,7 +85,7 @@
 					<th>Photograph</th>
 				</tr>
 				<tr>
-					<td>Link Existing Customer <input name="FIRSTCUSTOMER" type="text"></td>
+					<td><input name="FIRSTCUSTOMER" type="text" size="6" placeholder="1st"></td>
 					<!-- Ist Name -->
 					<td><select name="PNM1">
 							<option value="MR">Mr</option>
@@ -104,7 +104,7 @@
 				</tr>
 				<tr>
 					<!-- 2nd Name -->
-					<td>2nd</td>
+					<td><input name="SECONDCUSTOMER" size="6" type="text" placeholder="2nd"></td>
 					<td><input name="PNM4" size="40" type="text" /></td>
 
 					<!--  KYC doc -->
@@ -119,7 +119,7 @@
 				</tr>
 				<tr>
 					<!-- 3rd Name -->
-					<td>3rd</td>
+					<td><input name="THIRDCUSTOMER" size="6" type="text" placeholder="3rd"></td>
 					<td><input name="PNM5" size="40" type="text" /></td>
 
 
@@ -135,7 +135,7 @@
 				</tr>
 				<tr>
 					<!-- Deputy Name -->
-					<td>Deputy</td>
+					<td class="displayTextLbl">Deputy</td>
 					<td><input type="text" size="40" /></td>
 
 
@@ -151,18 +151,19 @@
 				</tr>
 
 				<tr>
-					<td>E-mail</td>
+					<td class="displayTextLbl">E-mail</td>
 					<td><input type="email" name="EMAILID" style="width: 392px;" />
 					</td>
-
-					<td>Phones</td>
+				</tr>
+				<tr>
+					<td class="displayTextLbl">Phones</td>
 					<td><input type="text" name="PHN" /></td>
 					<td></td>
 					<td></td>
 				</tr>
 
 				<tr>
-					<td>Address</td>
+					<td class="displayTextLbl">Address</td>
 					<td class="tdAddress" colspan=5><input name="PAD1" type="text" />
 						<input name="PAD2" type="text" /> <input name="PAD3" type="text" />
 						<input name="PAD4" type="text" /></td>
@@ -171,24 +172,24 @@
 			<table>
 
 				<tr>
-					<td>Outstanding:</td>
+					<td class="displayTextLbl">Outstanding:</td>
 					<td><input type="number" name="POA" step="0.01"></td>
-					<td>Advance Rent</td>
+					<td class="displayTextLbl">Advance Rent</td>
 					<td><input type="number" name="PCRA" step="0.01"></td>  <!--  TODO, this is temporary done, it is PCRA -->
-					<td>Receipt No.</td>
+					<td class="displayTextLbl">Receipt No.</td>
 					<td><input type="text" name="LRNO"></td>
-					<td>Receipt Date</td>
+					<td class="displayTextLbl">Receipt Date</td>
 					<td><input type="date" name="LRND"></td>
 
 				</tr>
 				<tr>
-					<td>Remark:</td>
+					<td class="displayTextLbl">Remark:</td>
 					<td><input type="text" name="REMARKS"></td>
-					<td>Service tax</td>
+					<td class="displayTextLbl">Service tax</td>
 					<td><input type="number" name="PCRAST" step="0.01"></td>
-					<td>Release</td>
+					<td class="displayTextLbl">Release</td>
 					<td><input type="text" name="RELS" size="1" /></td>
-					<td>Release Date</td>
+					<td class="displayTextLbl">Release Date</td>
 					<td><input type="date" name="RELSD" /></td>
 
 				</tr>
@@ -212,6 +213,11 @@
 		//equivalent of $(document).ready(function(){...
 		$(function() {
 
+			//set Bill date as sysdate if it is not already set
+			if($('input[name=LSDT]').val()==""){
+				$('input[name=LSDT]').val($.datepicker.formatDate('yy-mm-dd',new Date()));
+			}
+			
 			//generic function to populate form data 
 			//TODO need to be moved to the generic js file
 			function populateForm($form, data) {
