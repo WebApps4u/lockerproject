@@ -156,7 +156,20 @@ public class PartyRecord implements Serializable {
 	
 	private String SECONDCUSTOMER;
 	private String THIRDCUSTOMER;
+	
+	//added for user preference to get email/sms/print
+	private String SENDEMAIL1;
+	private String SENDSMS1;
+	private String SENDPRINT1;
 					
+	private String SENDEMAIL2;
+	private String SENDSMS2;
+	private String SENDPRINT2;
+	
+	private String SENDEMAIL3;
+	private String SENDSMS3;
+	private String SENDPRINT3;
+	
 	private static final Long serialVersionUID = 1L;
 
 	public PartyRecord() {
@@ -1050,6 +1063,132 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setTHIRDCUSTOMER(String tHIRDCUSTOMER) {
 		THIRDCUSTOMER = tHIRDCUSTOMER;
+	}
+
+	/**
+	 * @return the sENDEMAIL1
+	 */
+	public String getSENDEMAIL1() {
+		return SENDEMAIL1;
+	}
+
+	/**
+	 * @param sENDEMAIL1 the sENDEMAIL1 to set
+	 */
+	public void setSENDEMAIL1(String sENDEMAIL1) {
+		SENDEMAIL1 = sENDEMAIL1;
+	}
+
+	/**
+	 * @return the sENDSMS1
+	 */
+	public String getSENDSMS1() {
+		return SENDSMS1;
+	}
+
+	/**
+	 * @param sENDSMS1 the sENDSMS1 to set
+	 */
+	public void setSENDSMS1(String sENDSMS1) {
+		SENDSMS1 = sENDSMS1;
+	}
+
+	/**
+	 * @return the sENDPRINT1
+	 */
+	public String getSENDPRINT1() {
+		return SENDPRINT1;
+	}
+
+	/**
+	 * @param sENDPRINT1 the sENDPRINT1 to set
+	 */
+	public void setSENDPRINT1(String sENDPRINT1) {
+		SENDPRINT1 = sENDPRINT1;
+	}
+
+	/**
+	 * @return the sENDEMAIL2
+	 */
+	public String getSENDEMAIL2() {
+		return SENDEMAIL2;
+	}
+
+	/**
+	 * @param sENDEMAIL2 the sENDEMAIL2 to set
+	 */
+	public void setSENDEMAIL2(String sENDEMAIL2) {
+		SENDEMAIL2 = sENDEMAIL2;
+	}
+
+	/**
+	 * @return the sENDSMS2
+	 */
+	public String getSENDSMS2() {
+		return SENDSMS2;
+	}
+
+	/**
+	 * @param sENDSMS2 the sENDSMS2 to set
+	 */
+	public void setSENDSMS2(String sENDSMS2) {
+		SENDSMS2 = sENDSMS2;
+	}
+
+	/**
+	 * @return the sENDPRINT2
+	 */
+	public String getSENDPRINT2() {
+		return SENDPRINT2;
+	}
+
+	/**
+	 * @param sENDPRINT2 the sENDPRINT2 to set
+	 */
+	public void setSENDPRINT2(String sENDPRINT2) {
+		SENDPRINT2 = sENDPRINT2;
+	}
+
+	/**
+	 * @return the sENDEMAIL3
+	 */
+	public String getSENDEMAIL3() {
+		return SENDEMAIL3;
+	}
+
+	/**
+	 * @param sENDEMAIL3 the sENDEMAIL3 to set
+	 */
+	public void setSENDEMAIL3(String sENDEMAIL3) {
+		SENDEMAIL3 = sENDEMAIL3;
+	}
+
+	/**
+	 * @return the sENDSMS3
+	 */
+	public String getSENDSMS3() {
+		return SENDSMS3;
+	}
+
+	/**
+	 * @param sENDSMS3 the sENDSMS3 to set
+	 */
+	public void setSENDSMS3(String sENDSMS3) {
+		SENDSMS3 = sENDSMS3;
+	}
+
+	/**
+	 * @return the sENDPRINT3
+	 */
+	public String getSENDPRINT3() {
+		return SENDPRINT3;
+	}
+
+	/**
+	 * @param sENDPRINT3 the sENDPRINT3 to set
+	 */
+	public void setSENDPRINT3(String sENDPRINT3) {
+		SENDPRINT3 = sENDPRINT3;
 	}   
 	   
 }

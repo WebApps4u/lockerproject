@@ -123,3 +123,41 @@ ALTER TABLE `kplok_dev_db`.`partyrecord`
 ADD COLUMN `FIRSTCUSTOMER` VARCHAR(45) NULL AFTER `STPBL`,
 ADD COLUMN `SECONDCUSTOMER` VARCHAR(45) NULL AFTER `FIRSTCUSTOMER`,
 ADD COLUMN `THIRDCUSTOMER` VARCHAR(45) NULL AFTER `SECONDCUSTOMER`;
+
+
+
+---------------------------------------
+--- Add columns to partyrecord table to get the user preference for sending sms/email/print
+-----------------------------------------
+
+ALTER TABLE `kplok_dev_db`.`partyrecord` 
+ADD COLUMN `SENDEMAIL1` VARCHAR(1) NULL AFTER `THIRDCUSTOMER`,
+ADD COLUMN `SENDSMS1` VARCHAR(1) NULL AFTER `SENDEMAIL1`,
+ADD COLUMN `SENDPRINT1` VARCHAR(1) NULL AFTER `SENDSMS1`,
+ADD COLUMN `SENDEMAIL2` VARCHAR(1) NULL AFTER `SENDPRINT1`,
+ADD COLUMN `SENDSMS2` VARCHAR(1) NULL AFTER `SENDEMAIL2`,
+ADD COLUMN `SENDPRINT2` VARCHAR(1) NULL AFTER `SENDSMS2`,
+ADD COLUMN `SENDEMAIL3` VARCHAR(1) NULL AFTER `SENDPRINT2`,
+ADD COLUMN `SENDSMS3` VARCHAR(1) NULL AFTER `SENDEMAIL3`,
+ADD COLUMN `SENDPRINT3` VARCHAR(1) NULL AFTER `SENDSMS3`;
+
+-------------------------------------------------------------
+--- Email and Sms sending status of Bill
+-------------------------------------------------------------
+ALTER TABLE `kplok_dev_db`.`billrecord` 
+ADD COLUMN `SENDEMAIL` VARCHAR(1) NULL COMMENT 'P- Email is to sent\nY- Email has been successfully sent\nN or null - Email not to be sent\nF - Email sending is unsucessful because of errors' AFTER `REMDA6`,
+ADD COLUMN `SENDSMS` VARCHAR(1) NULL COMMENT 'P- sms is to sent\nY- sms has been successfully sent\nN or null - sms not to be sent\nF - sms sending is unsucessful because of errors' AFTER `SENDEMAIL`;
+
+
+
+---------------------------------------------------------------
+--- New table to store outgoing email map
+---------------------------------------------------------------
+CREATE TABLE `kplok_dev_db`.`emailoutbound` (
+  `objectid` VARCHAR(20) NOT NULL,
+  `objecttype` VARCHAR(100) NOT NULL)
+COMMENT = 'It has primary key & its table name for which email is to be generated. The process which add data to this table and then remove it on completion.';
+
+
+
+

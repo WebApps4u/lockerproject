@@ -1,3 +1,8 @@
+USE `kplok_dev_db`;
+DROP procedure IF EXISTS `auto_bill_generation`;
+
+DELIMITER $$
+USE `kplok_dev_db`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `auto_bill_generation`(
 IN dueMonth varchar(2),   -- month should in digits, 01, 02, 03 etc
 IN dueYear varchar(4)
@@ -25,6 +30,8 @@ declare v_party_olokr varchar(255);
 declare v_party_poa varchar(255);
 declare v_party_pcra varchar(255);
 declare v_party_pcrast varchar(255);
+declare v_party_emailflag varchar(10);
+declare v_party_emailid   varchar(100);
 
 -- Bill record variable
 declare v_bill_kno varchar(10);
@@ -42,6 +49,10 @@ declare v_bill_lrno varchar(255);
 declare v_bill_lrctn varchar(10);
 declare v_bill_lrctd date;
 declare v_bill_bflag varchar(1);
+declare v_bill_emailflag varchar(10);
+
+ 
+
 
 -- batch count
 declare v_batch_count int default 0;
@@ -57,8 +68,8 @@ START transaction;
 
 drop view if exists party_view;
 insert into lok_log_debug values(null,'auto_bill_gen',55,'drop view',sysdate());
-set @queryParty = concat('CREATE VIEW party_view as select t.KNO,t.LOKR,t.lpa,t.lrdd,t.LRND,t.LRNO,t.LSDT,t.LSNO,t.OLOKR,t.POA,t.PCRA,t.PCRAST 
-						from partyrecord t where upper(t.RELS) <> ''R'' and upper(t.STPBL) <> ''Y'' and year(t.LRDD) = ',
+set @queryParty = concat('CREATE VIEW party_view as select t.KNO,t.LOKR,t.lpa,t.lrdd,t.LRND,t.LRNO,t.LSDT,t.LSNO,t.OLOKR,t.POA,t.PCRA,t.PCRAST,t.SENDEMAIL1,t.EMAILID 
+						from partyrecord t where ifnull(upper(t.RELS),''X'') <> ''R'' and ifnull(upper(t.STPBL),''X'') <> ''Y'' and year(t.LRDD) = ',
                         dueYear,' and month(t.LRDD) = ',dueMonth);
                         
 insert into lok_log_debug values(null,'auto_bill_gen',59,@queryParty,sysdate());
@@ -69,7 +80,7 @@ DEALLOCATE PREPARE stmt;
 insert into lok_log_debug values(null,'auto_bill_gen',65,@queryParty,sysdate());
 OPEN cur_party; 
 gen_bill: LOOP
-FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_lrnd,v_party_lrno,v_party_lsdt,v_party_lsno,v_party_olokr,v_party_poa,v_party_pcra,v_party_pcrast;
+FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_lrnd,v_party_lrno,v_party_lsdt,v_party_lsno,v_party_olokr,v_party_poa,v_party_pcra,v_party_pcrast,v_party_emailflag,v_party_emailid;
 	IF finished THEN
 		LEAVE gen_bill;
     END IF;
@@ -116,6 +127,10 @@ FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_l
     
     -- calculate the payable amount lpyba = lcp - ladv
     set v_bill_lpyba = v_bill_lcp - v_bill_ladv;
+    
+    -- email flag, if email is to be sent
+    set v_bill_emailflag = v_party_emailflag;
+    
     insert into lok_log_debug values(null,'auto_bill_gen',116,concat('key no -',v_party_kno),sysdate());
     -- if overpaid, or balanced out
     if v_bill_lpyba <= 0.0 then
@@ -136,9 +151,23 @@ FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_l
         set v_bill_bflag = '';
         
 	end if;
+	
+    -- Generate new bill number
+    set @bill_seq = 0;
+	set @bill_init = "";
+	set @new_bno = "";
+    
+	select t.last_seq,t.object_intial into @bill_seq,@bill_init from lok_master_seq t where t.object_type = 'billrecord';
+	set @bill_seq = @bill_seq+1;
 
+
+	set @new_bno = concat(@bill_init, @bill_seq);
+-- update the last seq
+	update lok_master_seq set last_seq = @bill_seq where object_type = 'billrecord';
+    
     -- insert into bill table
     insert into billrecord (
+			`BNO`,
 			`BDT`,
 			`BFDT`,
 			`BTDT`,
@@ -158,9 +187,11 @@ FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_l
             `REMDA3`,
             `REMDA4`,
             `REMDA5`,
-            `REMDA6`
+            `REMDA6`,
+            `SENDEMAIL`
 			)
 			VALUES(
+            @new_bno,
 			sysdate(),          -- BDT
 			v_bill_bfdt,       -- BFDT
 			v_bill_BTDT,       -- BTDT
@@ -180,7 +211,8 @@ FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_l
             0.0,
             0.0,
             0.0,
-            0.0
+            0.0,
+            v_bill_emailflag
 			);
     
     -- update the key details with lrdd, pcra, poa
@@ -190,6 +222,13 @@ FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_l
                             pcrast = 0
 						where kno = v_party_kno and lsno = v_party_lsno;
     
+    -- Make an entry to the emailoutbound table, if email is to be sent
+    
+    insert into lok_log_debug values(null,'auto_bill_gen',180,concat('email flag ',v_bill_emailflag),sysdate());	
+    if v_bill_emailflag = 'Y' then
+    insert into emailoutbound values (@new_bno,'billrecord');
+    insert into lok_log_debug values(null,'insert i log',180,concat('bno ',@new_bno),sysdate());	
+    end if;
     
     -- increment batch count by 1
     set v_batch_count  = v_batch_count+1;
@@ -208,4 +247,7 @@ insert into lok_log_debug values(null,'auto_bill_gen',191,concat('Done for the m
 commit ;
 drop view if exists party_view;
 
-END
+END$$
+
+DELIMITER ;
+

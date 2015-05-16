@@ -26,10 +26,13 @@ import com.googlecode.genericdao.search.Search;
 import com.lok.config.ConfigurationLok;
 import com.lok.model.BillRecord;
 import com.lok.model.BillRecordField;
+import com.lok.model.EmailOutbound;
 import com.lok.model.PartyRecord;
 import com.lok.model.PartyRecordField;
 import com.lok.model.ReturnMessage;
 import com.lok.service.BillRecordService;
+import com.lok.service.EmailOutboundService;
+import com.lok.service.PartyRecordService;
 import com.lok.service.impl.LokUtility;
 
 /**
@@ -310,57 +313,88 @@ public class BillRecordController extends BaseController<BillRecordService> {
 		ReturnMessage msg = new ReturnMessage();
 		try {
 
-			if(record.getLPYBA() <0){
+			if (record.getLPYBA() < 0) {
 				msg.setErrMsg("Open Key Already Exists in the System");
 				msg.setStatus(ReturnMessage.StatusOfMessage.FAILURE);
 				return msg;
 			}
-			
-			//TODO Validate all the key details. It should recalculate everything again, just to make sure any false input
-			//validateBillRecord(record);
-			
-			if (StringUtils.isBlank(record.getBNO())   ||record.getBNO().equalsIgnoreCase("NEW")){
-				//Get the new Bill number from DB
-				record.setBNO(MasterSeqRecordController.generateNextId(BillRecord.class));
+
+			// TODO Validate all the key details. It should recalculate
+			// everything again, just to make sure any false input
+			// validateBillRecord(record);
+
+			if (StringUtils.isBlank(record.getBNO())
+					|| record.getBNO().equalsIgnoreCase("NEW")) {
+				// Get the new Bill number from DB
+				record.setBNO(MasterSeqRecordController
+						.generateNextId(BillRecord.class));
 
 			}
-			
+
 			// Get the party details, which needs to be updated
-			PartyRecord partyRecord = partyCntrl.getActiveKeyRecordBean(record.getKNO());
-			
-			//all the previous outstanding has been added to this bill
+			PartyRecord partyRecord = partyCntrl.getActiveKeyRecordBean(record
+					.getKNO());
+
+			// all the previous outstanding has been added to this bill
 			partyRecord.setPOA(0D);
-			
-			//if advance is given, it should be updated by subtracting the current amount paid.
-			//it cannot be negative
-			if(record.getLADV() > 0 ){
-				
-				
-				if( record.getLPYBA()>0){
-					//all advance is used in new bill, thus clear advance available
+
+			// if advance is given, it should be updated by subtracting the
+			// current amount paid.
+			// it cannot be negative
+			if (record.getLADV() > 0) {
+
+				if (record.getLPYBA() > 0) {
+					// all advance is used in new bill, thus clear advance
+					// available
 					partyRecord.setLSDA(0D);
-				}
-				else {
-					//bill is cleared, and so advance amount as well
+				} else {
+					// bill is cleared, and so advance amount as well
 					record.setBFLG("*");
 					record.setLRNO(partyRecord.getLRNO());
-					
+
 					partyRecord.setPOA(0D);
 				}
 			}
-			
-			//update rent due date for party master
+
+			// update rent due date for party master
 			partyRecord.setLRDD(DateUtils.addDays(record.getBTDT(), 1));
-			
+
 			// call the service method to update
 			billRecordService.save(record);
-            
-			//update party master
-			partyCntrl.getService().save(partyRecord);
+
+			// if the email is to be sent, create entry into email outbound
+			// table
+			// email outbound is rarely used from UI, thus creating local class
+			// to get the context
+
+			if (partyRecord.getSENDEMAIL1().equalsIgnoreCase("Y") || record.getSENDEMAIL().equalsIgnoreCase("Y")) {
+				
+				EmailOutbound email = new EmailOutbound();
+				email.setObjectId(record.getBNO());
+				email.setObjectType("billrecord");
+				
+				//No need of this local class, since it is never reused
+/*				class EmailContrl extends BaseController<EmailOutboundService> {
+
+					EmailContrl() {
+						super(EmailOutboundService.class);
+					}
+
+				}
+				;
+
+				new EmailContrl().getService().save(email);
+*/			
+				new BaseController<EmailOutboundService>(EmailOutboundService.class).getService().save(email);	
+			}
 			
+			
+			// update party master
+			partyCntrl.getService().save(partyRecord);
+
 			// assuming saved successfully if no error is thrown
 			msg.setSuccessMsg(ReturnMessage.SuccessSet.UPDATE_SUCCESS
-					.toString()+record.getBNO());
+					.toString() + record.getBNO());
 			msg.setObj(record.getBNO());
 
 		} catch (Exception e) {
@@ -481,9 +515,9 @@ public class BillRecordController extends BaseController<BillRecordService> {
 				search.addFilterCustom(new CustomDynamicQuery().createQuery(
 						CustomDynamicQuery.inYear, fromDate).build());
 				break;
-			
+
 			default:
-				//No search criteria found, send back error
+				// No search criteria found, send back error
 				throw new IllegalArgumentException();
 			}
 			// create filter to get bills having bfdt in the given month-year

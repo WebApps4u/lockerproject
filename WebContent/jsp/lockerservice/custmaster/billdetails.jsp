@@ -89,7 +89,8 @@
 				</tr>
 				<tr>
 
-					<td><input type="email" name="EMAILID" style="width: 100px;" />
+					<td><input type="email" name="EMAILID" />
+					
 					</td>
 				</tr>
 				<tr>
@@ -144,6 +145,7 @@
 					<td><input type="number" step="0.01" name="LPYBA"
 						readonly="readonly"></td>
 				</tr>
+				<tr><td><input type="text" size=1 name="SENDEMAIL"></td></tr>
 			</table>
 			</div>
 			<div class="fixed_buttons">

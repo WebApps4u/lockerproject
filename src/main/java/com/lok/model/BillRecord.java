@@ -102,6 +102,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	// penalty for 6 reminder
 	private Double REMDA6=0D;
 	
+	//email sending status
+	private String SENDEMAIL;	
+	
 	private static final long serialVersionUID = 1L;
 
 	public BillRecord() {
@@ -579,6 +582,20 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public static Long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	/**
+	 * @return the sENDMAIL
+	 */
+	public String getSENDEMAIL() {
+		return SENDEMAIL;
+	}
+
+	/**
+	 * @param sENDMAIL the sENDMAIL to set
+	 */
+	public void setSENDEMAIL(String sENDEMAIL) {
+		SENDEMAIL = sENDEMAIL;
 	}
 
 }

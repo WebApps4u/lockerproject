@@ -103,7 +103,7 @@
 
 					<tr>
 						<td><input readonly="readonly" type="email" name="EMAILID"
-							style="width: 200px;" /></td>
+							 /></td>
 					</tr>
 					<tr>
 						<td><input readonly="readonly" type="text" name="PHN" /></td>

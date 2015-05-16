@@ -30,7 +30,8 @@
 					<td class="displayTextLbl">Key no</td>
 					<!--  	onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />-->
 					<td><input name="KNO" size="6" type="text"
-					
+							pattern="\d{4}\-[A-Z]{1}"
+							placeholder="1212-A"
 							onkeydown="javascript:clickOnEnter(event,'getDetails')" />
 					<!--  Show Get details, only if the page is  -->
 					<c:if test="${param.id=='EXISTING' }">	
@@ -83,6 +84,9 @@
 					<th>Electricity bill</th>
 					<th>PAN</th>
 					<th>Photograph</th>
+					<th>Email</th>
+					<th>SMS</th>
+					<th>Print</th>
 				</tr>
 				<tr>
 					<td><input name="FIRSTCUSTOMER" type="text" size="6" placeholder="1st"></td>
@@ -101,6 +105,17 @@
 						maxlength="1" size="1" /></td>
 					<td class="tdMiddle"><input name="KYC14" type="text"
 						maxlength="1" size="1" /></td>
+						
+					<!--  Notifications -->
+					<td>
+					<input type="text" size="1"  name="SENDEMAIL1">
+					</td>
+					<td>
+					<input type="text" size="1"  name="SENDSMS1">
+					</td>
+					<td>
+					<input type="text" size="1"  name="SENDPRINT1">
+					</td>
 				</tr>
 				<tr>
 					<!-- 2nd Name -->
@@ -116,6 +131,17 @@
 						maxlength="1" size="1" /></td>
 					<td class="tdMiddle"><input name="KYC24" type="text"
 						maxlength="1" size="1" /></td>
+						
+					<!--  Notifications -->
+					<td>
+					<input type="text" size="1"  name="SENDEMAIL2">
+					</td>
+					<td>
+					<input type="text" size="1"  name="SENDSMS2">
+					</td>
+					<td>
+					<input type="text" size="1"  name="SENDPRINT2">
+					</td>
 				</tr>
 				<tr>
 					<!-- 3rd Name -->
@@ -132,6 +158,17 @@
 						maxlength="1" size="1" /></td>
 					<td class="tdMiddle"><input name="KYC34" type="text"
 						maxlength="1" size="1" /></td>
+						
+					<!--  Notifications -->
+					<td>
+					<input type="text" size="1"  name="SENDEMAIL3">
+					</td>
+					<td>
+					<input type="text" size="1"  name="SENDSMS3">
+					</td>
+					<td>
+					<input type="text" size="1"  name="SENDPRINT3">
+					</td>
 				</tr>
 				<tr>
 					<!-- Deputy Name -->
@@ -152,14 +189,11 @@
 
 				<tr>
 					<td class="displayTextLbl">E-mail</td>
-					<td><input type="email" name="EMAILID" style="width: 392px;" />
+					<td><input type="email" name="EMAILID" />
 					</td>
-				</tr>
-				<tr>
-					<td class="displayTextLbl">Phones</td>
-					<td><input type="text" name="PHN" /></td>
-					<td></td>
-					<td></td>
+						<td colspan="2" class="displayTextLbl">Phones</td>
+					<td colspan="2"><input type="text" name="PHN" /></td>
+					
 				</tr>
 
 				<tr>
