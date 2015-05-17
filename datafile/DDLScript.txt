@@ -89,9 +89,9 @@ COUNTRY    varchar(255),
 PINCODE    varchar(255),
 LANDMARK   varchar(255),
 CREATEDBY  varchar(100),
-CREATEDDATE datetime,
+CREATEDDATE date,
 MODIFIEDBY  varchar(100),
-MODIFIEDDATE datetime,
+MODIFIEDDATE date,
 NOTES     varchar(4000),
 FOLIONUM  VARCHAR(45));
 
@@ -159,5 +159,59 @@ CREATE TABLE `kplok_dev_db`.`emailoutbound` (
 COMMENT = 'It has primary key & its table name for which email is to be generated. The process which add data to this table and then remove it on completion.';
 
 
+
+ALTER TABLE `kplok_dev_db`.`emailoutbound` 
+ADD PRIMARY KEY (`objectid`, `objecttype`);
+
+
+-------------------------------------------------------------------
+--- Email template table having all the templates
+------------------------------------------------------------------
+CREATE TABLE `kplok_dev_db`.`emailtemplate` (
+  `emailtemplateid` INT NOT NULL,
+  `from` VARCHAR(100) NULL,
+  `tolist` VARCHAR(255) NULL,
+  `cclist` VARCHAR(255) NULL,
+  `subject` VARCHAR(255) NULL,
+  `body` VARCHAR(4000) NULL COMMENT 'Html formatted body. It should be having replacement variable as ${} only those variables would be replaced by the value.',
+  `datecreated` DATE NULL,
+  PRIMARY KEY (`emailtemplateid`))
+COMMENT = 'Stores all the templates for which email is to be generated. The set up template cannot be changed.\nFor every new page or template, develoer has to add the template. Supports one template for each table.\n';
+
+
+ALTER TABLE `kplok_dev_db`.`emailtemplate` 
+CHANGE COLUMN `from` `fromemail` VARCHAR(100) NULL DEFAULT NULL ;
+
+
+--------------------------------------------------------------------
+--- Email Sent table. Having all the emails. Also useful for generating reports
+--------------------------------------------------------------------
+
+CREATE TABLE `kplok_dev_db`.`emailsent` (
+  `OBJECTTYPE` VARCHAR(50) NOT NULL,
+  `OBJECTID` VARCHAR(45) NULL,
+  `TEMPLATEID` INT NULL,
+  `TOLIST` VARCHAR(255) NULL,
+  `FROM` VARCHAR(45) NULL,
+  `CCLIST` VARCHAR(255) NULL,
+  `BODY` VARCHAR(4000) NULL,
+  `DATECREATED` DATE NULL,
+  `CREATEDBY` VARCHAR(50) NULL,
+  PRIMARY KEY (`OBJECTTYPE`))
+COMMENT = 'Having records of all the emails that are sent by the java application running. ';
+
+
+ALTER TABLE `kplok_dev_db`.`emailsent` 
+CHANGE COLUMN `FROM` `FROMEMAIL` VARCHAR(45) NULL DEFAULT NULL ;
+
+
+
+
+ALTER TABLE `kplok_dev_db`.`emailsent` 
+CHANGE COLUMN `FROMEMAIL` `FROMEMAIL` VARCHAR(255) NULL DEFAULT NULL ;
+
+ALTER TABLE `kplok_dev_db`.`emailsent` 
+CHANGE COLUMN `OBJECTID` `OBJECTID` VARCHAR(45) NOT NULL ,
+DROP PRIMARY KEY;
 
 

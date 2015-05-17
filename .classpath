@@ -171,5 +171,9 @@
 	<classpathentry kind="lib" path="E:/PROJECTS WAREHOUSE/apache-tomcat-7.0.35/lib/tomcat-jdbc.jar"/>
 	<classpathentry kind="lib" path="E:/PROJECTS WAREHOUSE/apache-tomcat-7.0.35/lib/tomcat-util.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="E:/PROJECTS WAREHOUSE/archives/apache-commons.jar"/>
+	<classpathentry kind="lib" path="E:/PROJECTS WAREHOUSE/archives/javax.mail.jar"/>
+	<classpathentry kind="lib" path="E:/PROJECTS WAREHOUSE/archives/javax.activation.jar"/>
+	<classpathentry kind="lib" path="E:/PROJECTS WAREHOUSE/archives/commons-lang3-3.4/commons-lang3-3.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
