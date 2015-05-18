@@ -31,8 +31,9 @@
 				<table>
 					<tr>
 						<td class="displayTextLbl">Receipt Number</td>
-						<td><input name="RCTN" placeholder="NEW" readonly="" /></td>
-						<td></td>
+						<td><input name="RCTN" placeholder="NEW"  size=6
+						onkeydown="clickOnEnter(event,'getDetails')" />
+							<input type="button" id='getDetails' value="Go"></td>
 
 						<td class="displayTextLbl">Date</td>
 						<td><input type="date" name='RCTD' value="" /></td>
@@ -43,8 +44,8 @@
 					<tr>
 						<td class="displayTextLbl">Key no</td>
 						<td><input name="RKNO" size="6" type="text"
-							onkeydown="if (event.keyCode == 13) document.getElementById('getDetails').click()" />
-							<input type="button" id='getDetails' value="Go"></td>
+							onkeydown="clickOnEnter(event,'getKeyDetails')" />
+							<input type="button" id='getKeyDetails' value="Go"></td>
 						<td class="displayTextLbl">Locker no</td>
 						<td><input readonly="readonly" name="LNO" size="6"
 							type="text" /></td>
@@ -218,7 +219,7 @@
 					<tr></tr>
 						<tr>
 						<td class="displayTextLbl">Amount Paid</td>
-						<td><input name="RAMT" type="number" step="0.01" value="0">
+						<td><input name="RCHA" type="number" step="0.01" value="0">
 					</tr>
 					<tr></tr>
 					

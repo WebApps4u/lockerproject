@@ -183,6 +183,17 @@ ALTER TABLE `kplok_dev_db`.`emailtemplate`
 CHANGE COLUMN `from` `fromemail` VARCHAR(100) NULL DEFAULT NULL ;
 
 
+ALTER TABLE `kplok_dev_db`.`emailtemplate` 
+CHANGE COLUMN `emailtemplateid` `EMAILTEMPLATEID` INT(11) NOT NULL ,
+CHANGE COLUMN `fromemail` `FROMEMAIL` VARCHAR(100) NULL ,
+CHANGE COLUMN `tolist` `TOLIST` VARCHAR(255) NULL DEFAULT NULL ,
+CHANGE COLUMN `cclist` `CCLIST` VARCHAR(255) NULL DEFAULT NULL ,
+CHANGE COLUMN `subject` `SUBJECT` VARCHAR(255) NULL DEFAULT NULL ,
+CHANGE COLUMN `body` `BODY` VARCHAR(4000) NULL DEFAULT NULL COMMENT 'Html formatted body. It should be having replacement variable as ${} only those variables would be replaced by the value.' ,
+CHANGE COLUMN `datecreated` `DATECREATED` DATE NULL DEFAULT NULL ;
+
+
+
 --------------------------------------------------------------------
 --- Email Sent table. Having all the emails. Also useful for generating reports
 --------------------------------------------------------------------

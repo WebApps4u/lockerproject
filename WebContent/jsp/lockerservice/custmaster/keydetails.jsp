@@ -209,7 +209,7 @@
 					<td class="displayTextLbl">Outstanding:</td>
 					<td><input type="number" name="POA" step="0.01"></td>
 					<td class="displayTextLbl">Advance Rent</td>
-					<td><input type="number" name="PCRA" step="0.01"></td>  <!--  TODO, this is temporary done, it is PCRA -->
+					<td><input type="number" name="LPA" step="0.01" value="0" required></td>  <!--  TODO, this is temporary done, it is PCRA -->
 					<td class="displayTextLbl">Receipt No.</td>
 					<td><input type="text" name="LRNO"></td>
 					<td class="displayTextLbl">Receipt Date</td>
@@ -234,7 +234,7 @@
 					 <td> <input type="number" name="areacode"></td>
 				</tr> -->
 			</table>
-			<input type="hidden" name="LPA" value="0"> <input
+			<!-- <input type="hidden" name="LPA" value="0"> --> <input
 				type="hidden" name="PUCD" value="0">
 			<div class="floating_buttons">
 				<input type="button" name="submitNewBooking" id="submitNewBooking"

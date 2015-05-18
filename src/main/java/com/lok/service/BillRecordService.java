@@ -24,5 +24,6 @@ public interface BillRecordService {
 
     public void flush();
     
+    public BillRecord[] findByIds(String... Ids );
     
 }

@@ -303,6 +303,29 @@ public class CustomerMasterService {
 		return Response.status(200).entity(output.toString()).build();
 	}
 	
+	//Get receipt details
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/receipt/{recnum}")
+	public String getReceiptDetails(@PathParam("recnum") String recnum){
+		
+		logger.debug(" enter CustomerMasterService.getReceiptDetails() with receipt num "+recnum);
+		
+		JSONObject rcptDetails = null;
+		
+		try{
+			
+			
+			rcptDetails = receiptContrl.getReceiptDetails(recnum,partyContrl,billContrl);
+			
+			
+		}catch(Exception e){
+			//log to the logger
+		}
+		return rcptDetails!=null?rcptDetails.toString():"";
+		
+	}
+	
 	//Get customer details. It will fetch KYC documents details, name, email & address for the given customer
 	//NOT READY
 	@PUT

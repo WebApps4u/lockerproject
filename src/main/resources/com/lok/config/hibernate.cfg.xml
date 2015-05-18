@@ -8,6 +8,7 @@
         <mapping class="com.lok.model.Lok_master_seq"/>
         <mapping class="com.lok.model.CustomerDetails"/>
         <mapping class="com.lok.model.EmailOutbound"/>
+        <mapping class="com.lok.model.EmailTemplate"/>
 </session-factory>
 
 

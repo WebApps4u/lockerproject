@@ -142,6 +142,10 @@
 								<li><a href="#">Monthly</a></li>
 							</ul></li>
 					</ul></li>
+				<li><a href="#">Admin Menu</a>
+					<ul>
+					<li><a href="/Locker_Financial_Society/rest/adminservice/billtemplate/1001">Bill Email Template</a>
+					</ul>	</li>
 				<li><a href="#">Search</a></li>
 				<!-- 		<li><a href="#" class="last">Data-transfer</a></li> -->
 			</ul>

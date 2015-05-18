@@ -35,7 +35,9 @@ import org.json.JSONObject;
 
 import com.lok.config.ConstantLok;
 import com.lok.controller.CustomerDetailsController;
+import com.lok.controller.EmailTemplateController;
 import com.lok.model.CustomerDetails;
+import com.lok.model.EmailTemplate;
 import com.lok.service.impl.LokUtility;
 
 @Path("/upload")
@@ -72,9 +74,12 @@ public class UploadService {
 			String custId = request.getParameter("CUSTOMERID");
 			CustomerDetails custDetails = custDetailsCntrl.createNewCustomerT(LokUtility.getFileItemsFromRequest(request),custId);
 			
-			request.setAttribute("customer", custDetails);
+			/*request.setAttribute("customer", custDetails);
 			
-			request.getRequestDispatcher("/jsp/lockerservice/custmaster/customerkyc.jsp").forward(request,response);
+			request.getRequestDispatcher("/jsp/lockerservice/custmaster/customerkyc.jsp").forward(request,response);*/
+			
+			//since it is redirect, thus needs to give full URL which should be hit by browser
+			response.sendRedirect("/Locker_Financial_Society/rest/upload/customerdetails/"+custDetails.getCUSTOMERID());
 		//	response.sendRedirect("/Locker_Financial_Society/jsp/lockerservice/custmaster/customerkyc.jsp");
 			
 			
@@ -101,6 +106,5 @@ public class UploadService {
 		CustomerDetails custDetails = custDetailsCntrl.getCustomerRecordBean(customerid);
 		return new Viewable("/jsp/lockerservice/custmaster/CustomerDetails",custDetails);
 	}
-	
 
 }

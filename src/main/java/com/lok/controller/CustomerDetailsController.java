@@ -181,6 +181,7 @@ public class CustomerDetailsController extends
 			}else{
 				
 				custDetails = custDetailsService.findById(incustId);
+				nextCustomerId = custDetails.getCUSTOMERID();
 			}
 			
 			//if custDetails is null, throw error invalid customer id

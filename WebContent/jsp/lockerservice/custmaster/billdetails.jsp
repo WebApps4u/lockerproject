@@ -42,6 +42,8 @@
 					<td><input type="date" name="BFDT"  required="required" id="from" onchange="setToDate()"></td>
 					<td class="displayTextLbl">TO</td>
 					<td><input type="date" name="BTDT" id="to" readonly="readonly"></td>
+					<td class="displayTextLbl">Bill Status</td>
+					<td ><input type=text name="BFLG"></td>
 				</tr>
 				<tr>
 					<td class="displayTextLbl">Key no</td>
@@ -56,6 +58,8 @@
 					<td><input name="LSNO" size="6" type="text" /></td>
 					<td>Lease date</td>
 					<td><input disabled="disabled" type="date" name="LSDT" /></td>
+					<td class="displayTextLbl">Receipt#</td>
+					<td ><input type=text name="LRCTN" readonly=""></td>
 				</tr>
 			</table>
 
@@ -145,7 +149,9 @@
 					<td><input type="number" step="0.01" name="LPYBA"
 						readonly="readonly"></td>
 				</tr>
-				<tr><td><input type="text" size=1 name="SENDEMAIL"></td></tr>
+				<tr>
+				<td class="displayTextLbl">Send Email (Y/N)</td>
+				<td><input type="text" size=1 name="SENDEMAIL" pattern="[Y,N]{1}"></td></tr>
 			</table>
 			</div>
 			<div class="fixed_buttons">

@@ -120,7 +120,7 @@ $(function() {
 	}
 	
     // Get all the key details with unpaid bills
-	function getDetails(keynum) {
+	function getKeyDetails(keynum) {
 		//get ajax call
 		$.get(
 				'/Locker_Financial_Society/rest/lockerservice/unpaidbills/'
@@ -146,12 +146,47 @@ $(function() {
 	}
 
 	//call the rest api to get details for the given key num
-	$('#getDetails').on('click', function() {
+	$('#getKeyDetails').on('click', function() {
 
 		var keynum = $('input[name="RKNO"]').val();
 		//clearform();
-		getDetails(keynum);
+		getKeyDetails(keynum);
 	})
+	
+	
+	//Call to get receipt details
+	// Get all the key details with unpaid bills
+	function getDetails(recnum) {
+		//get ajax call
+		$.get(
+				'/Locker_Financial_Society/rest/lockerservice/receipt/'
+						+ recnum // rest api
+		// key for which record is to be fetched		
+		).done(function(data) { // data is returned from the server
+
+			//populate fields with the recieved data
+			populateForm($('form[id=frm_receiptDetails]'), data);
+
+			//populateKeyDetails(data);
+			//populateBillDetails(data.bills);
+			populateBillDetails(data.bills);
+			
+			
+			//populateParticulars(data);
+		}).fail(function(error) {
+			//log error to console
+			console.log(error);
+		})
+	}
+
+	//call the rest api to get details for the given key num
+	$('#getDetails').on('click', function() {
+
+		var recnum = $('input[name="RCTN"]').val();
+		//clearform();
+		getDetails(recnum);
+	})
+	
 	
 	//Submit receipt data to create new receipt
 	$('#submitNewReceipt').on(
@@ -249,7 +284,7 @@ $(function() {
 		
 		//TODO
 		//get the amount paid
-		var amountPaid = parseFloat($('input[name="RAMT"]').val()) || 0;
+		var amountPaid = parseFloat($('input[name="RCHA"]').val()) || 0;
 		
 		//set the outstanding or advance amount for the key
 		//if ramt > totalAmount, advance, else outstanding

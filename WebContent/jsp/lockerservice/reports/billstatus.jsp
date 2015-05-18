@@ -68,12 +68,17 @@
 			<thead>
 				<tr>
 
-					<th data-dynatable-column="BNO">Bill No.</th>
+					<th data-dynatable-column="BNO">Bill#</th>
+					<th data-dynatable-column="KNO">Key#</th>
 					<th data-dynatable-column="LAMT">Locker Rent</th>
 					<th data-dynatable-column="LOUT">Prev Outstanding</th>
 					<th data-dynatable-column="LADV">Adv Payment</th>
+					<th data-dynatable-column="LPYBA">Payable Amount</th>
 					<th data-dynatable-column="BFDT">From</th>
 					<th data-dynatable-column="BTDT">To</th>
+					<th data-dynatable-column="BFLG">Status</th>
+					<th data-dynatable-column="LRCTN">Receipt#</th>
+					<th data-dynatable-column="LRCTD">Receipt Date</th>
 				</tr>
 			</thead>
 		</table>

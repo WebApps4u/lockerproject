@@ -76,4 +76,8 @@ public class BillRecordServiceImpl implements BillRecordService{
     public SearchResult<BillRecord> searchAndCount(ISearch search) {
             return billRecordDAO.searchAndCount(search);
     }
+    
+    public BillRecord[] findByIds(String... Ids ){
+    	return billRecordDAO.find(Ids);
+    }
 }
