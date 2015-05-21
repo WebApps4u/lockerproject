@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import com.google.gson.JsonParser;
+import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.Search;
 import com.lok.config.ConfigurationLok;
 import com.lok.model.BillRecord;
@@ -259,9 +260,11 @@ public class BillRecordController extends BaseController<BillRecordService> {
 
 			Search search = new Search();
 			search.addFilterEqual(BillRecordField.KNO.toString(), keynum);
-			search.addFilterNull(BillRecordField.LRCTN.toString()); // No
-																	// receipt
-																	// number
+			
+			
+			// No receipt number			
+			search.addFilterOr(Filter.isNull(BillRecordField.LRCTN.toString()),Filter.equal(BillRecordField.LRCTN.toString(),""));
+			
 			listBills = billRecordService.search(search);
 
 			// will not throw null pointer since already initialized

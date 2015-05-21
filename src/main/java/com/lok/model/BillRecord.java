@@ -231,6 +231,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the lAMT
 	 */
 	public Double getLAMT() {
+		if(LAMT==null){
+			LAMT=0D;
+		}
 		return LAMT;
 	}
 
@@ -239,12 +242,19 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setLAMT(Double lAMT) {
 		LAMT = lAMT;
+		if(LAMT==null){
+			LAMT=0D;
+		}
 	}
 
 	/**
 	 * @return the lOUT
 	 */
 	public Double getLOUT() {
+		
+		if(LOUT==null){
+			LOUT=0D;
+		}
 		return LOUT;
 	}
 
@@ -252,13 +262,21 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @param lOUT the lOUT to set
 	 */
 	public void setLOUT(Double lOUT) {
+		
 		LOUT = lOUT;
+		if(LOUT==null){
+			LOUT=0D;
+		}
 	}
 
 	/**
 	 * @return the lCP
 	 */
 	public Double getLCP() {
+		
+		if(LCP==null){
+			LCP=0D;
+		}
 		return LCP;
 	}
 
@@ -266,13 +284,21 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @param lCP the lCP to set
 	 */
 	public void setLCP(Double lCP) {
+		
 		LCP = lCP;
+		if(LCP==null){
+			LCP=0D;
+		}
 	}
 
 	/**
 	 * @return the lADV
 	 */
 	public Double getLADV() {
+		
+		if(LADV==null){
+			LADV=0D;
+		}
 		return LADV;
 	}
 
@@ -281,12 +307,19 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setLADV(Double lADV) {
 		LADV = lADV;
+		if(LADV==null){
+			LADV=0D;
+		}
 	}
 
 	/**
 	 * @return the lSTXR
 	 */
 	public Double getLSTXR() {
+		
+		if(LSTXR==null){
+			LSTXR=0D;
+		}
 		return LSTXR;
 	}
 
@@ -295,12 +328,19 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setLSTXR(Double lSTXR) {
 		LSTXR = lSTXR;
+		if(LSTXR==null){
+			LSTXR=0D;
+		}
 	}
 
 	/**
 	 * @return the lSTXA
 	 */
 	public Double getLSTXA() {
+		
+		if(LSTXA==null){
+			LSTXA=0D;
+		}
 		return LSTXA;
 	}
 
@@ -309,6 +349,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setLSTXA(Double lSTXA) {
 		LSTXA = lSTXA;
+		if(LSTXA==null){
+			LSTXA=0D;
+		}
 	}
 
 	/**
@@ -329,6 +372,10 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the lPYBA
 	 */
 	public Double getLPYBA() {
+		
+		if(LPYBA==null){
+			LPYBA=0D;
+		}
 		return LPYBA;
 	}
 
@@ -337,6 +384,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setLPYBA(Double lPYBA) {
 		LPYBA = lPYBA;
+		if(LPYBA==null){
+			LPYBA=0D;
+		}
 	}
 
 	/**
@@ -399,6 +449,10 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the rEMN
 	 */
 	public Double getREMN() {
+		
+		if(REMN==null){
+			REMN=0D;
+		}
 		return REMN;
 	}
 
@@ -407,6 +461,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setREMN(Double rEMN) {
 		REMN = rEMN;
+		if(REMN==null){
+			REMN=0D;
+		}
 	}
 
 	/**
@@ -427,6 +484,10 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the rEMDA1
 	 */
 	public Double getREMDA1() {
+		
+		if(REMDA1==null){
+			REMDA1=0D;
+		}
 		return REMDA1;
 	}
 
@@ -435,6 +496,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setREMDA1(Double rEMDA1) {
 		REMDA1 = rEMDA1;
+		if(REMDA1==null){
+			REMDA1=0D;
+		}
 	}
 
 	/**
@@ -455,6 +519,10 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the rEMDA2
 	 */
 	public Double getREMDA2() {
+		
+		if(REMDA2==null){
+			REMDA2=0D;
+		}
 		return REMDA2;
 	}
 
@@ -463,6 +531,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setREMDA2(Double rEMDA2) {
 		REMDA2 = rEMDA2;
+		if(REMDA2==null){
+			REMDA2=0D;
+		}
 	}
 
 	/**
@@ -483,6 +554,10 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the rEMDA3
 	 */
 	public Double getREMDA3() {
+		
+		if(REMDA3==null){
+			REMDA3=0D;
+		}
 		return REMDA3;
 	}
 
@@ -491,6 +566,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setREMDA3(Double rEMDA3) {
 		REMDA3 = rEMDA3;
+		if(REMDA3==null){
+			REMDA3=0D;
+		}
 	}
 
 	/**
@@ -511,6 +589,10 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the rEMDA4
 	 */
 	public Double getREMDA4() {
+		
+		if(REMDA4==null){
+			REMDA4=0D;
+		}
 		return REMDA4;
 	}
 
@@ -519,6 +601,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setREMDA4(Double rEMDA4) {
 		REMDA4 = rEMDA4;
+		if(REMDA4==null){
+			REMDA4=0D;
+		}
 	}
 
 	/**
@@ -539,6 +624,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the rEMDA5
 	 */
 	public Double getREMDA5() {
+		if(REMDA5==null){
+			REMDA5=0D;
+		}
 		return REMDA5;
 	}
 
@@ -547,6 +635,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setREMDA5(Double rEMDA5) {
 		REMDA5 = rEMDA5;
+		if(REMDA5==null){
+			REMDA5=0D;
+		}
 	}
 
 	/**
@@ -567,6 +658,10 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 * @return the rEMDA6
 	 */
 	public Double getREMDA6() {
+		
+		if(REMDA6==null){
+			REMDA6=0D;
+		}
 		return REMDA6;
 	}
 
@@ -575,6 +670,9 @@ public class BillRecord implements Serializable,Comparable<BillRecord>,Downloada
 	 */
 	public void setREMDA6(Double rEMDA6) {
 		REMDA6 = rEMDA6;
+		if(REMDA6==null){
+			REMDA6=0D;
+		}
 	}
 
 	/**

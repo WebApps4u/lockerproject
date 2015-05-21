@@ -207,6 +207,13 @@ public class CustomerDetailsController extends
 				FileItem item = itr.next();
 				if (!item.isFormField()) {
 
+					String newLoad = item.getName();
+					
+					//it will be blank, if no new file is uploaded. Later on, a whitespace would signfiy that it needs to be removed
+					if(StringUtils.isEmpty(newLoad)){
+						continue;
+					}
+					
 					// Create folder, with the name of the file type, and then
 					// add file node by adding the file item to it.
 					DefaultMutableTreeNode folder = new DefaultMutableTreeNode(

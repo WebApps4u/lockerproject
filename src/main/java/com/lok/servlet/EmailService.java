@@ -49,7 +49,7 @@ public class EmailService extends Thread {
 	private static Map<String, String> queryTable = new HashMap<String, String>();
 	private static Map<String, String> templateIds = new HashMap<String, String>();
 
-	private static final String queryBill = "SELECT * FROM BILLRECORD WHERE BNO=?";
+	private static final String queryBill = "SELECT * FROM BILLRECORD t1, PARTYRECORD t2 WHERE t1.BNO=? and t2.KNO = t1.KNO ";
 	private static final String queryTemplate = "SELECT * FROM EMAILTEMPLATE WHERE EMAILTEMPLATEID=?";
 
 	private static final String insertEmailSent = "INSERT INTO EMAILSENT (OBJECTTYPE,OBJECTID,TEMPLATEID,TOLIST,FROMEMAIL,CCLIST,BODY,CREATEDBY) VALUES (?,?,?,?,?,?,?,?)";
@@ -466,6 +466,7 @@ class Email {
 		// Setup mail server
 		properties.setProperty("mail.smtp.host", host);
 		properties.setProperty("mail.smtp.auth", "true");
+		properties.setProperty("mail.smtp.starttls.enable", "true");
 
 		session = Session.getDefaultInstance(properties,
 				new javax.mail.Authenticator() {

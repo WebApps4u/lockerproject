@@ -89,7 +89,7 @@ public class ReceiptRecordController extends
 				billRecord.setBFLG("*");
 				billRecord.setLRCTN(nextRCTN);
 
-				billContrl.updateBillRecord(billRecord);
+				billContrl.getService().save(billRecord);
 			}
 
 			// assuming saved successfully if no error is thrown

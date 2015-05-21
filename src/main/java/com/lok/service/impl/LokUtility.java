@@ -169,15 +169,25 @@ public class LokUtility {
 
 		logger.debug(" enter getFileItemsFromRequest with request " + request);
 		// configures some settings
-		DiskFileItemFactory factory = new DiskFileItemFactory();
-		factory.setSizeThreshold(ConstantLok.THRESHOLD_SIZE);
-		factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+		return getUploadInstance().parseRequest(request);
 
-		ServletFileUpload upload = new ServletFileUpload(factory);
-		upload.setFileSizeMax(ConstantLok.MAX_FILE_SIZE);
-		upload.setSizeMax(ConstantLok.REQUEST_SIZE);
-
-		return upload.parseRequest(request);
 	}
 
+	private static ServletFileUpload uploadInstance = null;
+	
+	//Returns the instance of upload, singleton
+	public static ServletFileUpload getUploadInstance(){
+		
+		if(uploadInstance==null){
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			factory.setSizeThreshold(ConstantLok.THRESHOLD_SIZE);
+			factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+
+			uploadInstance = new ServletFileUpload(factory);
+			uploadInstance.setFileSizeMax(ConstantLok.MAX_FILE_SIZE);
+			uploadInstance.setSizeMax(ConstantLok.REQUEST_SIZE);
+		}
+		return uploadInstance;
+	}
+	
 }

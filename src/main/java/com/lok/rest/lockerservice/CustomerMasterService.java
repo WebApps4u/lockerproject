@@ -37,11 +37,13 @@ import com.lok.controller.CustomerDetailsController;
 import com.lok.controller.MasterSeqRecordController;
 import com.lok.controller.PartyRecordController;
 import com.lok.controller.ReceiptRecordController;
+import com.lok.controller.SecurityDepositController;
 import com.lok.model.BillRecord;
 import com.lok.model.CustomerDetails;
 import com.lok.model.PartyRecord;
 import com.lok.model.ReceiptRecord;
 import com.lok.model.ReturnMessage;
+import com.lok.model.SecurityDeposit;
 import com.lok.service.impl.LokUtility;
 
 @Path("/lockerservice")
@@ -54,6 +56,7 @@ public class CustomerMasterService {
 	BillRecordController billContrl = new BillRecordController();
 	ReceiptRecordController receiptContrl = new ReceiptRecordController();
 	CustomerDetailsController custDetailsContrl = new CustomerDetailsController();
+	SecurityDepositController sdContrl = new SecurityDepositController();
 	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder webDataBinder) {
@@ -354,4 +357,58 @@ public class CustomerMasterService {
 		}
 		return allDetails!=null?allDetails.toString():"";
 	}
+	
+	
+	/**
+	 * Security Deposit Receipt Section
+	 */
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/sdreceipt/")
+	public Response createSDReceipt(SecurityDeposit sdRcptRecord){
+		
+		JSONObject output = null;
+		try{
+			
+			ReturnMessage msg = sdContrl.createSDReceipt(sdRcptRecord);
+			
+			if(msg==null){
+				
+				//Set the default error message to unknown
+				output = new JSONObject(new ReturnMessage().setDefaultErr());
+			}
+			else{
+				output = new JSONObject(msg);
+			}
+		}catch(Exception e){
+			//log to the logger
+		}
+		
+		return Response.status(200).entity(output.toString()).build();
+	}
+	
+	//Get receipt details
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/sdreceipt/{sdrecnum}")
+	public String getSDReceiptDetails(@PathParam("sdrecnum") String sdrecnum){
+		
+		logger.debug(" enter CustomerMasterService.getSDReceiptDetails() with sd receipt num "+sdrecnum);
+		
+		JSONObject rcptDetails = null;
+		
+		try{
+			
+			
+			rcptDetails = sdContrl.getSDReceiptDetails(sdrecnum,partyContrl);
+			
+			
+		}catch(Exception e){
+			//log to the logger
+		}
+		return rcptDetails!=null?rcptDetails.toString():"";
+		
+	}
+	
 }

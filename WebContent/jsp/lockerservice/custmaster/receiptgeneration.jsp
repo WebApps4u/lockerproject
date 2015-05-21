@@ -50,7 +50,7 @@
 						<td><input readonly="readonly" name="LNO" size="6"
 							type="text" /></td>
 						<td class="displayTextLbl">Locker rent</td>
-						<td><input readonly="readonly" name="LOKR" type="number"
+						<td><input readonly="readonly" name="LOKR" type="number" required value="0"
 							step="0.01" /></td>
 					</tr>
 					<tr>
@@ -61,7 +61,7 @@
 							type="text" /></td>
 
 						<td class="displayTextLbl">Outstanding</td>
-						<td><input readonly="readonly" name="POA" type="number"
+						<td><input readonly="readonly" name="POA" type="number" required value="0"
 							step="0.01" /></td>
 
 					</tr>
@@ -129,10 +129,12 @@
 						<thead>
 							<tr>
 
+
 								<th data-dynatable-column="BNO">Bill No.</th>
 								<th data-dynatable-column="LAMT">Locker Rent</th>
 								<th data-dynatable-column="LOUT">Prev Outstanding</th>
 								<th data-dynatable-column="LADV">Adv Payment</th>
+								<th data-dynatable-column="LPYBA">Payable</th>
 								<th data-dynatable-column="BFDT">From</th>
 								<th data-dynatable-column="BTDT">To</th>
 							</tr>
@@ -150,87 +152,87 @@
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Locker Rent</td>
-						<td><input type="number" step="0.01" name="RRNT" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RRNT" /></td>
 					</tr>
 					
 					<tr>
-						<td class="displayTextLbl">Service tax@<input type="number" step="0.01"
+						<td class="displayTextLbl">Service tax@<input type="number" required step="0.01"
 							name="STAXR" value="14" />%
 						</td>
-						<td><input type="number" step="0.01" name="STAXA"
+						<td><input type="number" required value="0" step="0.01" name="STAXA"
 							readonly="readonly" /></td>
 					</tr>
 					<tr></tr>
 					<tr>
 						<td class="displayTextLbl">Interest</td>
-						<td><input type="number" step="0.01" name="RINT" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RINT" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Misc charges</td>
-						<td><input type="number" step="0.01" name="RINC" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RINC" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Bank charges</td>
-						<td><input type="number" step="0.01" name="RBC" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RBC" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Application Fees</td>
-						<td><input type="number" step="0.01" name="RAPF" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RAPF" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Legal Fees</td>
-						<td><input type="number" step="0.01" name="RGLF" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RGLF" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Advances</td>
-						<td><input type="number" step="0.01" name="RDAV" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RDAV" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Access charges</td>
-						<td><input type="number" step="0.01" name="RACH" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RACH" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Suspense</td>
-						<td><input type="number" step="0.01" name="RSUS" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RSUS" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Breaking charges</td>
-						<td><input type="number" step="0.01" name="BRKCH" /></td>
+						<td><input type="number" required value="0" step="0.01" name="BRKCH" /></td>
 					</tr>
 
 					
 					<tr></tr>
 										<tr>
 						<td class="displayTextLbl">Less at credit(-)</td>
-						<td><input type="number" step="0.01" name="RADVP" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RADVP" /></td>
 					</tr>
 					<tr>
 						<td class="displayTextLbl">Add previous due</td>
-						<td><input type="number" step="0.01" name="RPOUT" /></td>
+						<td><input type="number" required value="0" step="0.01" name="RPOUT" /></td>
 					</tr>
 					<tr></tr>
 					<tr></tr>
 					<tr>
 						<td class="displayTextLbl">Total</td>
-						<td><input type="number" step="0.01" name="RGTOT"
+						<td><input type="number" required value="0" step="0.01" name="RGTOT"
 							readonly="readonly" /></td>
 					</tr>
 					<tr></tr>
 					<tr></tr>
 						<tr>
 						<td class="displayTextLbl">Amount Paid</td>
-						<td><input name="RCHA" type="number" step="0.01" value="0">
+						<td><input name="RCHA" type="number" required value="0" step="0.01" value="0">
 					</tr>
 					<tr></tr>
 					
 					<tr>
 							<td class="displayTextLbl">Advance for Future</td>
-							<td><input type="number" step="0.01" name="RADV" value="0" readonly="readonly">
+							<td><input type="number" required value="0" step="0.01" name="RADV" value="0" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
 							<td class="displayTextLbl">New Outstanding</td>
-							<td><input type="number" step="0.01" name="RCOUT" value="0" readonly="readonly"></td>
+							<td><input type="number" required value="0" step="0.01" name="RCOUT" value="0" readonly="readonly"></td>
 						</tr>
 
 				</table>

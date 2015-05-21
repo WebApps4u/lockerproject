@@ -72,7 +72,7 @@
 							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/receiptgeneration.jsp">New
 								Receipt</a></li>
 						<li><a
-							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/sdreceiptgeneration.jsp">New
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/sdreceipt.jsp">New
 								SD Receipt</a></li>
 
 						<li><a
@@ -108,7 +108,7 @@
 							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/receiptgeneration.jsp?id=EXISTING">
 								Receipt</a></li>
 						<li><a
-							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/sdreceiptgeneration.jsp?id=EXISTING">
+							href="/Locker_Financial_Society/jsp/lockerservice/custmaster/sdreceipt.jsp?id=EXISTING">
 								SD Receipt</a></li>
 
 						<li><a

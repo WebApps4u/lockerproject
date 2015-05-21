@@ -292,6 +292,10 @@ public class PartyRecord implements Serializable {
 	 * @return the lOKR
 	 */
 	public Double getLOKR() {
+		
+		if(LOKR==null){
+			LOKR=0D;
+		}
 		return LOKR;
 	}
 
@@ -300,12 +304,19 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setLOKR(Double lOKR) {
 		LOKR = lOKR;
+		if(LOKR==null){
+			LOKR=0D;
+		}
 	}
 
 	/**
 	 * @return the lSDA
 	 */
 	public Double getLSDA() {
+		
+		if(LSDA==null){
+			LSDA=0D;
+		}
 		return LSDA;
 	}
 
@@ -314,12 +325,18 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setLSDA(Double lSDA) {
 		LSDA = lSDA;
+		if(LSDA==null){
+			LSDA=0D;
+		}
 	}
 
 	/**
 	 * @return the pOA
 	 */
 	public Double getPOA() {
+		if(POA==null){
+			POA=0D;
+		}
 		return POA;
 	}
 
@@ -328,12 +345,18 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setPOA(Double pOA) {
 		POA = pOA;
+		if(POA==null){
+			POA=0D;
+		}
 	}
 
 	/**
 	 * @return the lPA
 	 */
 	public Double getLPA() {
+		if(LPA==null){
+			LPA=0D;
+		}
 		return LPA;
 	}
 
@@ -342,12 +365,18 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setLPA(Double lPA) {
 		LPA = lPA;
+		if(LPA==null){
+			LPA=0D;
+		}
 	}
 
 	/**
 	 * @return the pCRA
 	 */
 	public Double getPCRA() {
+		if(PCRA==null){
+			PCRA=0D;
+		}
 		return PCRA;
 	}
 
@@ -356,12 +385,18 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setPCRA(Double pCRA) {
 		PCRA = pCRA;
+		if(PCRA==null){
+			PCRA=0D;
+		}
 	}
 
 	/**
 	 * @return the pCRAST
 	 */
 	public Double getPCRAST() {
+		if(PCRAST==null){
+			PCRAST=0D;
+		}
 		return PCRAST;
 	}
 
@@ -370,6 +405,9 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setPCRAST(Double pCRAST) {
 		PCRAST = pCRAST;
+		if(PCRAST==null){
+			PCRAST=0D;
+		}
 	}
 
 	/**
@@ -586,6 +624,9 @@ public class PartyRecord implements Serializable {
 	 * @return the oLOKR
 	 */
 	public Double getOLOKR() {
+		if(OLOKR==null){
+			OLOKR=0D;
+		}
 		return OLOKR;
 	}
 
@@ -594,6 +635,9 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setOLOKR(Double oLOKR) {
 		OLOKR = oLOKR;
+		if(OLOKR==null){
+			OLOKR=0D;
+		}
 	}
 
 	/**
@@ -656,6 +700,9 @@ public class PartyRecord implements Serializable {
 	 * @return the pUCD
 	 */
 	public Double getPUCD() {
+		if(PUCD==null){
+			PUCD=0D;
+		}
 		return PUCD;
 	}
 
@@ -664,6 +711,9 @@ public class PartyRecord implements Serializable {
 	 */
 	public void setPUCD(Double pUCD) {
 		PUCD = pUCD;
+		if(PUCD==null){
+			PUCD=0D;
+		}
 	}
 
 	/**

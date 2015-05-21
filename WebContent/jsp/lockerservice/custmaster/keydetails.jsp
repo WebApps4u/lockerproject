@@ -33,11 +33,10 @@
 							pattern="\d{4}\-[A-Z]{1}"
 							placeholder="1212-A"
 							onkeydown="javascript:clickOnEnter(event,'getDetails')" />
-					<!--  Show Get details, only if the page is  -->
-					<c:if test="${param.id=='EXISTING' }">	
-						<input
+					
+					
+					<input
 						type="button" id='getDetails' value="Get Details">
-					</c:if>	
 						</td>
 					
 					<td class="displayTextLbl">Locker no</td>
@@ -57,11 +56,11 @@
 						value="Create New"></td>
 						-->
 					<td class="displayTextLbl">Locker rent</td>
-					<td><input name="LOKR" type="number" step="0.01" /></td>
+					<td><input name="LOKR" type="number" required value="0" step="0.01" /></td>
 					<td class="displayTextLbl">Old Rent</td>
-					<td><input type="number" name="OLOKR" step="0.01" />
+					<td><input type="number" required value="0" name="OLOKR" step="0.01" />
 					<td class="displayTextLbl">S deposit</td>
-					<td><input name="LSDA" type="number" step="0.01" /></td>
+					<td><input name="LSDA" type="number" required value="0" step="0.01" /></td>
 
 				</tr>
 				<tr>
@@ -207,9 +206,9 @@
 
 				<tr>
 					<td class="displayTextLbl">Outstanding:</td>
-					<td><input type="number" name="POA" step="0.01"></td>
+					<td><input type="number" required value="0" name="POA" step="0.01"></td>
 					<td class="displayTextLbl">Advance Rent</td>
-					<td><input type="number" name="LPA" step="0.01" value="0" required></td>  <!--  TODO, this is temporary done, it is PCRA -->
+					<td><input type="number" required value="0" name="LPA" step="0.01" value="0" required></td>  <!--  TODO, this is temporary done, it is PCRA -->
 					<td class="displayTextLbl">Receipt No.</td>
 					<td><input type="text" name="LRNO"></td>
 					<td class="displayTextLbl">Receipt Date</td>
@@ -220,7 +219,7 @@
 					<td class="displayTextLbl">Remark:</td>
 					<td><input type="text" name="REMARKS"></td>
 					<td class="displayTextLbl">Service tax</td>
-					<td><input type="number" name="PCRAST" step="0.01"></td>
+					<td><input type="number" required value="14" name="PCRAST" step="0.01"></td>
 					<td class="displayTextLbl">Release</td>
 					<td><input type="text" name="RELS" size="1" /></td>
 					<td class="displayTextLbl">Release Date</td>
@@ -229,9 +228,9 @@
 				</tr>
 				<!-- <tr>
 					<td>Late fee:</td>
-					 <td>   <input type="number" name="latefee" step="0.01"></td>
+					 <td>   <input type="number" required value="0" name="latefee" step="0.01"></td>
 					<td>Area code</td>
-					 <td> <input type="number" name="areacode"></td>
+					 <td> <input type="number" required value="0" name="areacode"></td>
 				</tr> -->
 			</table>
 			<!-- <input type="hidden" name="LPA" value="0"> --> <input

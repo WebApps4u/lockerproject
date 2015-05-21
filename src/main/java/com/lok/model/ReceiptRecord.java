@@ -161,6 +161,10 @@ public class ReceiptRecord implements Serializable {
 	 * @return the rRNT
 	 */
 	public Double getRRNT() {
+		
+		if(RRNT==null){
+			RRNT=0D;
+		}
 		return RRNT;
 	}
 
@@ -169,12 +173,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRRNT(Double rRNT) {
 		RRNT = rRNT;
+		if(RRNT==null){
+			RRNT=0D;
+		}
 	}
 
 	/**
 	 * @return the rADVP
 	 */
 	public Double getRADVP() {
+		if(RADVP==null){
+			RADVP=0D;
+		}
 		return RADVP;
 	}
 
@@ -183,12 +193,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRADVP(Double rADVP) {
 		RADVP = rADVP;
+		if(RADVP==null){
+			RADVP=0D;
+		}
 	}
 
 	/**
 	 * @return the rPOUT
 	 */
 	public Double getRPOUT() {
+		if(RPOUT==null){
+			RPOUT=0D;
+		}
 		return RPOUT;
 	}
 
@@ -197,12 +213,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRPOUT(Double rPOUT) {
 		RPOUT = rPOUT;
+		if(RPOUT==null){
+			RPOUT=0D;
+		}
 	}
 
 	/**
 	 * @return the rINT
 	 */
 	public Double getRINT() {
+		if(RINT==null){
+			RINT=0D;
+		}
 		return RINT;
 	}
 
@@ -211,12 +233,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRINT(Double rINT) {
 		RINT = rINT;
+		if(RINT==null){
+			RINT=0D;
+		}
 	}
 
 	/**
 	 * @return the rINC
 	 */
 	public Double getRINC() {
+		if(RINC==null){
+			RINC=0D;
+		}
 		return RINC;
 	}
 
@@ -225,12 +253,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRINC(Double rINC) {
 		RINC = rINC;
+		if(RINC==null){
+			RINC=0D;
+		}
 	}
 
 	/**
 	 * @return the rBC
 	 */
 	public Double getRBC() {
+		if(RBC==null){
+			RBC=0D;
+		}
 		return RBC;
 	}
 
@@ -239,12 +273,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRBC(Double rBC) {
 		RBC = rBC;
+		if(RBC==null){
+			RBC=0D;
+		}
 	}
 
 	/**
 	 * @return the rAPF
 	 */
 	public Double getRAPF() {
+		if(RAPF==null){
+			RAPF=0D;
+		}
 		return RAPF;
 	}
 
@@ -253,12 +293,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRAPF(Double rAPF) {
 		RAPF = rAPF;
+		if(RAPF==null){
+			RAPF=0D;
+		}
 	}
 
 	/**
 	 * @return the rGLF
 	 */
 	public Double getRGLF() {
+		if(RGLF==null){
+			RGLF=0D;
+		}
 		return RGLF;
 	}
 
@@ -267,12 +313,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRGLF(Double rGLF) {
 		RGLF = rGLF;
+		if(RGLF==null){
+			RGLF=0D;
+		}
 	}
 
 	/**
 	 * @return the rADV
 	 */
 	public Double getRADV() {
+		if(RADV==null){
+			RADV=0D;
+		}
 		return RADV;
 	}
 
@@ -281,12 +333,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRADV(Double rADV) {
 		RADV = rADV;
+		if(RADV==null){
+			RADV=0D;
+		}
 	}
 
 	/**
 	 * @return the rADVRT
 	 */
 	public Double getRADVRT() {
+		if(RADVRT==null){
+			RADVRT=0D;
+		}
 		return RADVRT;
 	}
 
@@ -295,12 +353,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRADVRT(Double rADVRT) {
 		RADVRT = rADVRT;
+		if(RADVRT==null){
+			RADVRT=0D;
+		}
 	}
 
 	/**
 	 * @return the rADVST
 	 */
 	public Double getRADVST() {
+		if(RADVST==null){
+			RADVST=0D;
+		}
 		return RADVST;
 	}
 
@@ -309,12 +373,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRADVST(Double rADVST) {
 		RADVST = rADVST;
+		if(RADVST==null){
+			RADVST=0D;
+		}
 	}
 
 	/**
 	 * @return the rACH
 	 */
 	public Double getRACH() {
+		if(RACH==null){
+			RACH=0D;
+		}
 		return RACH;
 	}
 
@@ -323,12 +393,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRACH(Double rACH) {
 		RACH = rACH;
+		if(RACH==null){
+			RACH=0D;
+		}
 	}
 
 	/**
 	 * @return the rCOUT
 	 */
 	public Double getRCOUT() {
+		if(RCOUT==null){
+			RCOUT=0D;
+		}
 		return RCOUT;
 	}
 
@@ -337,12 +413,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRCOUT(Double rCOUT) {
 		RCOUT = rCOUT;
+		if(RCOUT==null){
+			RCOUT=0D;
+		}
 	}
 
 	/**
 	 * @return the rSUS
 	 */
 	public Double getRSUS() {
+		if(RSUS==null){
+			RSUS=0D;
+		}
 		return RSUS;
 	}
 
@@ -351,12 +433,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRSUS(Double rSUS) {
 		RSUS = rSUS;
+		if(RSUS==null){
+			RSUS=0D;
+		}
 	}
 
 	/**
 	 * @return the bRKCH
 	 */
 	public Double getBRKCH() {
+		if(BRKCH==null){
+			BRKCH=0D;
+		}
 		return BRKCH;
 	}
 
@@ -365,6 +453,9 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setBRKCH(Double bRKCH) {
 		BRKCH = bRKCH;
+		if(BRKCH==null){
+			BRKCH=0D;
+		}
 	}
 
 	/**
@@ -385,6 +476,9 @@ public class ReceiptRecord implements Serializable {
 	 * @return the sTAXR
 	 */
 	public Double getSTAXR() {
+		if(STAXR==null){
+			STAXR=0D;
+		}
 		return STAXR;
 	}
 
@@ -393,12 +487,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setSTAXR(Double sTAXR) {
 		STAXR = sTAXR;
+		if(STAXR==null){
+			STAXR=0D;
+		}
 	}
 
 	/**
 	 * @return the sTAXA
 	 */
 	public Double getSTAXA() {
+		if(STAXA==null){
+			STAXA=0D;
+		}
 		return STAXA;
 	}
 
@@ -407,12 +507,18 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setSTAXA(Double sTAXA) {
 		STAXA = sTAXA;
+		if(STAXA==null){
+			STAXA=0D;
+		}
 	}
 
 	/**
 	 * @return the rGTOT
 	 */
 	public Double getRGTOT() {
+		if(RGTOT==null){
+			RGTOT=0D;
+		}
 		return RGTOT;
 	}
 
@@ -421,6 +527,9 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRGTOT(Double rGTOT) {
 		RGTOT = rGTOT;
+		if(RGTOT==null){
+			RGTOT=0D;
+		}
 	}
 
 	/**
@@ -483,6 +592,9 @@ public class ReceiptRecord implements Serializable {
 	 * @return the rCHA
 	 */
 	public Double getRCHA() {
+		if(RCHA==null){
+			RCHA=0D;
+		}	
 		return RCHA;
 	}
 
@@ -491,6 +603,9 @@ public class ReceiptRecord implements Serializable {
 	 */
 	public void setRCHA(Double rCHA) {
 		RCHA = rCHA;
+		if(RCHA==null){
+			RCHA=0D;
+		}
 	}
 
 	/**

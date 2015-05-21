@@ -195,7 +195,7 @@ tr.selected{
 	background : blue;
 }
 
-#keyDetails, #contactDetails{
+#keyDetails, #contactDetails, #billTempalte{
 	float: left;
 	display: inline-block;
 }
@@ -463,4 +463,8 @@ input.send, input.clear, input.update {
  
  input[type=email]{
  width:200px;
+ }
+ 
+ .fixed_buttons{
+  display:inline-block;
  }

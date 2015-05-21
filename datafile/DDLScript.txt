@@ -226,3 +226,15 @@ CHANGE COLUMN `OBJECTID` `OBJECTID` VARCHAR(45) NOT NULL ,
 DROP PRIMARY KEY;
 
 
+
+-------------------------------------------------------------------------
+--- Security Deposit
+------------------------------------------------------------------------
+-- Add primary key constraint
+ALTER TABLE `kplok_dev_db`.`sd` 
+CHANGE COLUMN `SRCN` `SRCN` VARCHAR(8) NOT NULL COMMENT 'Security Deposit Key Num' ,
+ADD PRIMARY KEY (`SRCN`);
+
+ALTER TABLE `kplok_dev_db`.`sd` 
+RENAME TO  `kplok_dev_db`.`securitydeposit` ;
+

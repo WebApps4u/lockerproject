@@ -29,10 +29,10 @@
 					<td class="displayTextLbl">Bill no</td>
 					<td><input name="BNO" size="6" placeholder="NEW" type="text" ${param.id!='EXISTING'?"readonly":'' }
 						onkeydown="javascript:clickOnEnter(event,'getDetails')" />
-						<c:if test="${param.id=='EXISTING' }">	
-						<input
+						
+					<input
 						type="button" id='getDetails' value="Get Details">
-					</c:if>	</td>
+						</td>
 					<!-- 	<input
 						type="button" id='getNewBillNo' value="Create New"></td> -->
 					<td class="displayTextLbl">Bill Date</td>
@@ -121,32 +121,32 @@
 				</tr>
 				<tr>
 					<td class="displayTextLbl">Locker Rent</td>
-					<td><input type="number" step="0.01" name="LAMT"></td>
+					<td><input type="number" required value="0" step="0.01" name="LAMT"></td>
 				</tr>
 				
 				<tr>
 
-					<td class="displayTextLbl">Service Tax<input type="number" step="0.01" name="LSTXR" value="14">%</td>
-					<td><input type="number" step="0.01" name="LSTXA" readonly="readonly"></td>
+					<td class="displayTextLbl">Service Tax<input type="number" required step="0.01" name="LSTXR" value="14">%</td>
+					<td><input type="number" required value="0" step="0.01" name="LSTXA" readonly="readonly"></td>
 				</tr>
 				<tr>
 
 					<td class="displayTextLbl">Current Year Payment</td>
-					<td><input type="number" step="0.01" name="LCP"></td>
+					<td><input type="number" required value="0" step="0.01" name="LCP"></td>
 
 				</tr>
 				<tr>
 					<td class="displayTextLbl">OutStanding Amount</td>
-					<td><input type="number" step="0.01" name="LOUT"></td>
+					<td><input type="number" required value="0" step="0.01" name="LOUT"></td>
 				</tr>
 				<tr>
 					<td class="displayTextLbl">Amount Paid</td>
-					<td><input type="number" step="0.01" name="LADV"></td>
+					<td><input type="number" required value="0" step="0.01" name="LADV"></td>
 				</tr>
 				<tr>
 					<!--  This is auto calculated, both frontend and backend -->
 					<td class="displayTextLbl">Amount Payable</td>
-					<td><input type="number" step="0.01" name="LPYBA"
+					<td><input type="number" required value="0" step="0.01" name="LPYBA"
 						readonly="readonly"></td>
 				</tr>
 				<tr>
