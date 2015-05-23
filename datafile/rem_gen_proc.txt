@@ -1,0 +1,207 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `auto_rem_geneation`(
+IN fromDate varchar(30),   -- month should in digits, 01, 02, 03 etc
+IN toDate varchar(30)
+)
+BEGIN
+
+DECLARE finished INTEGER DEFAULT 0;
+declare batch_size int default 10;
+
+-- Bill record variable
+declare v_bill_bno varchar(10);
+declare v_bill_bfdt date;
+declare v_bill_lamt double;
+declare v_bill_lout double;
+declare v_bill_lpyba double;
+declare v_bill_bflag varchar(1);
+declare v_bill_remn double;
+declare v_bill_premd date;
+declare v_bill_remd1 date;
+declare v_bill_rmda1 double;
+declare v_bill_remd2 date;
+declare v_bill_rmda2 double;
+
+declare v_bill_remd3 date;
+declare v_bill_rmda3 double;
+
+declare v_bill_remd4 date;
+declare v_bill_rmda4 double;
+
+declare v_bill_remd5 date;
+declare v_bill_rmda5 double;
+
+declare v_bill_remd6 date;
+declare v_bill_rmda6 double;
+
+-- amount to be recharged
+declare v_bill_rem_amount double;
+
+-- batch count
+declare v_batch_count int default 0;
+
+
+declare cur_unpaidbill cursor for select * from unpaidbill_view;  -- view will be dynamically created for unpaid and having fromdate in the given raise, with less than 6 reminders
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = TRUE;
+
+START transaction;
+
+drop view if exists unpaidbill_view;
+/*
+set @queryUnpaidBills = concat('CREATE VIEW unpaidbill_view as select t.BNO,t.BFDT,t.LAMT,t.LOUT,t.LPYBA,t.PREMD,t.REMN,t.REMD1,t.RMDA1,t.REMD2,t.RMDA2,t.REMD3,t.RMDA3,t.REMD4,t.RMDA4,t.REMD5,t.RMDA5,t.REMD6,t.RMDA6 
+						from billrecord t where ifnull(t.REMN,-1) < 6 and ifnull(t.BFLG,''X'') <> ''*'' and date(t.BFDT) > date(''',
+                        fromDate,''') and date(t.BFDT) <= date( ''',toDate,''')'); */
+
+set @queryUnpaidBills = concat('CREATE VIEW unpaidbill_view as select t.BNO,t.BFDT,t.LAMT,t.LOUT,t.LPYBA,t.REMN 
+						from billrecord t where ifnull(t.REMN,-1) < 6 and ifnull(t.BFLG,''X'') <> ''*'' and date(t.BFDT) > date(''',
+                        fromDate,''') and date(t.BFDT) <= date( ''',toDate,''')');
+
+PREPARE stmt from @queryUnpaidBills; 
+EXECUTE stmt; 
+DEALLOCATE PREPARE stmt; 
+
+OPEN cur_unpaidbill; 
+gen_rem: LOOP
+-- FETCH cur_unpaidbill INTO v_bill_bno,v_bill_bfdt,v_bill_lamt,v_bill_lout,v_bill_lpyba,v_bill_premd,v_bill_remn,v_bill_remd1,v_bill_rmda1,v_bill_remd2,v_bill_rmda2,v_bill_remd3,v_bill_rmda3,v_bill_remd4,v_bill_rmda4,v_bill_remd5,v_bill_rmda5,v_bill_remd6,v_bill_rmda6;
+FETCH cur_unpaidbill INTO v_bill_bno,v_bill_bfdt,v_bill_lamt,v_bill_lout,v_bill_lpyba,v_bill_remn;
+	
+    -- to support old data, 0 the null values, required for comparison
+    set v_bill_lpyba = ifnull(v_bill_lpyba,0);
+    
+    -- select if(v_bill_lpyba is null, 0,v_bill_lpyba) as v_bill_lpyba;
+    
+   -- select if(v_bill_lamt is null, 0,v_bill_lamt) as v_bill_lamt;
+    -- select if(v_bill_lout is null, 0,v_bill_lout) as v_bill_lout;
+    
+   -- select v_bill_bno;
+    IF finished THEN
+		LEAVE gen_rem;
+    END IF;
+    
+    -- if no reminder is sent, send a prereminder
+   
+    if ifnull(v_bill_remn,-1) = -1 then 
+      
+		  set  v_bill_remn = 0;
+		  
+		  -- send prereminder
+		  
+		UPDATE billrecord 
+			SET 
+				remn = v_bill_remn,
+				premd = SYSDATE()
+		WHERE
+				bno = v_bill_bno;
+	
+	else 
+      	  -- send reminder
+		  set  v_bill_remn = v_bill_remn+1;
+        
+         -- Update the bill details with reminder date and amount
+		  -- based on number of reminder, the corresponding field is updated
+          -- TODO, update total amount to be payable by adding pyba and v_bill_rem_amount
+		  if v_bill_remn =1 then
+		    
+            -- get date from reminder 1 column
+            SELECT reminder1
+		 INTO v_bill_rem_amount FROM latefeeslab t
+		WHERE t.fromamount <= v_bill_lpyba
+        AND t.toamount >= v_bill_lpyba
+		LIMIT 1;
+        
+			update billrecord
+			 set  remn = v_bill_remn,
+				  remd1 = sysdate(),
+				  rmda1 = v_bill_rem_amount
+			where bno = v_bill_bno; 
+			
+		  elseif v_bill_remn = 2 then
+			  
+               -- get date from reminder 2 column
+            SELECT reminder2
+		 INTO v_bill_rem_amount FROM latefeeslab t
+		WHERE t.fromamount <= v_bill_lpyba
+        AND t.toamount >= v_bill_lpyba
+		LIMIT 1;
+			update billrecord
+			  set  remn = v_bill_remn,
+				  remd2 = sysdate(),
+				  rmda2 = v_bill_rem_amount
+			where bno = v_bill_bno; 
+			
+		  elseif v_bill_remn = 3 then
+			
+             -- get date from reminder 3 column
+            SELECT reminder3
+		 INTO v_bill_rem_amount FROM latefeeslab t
+		WHERE t.fromamount <= v_bill_lpyba
+        AND t.toamount >= v_bill_lpyba
+		LIMIT 1;
+			update billrecord
+			  set  remn = v_bill_remn,
+				  remd3 = sysdate(),
+				  rmda3 = v_bill_rem_amount
+			where bno = v_bill_bno; 
+			
+		  elseif v_bill_remn = 4 then
+			 
+              -- get date from reminder 4 column
+            SELECT reminder4
+		 INTO v_bill_rem_amount FROM latefeeslab t
+		WHERE t.fromamount <= v_bill_lpyba
+        AND t.toamount >= v_bill_lpyba
+		LIMIT 1;
+			 update billrecord
+			  set  remn = v_bill_remn,
+				  remd4 = sysdate(),
+				  rmda4 = v_bill_rem_amount
+			where bno = v_bill_bno; 
+			
+		  elseif v_bill_remn = 5 then
+			 
+             
+              -- get date from reminder 5 column
+            SELECT reminder5
+		 INTO v_bill_rem_amount FROM latefeeslab t
+		WHERE t.fromamount <= v_bill_lpyba
+        AND t.toamount >= v_bill_lpyba
+		LIMIT 1;
+			 update billrecord
+			  set  remn = v_bill_remn,
+				  remd5 = sysdate(),
+				  rmda5 = v_bill_rem_amount
+			where bno = v_bill_bno;
+			
+		  elseif v_bill_remn = 6 then
+			 
+              -- get date from reminder 6 column
+            SELECT reminder6
+		 INTO v_bill_rem_amount FROM latefeeslab t
+		WHERE t.fromamount <= v_bill_lpyba
+        AND t.toamount >= v_bill_lpyba
+		LIMIT 1;
+			 update billrecord
+			  set  remn = v_bill_remn,
+				  remd6 = sysdate(),
+				  rmda6 = v_bill_rem_amount
+			where bno = v_bill_bno;
+			
+		  end if;
+        
+    end if;
+    
+   -- insert into emailoutbound values (v_bill_bno,'reminder');
+    
+	If v_batch_count > batch_size
+    then 
+       -- commit;
+		-- reset batch_count to 0
+        set v_batch_count = 0;
+	end if;
+
+end LOOP gen_rem; 
+close cur_unpaidbill;
+    
+drop view if exists unpaidbill_view;
+-- commit;
+END

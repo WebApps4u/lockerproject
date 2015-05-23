@@ -238,3 +238,20 @@ ADD PRIMARY KEY (`SRCN`);
 ALTER TABLE `kplok_dev_db`.`sd` 
 RENAME TO  `kplok_dev_db`.`securitydeposit` ;
 
+---------------------------------------------------------------------------
+--- Late Fee Slab
+---------------------------------------------------------------------------
+CREATE TABLE `kplok_dev_db`.`latefeeslab` (
+  `LATEFEESLABID` INT NOT NULL AUTO_INCREMENT,
+  `FROMAMOUNT` DOUBLE NULL,
+  `TOAMOUNT` DOUBLE NULL,
+  `REMINDER1` DOUBLE NULL,
+  `REMINDER2` DOUBLE NULL,
+  `REMINDER3` DOUBLE NULL,
+  `REMINDER4` DOUBLE NULL,
+  `REMINDER5` DOUBLE NULL,
+  `REMINDER6` DOUBLE NULL,
+  PRIMARY KEY (`LATEFEESLABID`))
+COMMENT = 'Having list of charges for late fee based on which is the number of reminder';
+
+

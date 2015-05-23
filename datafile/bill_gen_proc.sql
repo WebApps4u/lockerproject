@@ -98,7 +98,7 @@ FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_l
     set v_bill_btdt = DATE_ADD(v_party_lrdd, INTERVAL 1 YEAR);
     
     -- copy the btdt to the key lrdd
-    set v_party_lrdd = v_bill_btdt;
+    set v_party_lrdd = DATE_SUB(  v_bill_btdt,INTERVAL 1 DAY);
     
     -- set the lrno of bill with key lrno
     set v_bill_lrno = v_party_lrno;
@@ -123,10 +123,10 @@ FETCH cur_party INTO v_party_kno,v_party_lokr,v_party_lpa,v_party_lrdd,v_party_l
     
     -- get the advance payment from the key alongwith service tax
     -- pcra+pcrast into ladv
-    set v_bill_ladv = v_party_pcra + v_party_pcrast;
+    set v_bill_ladv = ifnull(v_party_pcra,0) + ifnull(v_party_pcrast,0);
     
     -- calculate the payable amount lpyba = lcp - ladv
-    set v_bill_lpyba = v_bill_lcp - v_bill_ladv;
+    set v_bill_lpyba = v_bill_lcp+v_bill_lstxa - v_bill_ladv;
     
     -- email flag, if email is to be sent
     set v_bill_emailflag = v_party_emailflag;

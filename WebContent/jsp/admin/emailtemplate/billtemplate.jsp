@@ -184,10 +184,18 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="displayTextLbl">Locker Number</td>
+						<td class="displayTextLbl">Booking Number</td>
 						<td class="displayTextLbl">
 							<%
 								out.println("${LSNO}");
+							%>
+						</td>
+					</tr>
+					<tr>
+						<td class="displayTextLbl">Locker Number</td>
+						<td class="displayTextLbl">
+							<%
+								out.println("${LNO}");
 							%>
 						</td>
 					</tr>

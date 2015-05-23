@@ -91,5 +91,9 @@ public class AutoGenerationService {
 		}
 		return billNo;
 	}
-		
+	
+	/**
+	 * Generate Reminder, with bill from date lying between from and to date
+	 * It will send emails to subscribed user. 
+	 */
 }
