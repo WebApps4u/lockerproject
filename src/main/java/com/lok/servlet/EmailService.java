@@ -62,17 +62,21 @@ public class EmailService extends Thread {
 		// set the template IDs
 		// A cache will be used to populate this list, since it is not changed
 		// many times
-		templateIds.put("billrecord", "1001");
+		templateIds.put("billing", "1001");
+		templateIds.put("prereminder", "1002");
+		templateIds.put("reminder", "1003");
 	}
 
 	class EmailOutbound {
 
 		private String pk;
 		private String table;
+		private String emailType;
 
-		EmailOutbound(String pk, String table) {
+		EmailOutbound(String pk, String table,String emailType) {
 			this.pk = pk;
 			this.table = table;
+			this.emailType = emailType;
 		}
 
 		// Override compare method, to avoid duplicacy in the queue
@@ -84,7 +88,7 @@ public class EmailService extends Thread {
 			}
 			EmailOutbound toCompare = (EmailOutbound) o;
 			if (o != null && pk.equalsIgnoreCase(toCompare.pk)
-					&& table.equalsIgnoreCase(toCompare.table)) {
+					&& table.equalsIgnoreCase(toCompare.table) && emailType.equalsIgnoreCase(toCompare.emailType)) {
 				return true;
 			} else {
 				return false;
@@ -97,6 +101,7 @@ public class EmailService extends Thread {
 
 			hashCode = 31 * hashCode + (pk == null ? 0 : pk.hashCode());
 			hashCode = 31 * hashCode + table.hashCode();
+			hashCode = 31* hashCode +emailType.hashCode();
 			hashCode = 31 * hashCode + 17;
 
 			return hashCode;
@@ -211,11 +216,12 @@ public class EmailService extends Thread {
 					// e.g. resultSet.getSTring(2);
 					String objectId = resultSet.getString("objectId");
 					String objectType = resultSet.getString("objectType");
+					String emailType = resultSet.getString("emailType");
 					System.out.println(" id , type " + objectId + " - "
 							+ objectType);
 
 					// add only if object is not there in the queue
-					EmailOutbound obj = new EmailOutbound(objectId, objectType);
+					EmailOutbound obj = new EmailOutbound(objectId, objectType,emailType);
 					if (!emailQueue.contains(obj)) {
 						emailQueue.add(obj);
 					}
@@ -226,7 +232,7 @@ public class EmailService extends Thread {
 				close();
 
 				try {
-					Thread.currentThread().sleep(10000);
+					Thread.sleep(50000);
 				} catch (InterruptedException e) {
 				}
 				
@@ -272,7 +278,7 @@ public class EmailService extends Thread {
 				preparedStatement = connect.prepareStatement(sql);
 
 				// get the template id for the given table name
-				preparedStatement.setString(1, templateIds.get(outbound.table));
+				preparedStatement.setString(1, templateIds.get(outbound.emailType));
 
 				// Having details of the template
 				resultSet = preparedStatement.executeQuery();

@@ -375,6 +375,7 @@ public class BillRecordController extends BaseController<BillRecordService> {
 				EmailOutbound email = new EmailOutbound();
 				email.setObjectId(record.getBNO());
 				email.setObjectType("billrecord");
+				email.setEmailType("billing");
 				
 				//No need of this local class, since it is never reused
 /*				class EmailContrl extends BaseController<EmailOutboundService> {

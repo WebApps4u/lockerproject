@@ -1,4 +1,10 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `auto_rem_geneation`(
+
+USE `kplok_dev_db`;
+DROP procedure IF EXISTS `kplok_dev_db`.`auto_rem_geneation`;
+
+DELIMITER $$
+USE `kplok_dev_db`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `auto_rem_generation`(
 IN fromDate varchar(30),   -- month should in digits, 01, 02, 03 etc
 IN toDate varchar(30)
 )
@@ -204,4 +210,7 @@ close cur_unpaidbill;
     
 drop view if exists unpaidbill_view;
 -- commit;
-END
+END$$
+
+DELIMITER ;
+;

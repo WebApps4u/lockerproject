@@ -11,4 +11,6 @@ public interface AutoGenDAO {
     public void getDate();
     
     public void initiateBillGeneration(String dueMonth, String dueYear);
+    
+    public void initiateRemGeneration(String fromDate,String toDate);
 }

@@ -96,4 +96,23 @@ public class AutoGenerationService {
 	 * Generate Reminder, with bill from date lying between from and to date
 	 * It will send emails to subscribed user. 
 	 */
+	/**
+	 * Generates bills lying in given month and year 
+	 */
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/reminders")
+	public String genReminders(@QueryParam("fromDate") String fromDate,
+									@QueryParam("toDate") String toDate){
+		logger.debug(" enter AutoGeneration.genReminders() with from date to to date "+fromDate+" to "+toDate);
+		
+		try{
+			
+			contrl.initiateRemGeneration(fromDate,toDate);
+			
+		}catch(Exception e){
+			//log to the logger
+		}
+		return "";
+	}
 }

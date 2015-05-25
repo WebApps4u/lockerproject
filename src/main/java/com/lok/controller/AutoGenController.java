@@ -53,4 +53,23 @@ public class AutoGenController extends BaseController<AutoGenDAO>{
 		
 	}
 	
+	/**
+	 * Invokes the auto_rem_generation proc from database
+	 * by passing fromDate and toDate
+	 * 
+	 * It invokes new thread and resumes the application
+	 */
+	public void initiateRemGeneration(final String fromDate,final String toDate){
+		
+		Thread thread = new Thread(){
+			public void run(){
+				contrl.initiateRemGeneration(fromDate, toDate);
+			}
+		};
+		
+		thread.start();
+		
+		
+	}
+	
 }

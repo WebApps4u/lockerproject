@@ -219,7 +219,7 @@
 					<td class="displayTextLbl">Remark:</td>
 					<td><input type="text" name="REMARKS"></td>
 					<td class="displayTextLbl">Service tax</td>
-					<td><input type="number" required value="14" name="PCRAST" step="0.01"></td>
+					<td><input type="number" required value="0" name="PCRAST" step="0.01"></td>
 					<td class="displayTextLbl">Release</td>
 					<td><input type="text" name="RELS" size="1" /></td>
 					<td class="displayTextLbl">Release Date</td>

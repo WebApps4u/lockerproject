@@ -41,4 +41,14 @@ public class AutoGenDAOImpl implements AutoGenDAO{
     	    
     		this.jdbcTemplate.update("call auto_bill_generation(?,?)",dueMonth,dueYear);
     	    }
+    
+    /**
+     * Invokes auto_rem_generation proceudre
+     * 
+     */
+    public void initiateRemGeneration(String fromDate,String toDate){
+    	
+    	    
+    		this.jdbcTemplate.update("call auto_rem_generation(?,?)",fromDate,toDate);
+    	    }
 }

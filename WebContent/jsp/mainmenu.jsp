@@ -88,6 +88,9 @@
 						<li><a
 							href="/Locker_Financial_Society/jsp/lockerservice/reports/AutoBillGeneration.jsp">Auto
 								Bill Generation</a></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/reports/AutoRemGeneration.jsp">Auto
+								Reminder Generation</a></li>
 
 						<li><a href="#">Due Letters</a></li>
 					</ul></li>

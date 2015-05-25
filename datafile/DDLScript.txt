@@ -163,6 +163,12 @@ COMMENT = 'It has primary key & its table name for which email is to be generate
 ALTER TABLE `kplok_dev_db`.`emailoutbound` 
 ADD PRIMARY KEY (`objectid`, `objecttype`);
 
+ALTER TABLE `kplok_dev_db`.`emailoutbound` 
+ADD COLUMN `emailtype` VARCHAR(45) NOT NULL COMMENT 'This is for which type the email is to be generated. It can be billing, prereminder, reminder, dueletter, etc.' AFTER `objecttype`,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`objectid`, `objecttype`, `emailtype`);
+
+
 
 -------------------------------------------------------------------
 --- Email template table having all the templates

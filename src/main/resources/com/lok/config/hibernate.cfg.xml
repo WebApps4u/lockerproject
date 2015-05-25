@@ -9,7 +9,8 @@
         <mapping class="com.lok.model.CustomerDetails"/>
         <mapping class="com.lok.model.EmailOutbound"/>
         <mapping class="com.lok.model.EmailTemplate"/>
-                <mapping class="com.lok.model.SecurityDeposit"/>
+        <mapping class="com.lok.model.SecurityDeposit"/>
+        <mapping class="com.lok.model.AccessRecord"/>
 </session-factory>
 
 
