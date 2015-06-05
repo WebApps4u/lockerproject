@@ -61,7 +61,7 @@ public class FileServlet extends HttpServlet {
 			// Do your thing if the file appears to be non-existing.
 			// Throw an exception, or send 404, or show default/warning page, or
 			// just ignore it.
-			response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
+			//response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
 			return;
 		}
 

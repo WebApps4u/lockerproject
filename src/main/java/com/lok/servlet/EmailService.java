@@ -22,8 +22,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang3.text.StrSubstitutor;
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.json.JSONObject;
+
+import com.lok.config.ConfigurationJdbc;
+import static com.lok.config.ConfigurationJdbc.connectionPool;
 
 /**
  * This is a seperate application, that will be run by windows task manager It
@@ -38,9 +40,6 @@ import org.json.JSONObject;
  *
  */
 public class EmailService extends Thread {
-
-	public static final String DBURL = "jdbc:mysql://localhost/kplok_dev_db?user=root&password=root";
-	private static BasicDataSource connectionPool;
 
 	// blocking queue for pushing data to produce emails
 	private static BlockingQueue<EmailOutbound> emailQueue = new ArrayBlockingQueue<>(
@@ -111,8 +110,8 @@ public class EmailService extends Thread {
 
 	public static void main(String[] args) {
 
-		closeOpenConnection();
-		setPoolConnection();
+		ConfigurationJdbc.closeOpenConnection();
+		ConfigurationJdbc.setPoolConnection();
 
 		// create new object of email service
 		// start the thread
@@ -154,35 +153,13 @@ public class EmailService extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			closeOpenConnection();
+			ConfigurationJdbc.closeOpenConnection();
 		}
 	}
 
-	// Close any open connection
-	public synchronized static void closeOpenConnection() {
+	
 
-		// basic conn pool nullify
-		if (connectionPool != null) {
-			try {
-				connectionPool.close();
-			} catch (Exception e) {
-
-			} finally {
-				connectionPool = null;
-			}
-		}
-
-	}
-
-	// Get connection from db pool
-	public synchronized static void setPoolConnection() {
-		connectionPool = new BasicDataSource();
-
-		connectionPool.setDriverClassName("com.mysql.jdbc.Driver");
-		connectionPool.setUrl(DBURL);
-		connectionPool.setInitialSize(4);
-		connectionPool.setDefaultAutoCommit(false);
-	}
+	
 
 	private Connection connect = null;
 	private Statement statement = null;

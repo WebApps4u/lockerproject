@@ -29,7 +29,6 @@
 <script src="/Locker_Financial_Society/js/lok_jsutil.js"
 	type="text/javascript"></script>
 
-
 <!-- IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -41,6 +40,7 @@
 			dateFormat : 'yy-mm-dd',
 			changeYear : true
 		}).val();
+		
 		
 	}); 
 </script>

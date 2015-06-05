@@ -411,4 +411,33 @@ public class CustomerMasterService {
 		
 	}
 	
+	//Access record
+	//Creates multiple entries to access records. It deciphers json list to map AccessRecord pojo
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/accessrecords/")
+	public Response createAccessRecords(String accessJsonList){
+		JSONObject output = null;
+		try{
+			
+			ReturnMessage msg = null;
+			
+		//	AccessRecord[] emails = JsonConvert.DeserializeObject<AccessRecord[]>(accessJsonList);
+			
+			if(msg==null){
+				
+				//Set the default error message to unknown
+				output = new JSONObject(new ReturnMessage().setDefaultErr());
+			}
+			else{
+				output = new JSONObject(msg);
+			}
+		}catch(Exception e){
+			//log to the logger
+		}
+		
+		return Response.status(200).entity(output.toString()).build();
+	}
+	
 }
