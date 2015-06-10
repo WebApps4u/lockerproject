@@ -278,6 +278,50 @@ public class CustomerMasterService {
 		return billsJson!=null?billsJson.toString():"";
 	}
 	
+	/**
+	 * Generates bills for which reminders date lying in given month and year 
+	 */
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/reminders")
+	public String getReminders(@QueryParam("fromDate") String fromDate,
+									@QueryParam("toDate") String toDate){
+		logger.debug(" enter CustomerMasterService.getReminders() with fromDate-ToDate "+fromDate+"-"+toDate);
+		
+		JSONObject billsJson = null;
+		try{
+			
+			List<BillRecord> allBills = null;
+			
+			allBills = billContrl.getBillsForReminders(fromDate, toDate);
+			
+			
+			JSONArray billarr = new JSONArray();
+			//create jsonobjects and then put in jsonarray
+			for (int i=0;i<allBills.size();i++){
+				
+				//create jsonobject and put in the array
+				JSONObject obj = new JSONObject(allBills.get(i));
+				
+				//convert the date fields to the desired format
+				LokUtility.changeDateFormat(BillRecord.class, obj);
+				
+				billarr.put(obj);
+			}
+			
+			billsJson = new JSONObject();
+			
+			//put arrays of bills to key 'bills'
+			billsJson.put("bills", billarr);
+			
+		}
+		catch(Exception e){
+			//log to the logger
+		}
+		
+		return billsJson!=null?billsJson.toString():"";
+	}
+	
 	
 	//Receipt section starts
 	/**

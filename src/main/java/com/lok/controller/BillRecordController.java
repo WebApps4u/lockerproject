@@ -539,4 +539,44 @@ public class BillRecordController extends BaseController<BillRecordService> {
 		}
 		return listBills;
 	}
+	
+	
+	/**
+	 * Get bills whose reminders have been generated between from to to date
+	 */
+	public List<BillRecord> getBillsForReminders(String fromDate, String toDate) {
+		logger.debug(" enter BillRecordController.getBillsForReminders() from year -to year"
+				+ fromDate + "-" + toDate);
+
+		List<BillRecord> listBills = new ArrayList<BillRecord>();
+		try {
+
+			// have to create start date and end date from month and year
+			// not sure how to use db functions here
+			Search search = new Search();
+
+			// create filter to get all the reminders and prereminders that are falling between above dates
+			search.addFilterOr(
+					Filter.custom(" PREMD between '"+ fromDate+ "' and '"+ toDate+"'" ),
+					Filter.custom(" REMD1 between '"+ fromDate+ "' and '"+ toDate+"'" ),
+					Filter.custom(" REMD2 between '"+ fromDate+ "' and '"+ toDate+"'" ),
+					Filter.custom(" REMD3 between '"+ fromDate+ "' and '"+ toDate+"'" ),
+					Filter.custom(" REMD4 between '"+ fromDate+ "' and '"+ toDate+"'" ),
+					Filter.custom(" REMD5 between '"+ fromDate+ "' and '"+ toDate+"'" ),
+					Filter.custom(" REMD6 between '"+ fromDate+ "' and '"+ toDate+"'" )
+					);
+
+			listBills = billRecordService.search(search);
+
+			// will not throw null pointer since already initializ
+			logger.info(" List of Bills " + listBills.toString());
+
+		} catch (Exception e) {
+			logger.error(" Exception caught in BillRecordController.getBills -> "
+					+ e.getMessage());
+			e.printStackTrace();
+		}
+		return listBills;
+	}
+
 }
