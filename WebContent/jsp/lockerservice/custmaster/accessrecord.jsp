@@ -17,7 +17,7 @@
 	<div class="main-content" id="accessdetails">
 		<form id="frm_accessdetails">
 	
-		<table >
+		<table  >
 		<tr>
 		<td>Date <input type="date" name="ATD"> </td>
 		<td>Key Num <input type="text" name="AKNO"
@@ -33,7 +33,8 @@
 		</tr>
 		
 		</table>
-		<table id="accessrecords">
+		 <table id="accessrecords">
+		
 		<tr>
 		<th>Visited By</th>
 		<th>Time In</th>
@@ -46,6 +47,11 @@ Add Data
 		</tr>
 		
 		</table>
+		<div class="floating_buttons">
+				<input type="button" name="submitNewAccess" id="submitNewAccess"
+					value="" class="update"> <input type="reset"
+					name="cleartext" value="" class="clear">
+			</div>
 	</form> 
 	</div>
 	
@@ -63,6 +69,10 @@ Add Data
 			}
 			
 			function getDetails(keynum) {
+				
+			     // reset form
+			   //  resetForm($('form[id=frm_accessdetails]')); 
+			     
 				//get ajax call
 				$.get(
 						'/Locker_Financial_Society/rest/lockerservice/keydetails/'
@@ -73,13 +83,17 @@ Add Data
 					//populate fields with the recieved data
 //					populateForm($('form[id=frm_accessdetails]'), data);
 				//fill booking number
-				
+				$('input[name="AKNO"]').val(keynum);
 				$('input[name=ALSNO]').val(data.LSNO);
 				$('input[name=ALNO]').val(data.LNO);
 				
-				namesOfCustomers.push(data.PNM2+data.PNM3);
+				//clear any existing data
+				namesOfCustomers = [];
+				namesOfCustomers.push(data.PNM2+' '+data.PNM3);
 				namesOfCustomers.push(data.PNM4);
 				namesOfCustomers.push(data.PNM5);
+				
+				
 				
 				}).fail(function(error) {
 					//log error to console
@@ -95,6 +109,52 @@ Add Data
 				getDetails(keynum);
 			})
 			
+			//call the rest api to post all the access records. WIP
+			$('#submitNewAccess')
+					.on(
+							'click',
+							function(e) {
+
+								e.preventDefault();
+								$
+										.ajax({
+											type : "POST",
+											url : "/Locker_Financial_Society/rest/lockerservice/accessrecords/",
+											contentType : "application/json; charset=utf-8",
+											dataType : "json",
+											success : function(data) {
+
+												//check the status of the response
+												if (data.status == "SUCCESS") {
+													console
+															.log("successfully updated");
+													//remove all classes
+													$('#msg').removeClass();
+													$('#msg').addClass(
+															"successmsg");
+													$('#msg').html(
+															data.successMsg);
+													
+												} else {
+													console
+															.log("error in updated updated"
+																	+ data.errMsg);
+													$('#msg').removeClass();
+													$('#msg')
+															.addClass("errmsg");
+													$('#msg').html(data.errMsg);
+												}
+
+											},
+											error : function(response,
+													ajaxOptions, thrownError) {
+												console.log(thrownError)
+											},
+											data : ConvertFormToJSON($('form[id=frm_accessdetails]'))
+										});
+
+							})
+			
 		});
 		
 
@@ -102,8 +162,9 @@ Add Data
 		
 		function addMoreRows(frm) {
 		rowCount ++;
-		var recRow = '<tr id="rowCount'+rowCount+'" ><td><input name="" id="automplete-'+rowCount+'" type="text" size="17%"  maxlength="120"  /></td><td><input name="" type="time"  maxlength="120" style="margin: 4px 5px 0 5px;"/> </td><td><input name="" type="time" maxlength="120" style="margin: 4px 10px 0 0px;"/><span class="add-on"> </td><td><input name="" type="text"></td><td><input name="" type="text"></td><td> <a href="javascript:void(0);" onclick="removeRow('+rowCount+');">Delete</a></td></tr>';
-		$('#accessrecords').append(recRow);
+	//	var recRow = '<tr id="rowCount'+rowCount+'" ><td><input name="customername-'+rowCount+'" id="automplete-'+rowCount+'" type="text" size="17%"  maxlength="120"  /></td><td><input name="intime-'+rowCount+'" type="time"  maxlength="120" style="margin: 4px 5px 0 5px;"/> </td><td><input name="outtime-'+rowCount+'" type="time" maxlength="120" style="margin: 4px 10px 0 0px;"/><span class="add-on"> </td><td><input name="attendedby-'+rowCount+'" type="text"></td><td><input name="remarks-'+rowCount+'" type="text"></td><td> <a href="javascript:void(0);" onclick="removeRow('+rowCount+');">Delete</a></td></tr>';
+		var recRow = '<tr id="rowCount'+rowCount+'" ><td><input name="ANM-'+rowCount+'" id="automplete-'+rowCount+'" type="text" size="17%"  maxlength="120"  /></td><td><input name="AFT-'+rowCount+'" type="time"  maxlength="120" style="margin: 4px 5px 0 5px;"/> </td><td><input name="ATT-'+rowCount+'" type="time" maxlength="120" style="margin: 4px 10px 0 0px;"/><span class="add-on"> </td><td><input name="ATTB-'+rowCount+'" type="text"></td><td><input name="AREM-'+rowCount+'" type="text"></td><td> <a href="javascript:void(0);" onclick="removeRow('+rowCount+');">Delete</a></td></tr>';	
+	$('#accessrecords').append(recRow);
 		
 		//add autocomplete to input text
 		$('#automplete-'+rowCount).autocomplete({source:namesOfCustomers,minLength:0}).bind('focus', function(){ $(this).autocomplete("search"); });

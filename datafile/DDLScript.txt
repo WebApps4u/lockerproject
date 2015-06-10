@@ -261,3 +261,19 @@ CREATE TABLE `kplok_dev_db`.`latefeeslab` (
 COMMENT = 'Having list of charges for late fee based on which is the number of reminder';
 
 
+--------------------------------------------------------------------------------------
+--- Access Record
+--------------------------------------------------------------------------------------
+CREATE TABLE `accessrecord` (
+  `ACCESSRECORDID` int(11) NOT NULL AUTO_INCREMENT,
+  `AKNO` varchar(6) DEFAULT NULL,
+  `ALNO` varchar(7) DEFAULT NULL,
+  `ALSNO` varchar(8) DEFAULT NULL,
+  `ANM` varchar(30) DEFAULT NULL,
+  `ATD` datetime DEFAULT NULL,
+  `AFT` double DEFAULT NULL,
+  `ATT` double DEFAULT NULL,
+  `ATTB` varchar(8) DEFAULT NULL,
+  `AREM` varchar(27) DEFAULT NULL,
+  PRIMARY KEY (`ACCESSRECORDID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

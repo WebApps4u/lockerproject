@@ -1,8 +1,10 @@
 package com.lok.service.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -17,12 +19,21 @@ import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.Gson;
 import com.lok.config.ConfigurationLok;
 import com.lok.config.ConstantLok;
 import com.lok.controller.BillRecordController;
+import com.lok.model.AccessRecord;
 
 /**
  * Contains Utility methods that can be reused across all application
@@ -188,6 +199,100 @@ public class LokUtility {
 			uploadInstance.setSizeMax(ConstantLok.REQUEST_SIZE);
 		}
 		return uploadInstance;
+	}
+	
+	//Create array of objects of bean class file from string which is serialized json
+	//it will check key for hyphen (-), if found, then it would consider it as parameter which is
+	//part of one record. If there is no hyphen, then that would be considered as common parameter which 
+	//will go in all the records
+	//e.g. { "key":"1111-W", "abc":"111s" , "custname-0":"dee", "custname-1":"axx", "attendedby-0":"axd","attenedby-1","kss"}
+	//        common           common          record 1            record 2             record 1             record 2
+	public static <T> List<T> DeserializeObject(String serializedList,Class<T> beanClass) throws JSONException, JsonParseException, JsonMappingException, IOException{
+		
+		List<T> listOfObj = new ArrayList<T>();
+		JSONObject obj = new JSONObject(serializedList);
+		
+		//create json array to hold each row to be inserted to bean class object
+		JSONArray jsonArray = new JSONArray();
+		
+		Iterator<String> itr = obj.keys();
+		
+		JSONObject currentObj= null;
+		//Get all the fields of bean class
+		
+		//keep storing all the common data, will be added to each row later
+		JSONObject commonFields = new JSONObject();
+		
+		
+		//go through all the keys of json to find out common object list and maintain list of 
+		//items to be inserted as separate records
+		while(itr.hasNext()){
+			
+			//get the json key
+			String key = itr.next();
+			
+			//check if key has hyphen (-), if it does, then it should be parsed to get name, and put in appropirate array position
+			
+				
+				//get the number after hyphen, this is position where this value should be put in array
+				String field_num[] = StringUtils.split(key, "-");      //has to be only one hyphen in the name
+				
+				String field = field_num[0];
+				String num   = "";
+				
+				//get the second parameter only if exists
+				if(field_num.length>1){
+					num = field_num[1];
+				}
+				
+				
+				if (StringUtils.isBlank(num)){
+					//common field
+					//add this to common fields
+					commonFields.put(key, obj.get(key));
+				}
+				else if(StringUtils.isNumeric(num)){
+					
+					int index = Integer.parseInt(num)-1;
+					
+					try{
+					currentObj = (JSONObject) jsonArray.get(index);
+					}
+					catch ( JSONException e ) { //no better way to handle the index out of bound exception
+						currentObj = new JSONObject();
+						jsonArray.put(index,currentObj);
+					}
+					
+					currentObj.put(field, obj.get(key));
+				}
+				else{
+					throw new IllegalArgumentException(" Invalid value after - for list: "+num+ " : it should be numeric. Value found "+key);
+				}
+			
+		}
+
+		
+		
+		ObjectMapper obj1 = new ObjectMapper();
+		
+		for (int i=0;i<jsonArray.length();i++){
+			
+			JSONObject oneRecord = jsonArray.getJSONObject(i);
+			
+			Iterator<String> itrCommon = commonFields.keys();
+			
+			//add common fields to final list
+			while(itrCommon.hasNext()){
+				String eachKey = itrCommon.next();
+				oneRecord.put(eachKey, commonFields.get(eachKey));
+			}
+			
+			String jsonString = oneRecord.toString();
+		//add to the list of objects
+		   listOfObj.add((T) obj1.readValue(jsonString,beanClass));
+		}
+		
+		return listOfObj ;
 	}
 	
 }

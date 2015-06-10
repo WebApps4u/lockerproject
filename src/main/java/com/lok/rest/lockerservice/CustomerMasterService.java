@@ -32,12 +32,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.JsonParser;
+import com.lok.controller.AccessRecordController;
 import com.lok.controller.BillRecordController;
 import com.lok.controller.CustomerDetailsController;
 import com.lok.controller.MasterSeqRecordController;
 import com.lok.controller.PartyRecordController;
 import com.lok.controller.ReceiptRecordController;
 import com.lok.controller.SecurityDepositController;
+import com.lok.model.AccessRecord;
 import com.lok.model.BillRecord;
 import com.lok.model.CustomerDetails;
 import com.lok.model.PartyRecord;
@@ -57,6 +59,7 @@ public class CustomerMasterService {
 	ReceiptRecordController receiptContrl = new ReceiptRecordController();
 	CustomerDetailsController custDetailsContrl = new CustomerDetailsController();
 	SecurityDepositController sdContrl = new SecurityDepositController();
+	AccessRecordController accessContrl = new AccessRecordController();
 	
 	@InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder webDataBinder) {
@@ -423,8 +426,9 @@ public class CustomerMasterService {
 			
 			ReturnMessage msg = null;
 			
-		//	AccessRecord[] emails = JsonConvert.DeserializeObject<AccessRecord[]>(accessJsonList);
+		    List<AccessRecord> accessRecords = LokUtility.<AccessRecord>DeserializeObject(accessJsonList,AccessRecord.class);
 			
+		    msg = accessContrl.updateAccessRecord(accessRecords);
 			if(msg==null){
 				
 				//Set the default error message to unknown
@@ -434,7 +438,7 @@ public class CustomerMasterService {
 				output = new JSONObject(msg);
 			}
 		}catch(Exception e){
-			//log to the logger
+			e.printStackTrace();
 		}
 		
 		return Response.status(200).entity(output.toString()).build();

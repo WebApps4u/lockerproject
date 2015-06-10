@@ -254,7 +254,7 @@
 			//generic function to populate form data 
 			//TODO need to be moved to the generic js file
 			function populateForm($form, data) {
-				// resetForm($form);
+				 resetForm($form);
 				$.each(data, function(key, value) {
 					var $ctrl = $form
 							.find('[name="' + key.toUpperCase() + '"]');

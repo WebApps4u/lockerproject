@@ -25,7 +25,8 @@ var array = $(form).serializeArray();
 var json = {};
 
 $.each(array, function() {
-    json[this.name.toLowerCase()] = this.value || '';
+   json[this.name.toLowerCase()] = this.value || '';
+	// json[this.name.toUpperCase()] = this.value || '';
 });
 json=JSON.stringify(json);
 return json;
@@ -49,4 +50,14 @@ function clickOnEnter(e,idOfButton){
 	document.getElementById(idOfButton).click();
 	}
 	return;
+}
+
+//clear all the fields using javascript
+function resetForm(form){
+	
+	//get id of the form
+	var id = form.attr('id');
+	
+	//reset the form
+	document.getElementById(id).reset();
 }
