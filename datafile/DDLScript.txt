@@ -277,3 +277,60 @@ CREATE TABLE `accessrecord` (
   `AREM` varchar(27) DEFAULT NULL,
   PRIMARY KEY (`ACCESSRECORDID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+--------------------------------------------------------------------------
+--- Auditing table for Bill: To keep the status unchanged forever when taken for back date
+--------------------------------------------------------------------------
+
+CREATE TABLE `billrecord_history` (
+  `BILL_AUDITID` int(11) NOT NULL AUTO_INCREMENT,
+  `BNO` varchar(7) DEFAULT NULL,
+  `BDT` datetime DEFAULT NULL,
+  `BFDT` datetime DEFAULT NULL,
+  `BTDT` datetime DEFAULT NULL,
+  `KNO` varchar(6) DEFAULT NULL,
+  `LSNO` varchar(8) DEFAULT NULL,
+  `LRELS` varchar(1) DEFAULT NULL,
+  `LAMT` double DEFAULT NULL,
+  `LOUT` double DEFAULT NULL,
+  `LCP` double DEFAULT NULL,
+  `LADV` double DEFAULT NULL,
+  `LSTXR` double DEFAULT NULL,
+  `LSTXA` double DEFAULT NULL,
+  `LRNO` varchar(8) DEFAULT NULL,
+  `LPYBA` double DEFAULT NULL,
+  `BFLG` varchar(1) DEFAULT NULL,
+  `LRCTN` varchar(8) DEFAULT NULL,
+  `LRCTD` datetime DEFAULT NULL,
+  `PREMD` datetime DEFAULT NULL,
+  `REMN` double DEFAULT NULL,
+  `REMD1` datetime DEFAULT NULL,
+  `RMDA1` double DEFAULT NULL,
+  `REMD2` datetime DEFAULT NULL,
+  `RMDA2` double DEFAULT NULL,
+  `REMD3` datetime DEFAULT NULL,
+  `RMDA3` double DEFAULT NULL,
+  `REMD4` datetime DEFAULT NULL,
+  `RMDA4` double DEFAULT NULL,
+  `REMD5` datetime DEFAULT NULL,
+  `RMDA5` double DEFAULT NULL,
+  `REMD6` datetime DEFAULT NULL,
+  `RMDA6` double DEFAULT NULL,
+  `REMDA1` bigint(20) NOT NULL,
+  `REMDA2` bigint(20) NOT NULL,
+  `REMDA3` bigint(20) NOT NULL,
+  `REMDA4` bigint(20) NOT NULL,
+  `REMDA5` bigint(20) NOT NULL,
+  `REMDA6` bigint(20) NOT NULL,
+  `SENDEMAIL` varchar(1) DEFAULT NULL COMMENT 'P- Email is to sent\nY- Email has been successfully sent\nN or null - Email not to be sent\nF - Email sending is unsucessful because of errors',
+  `SENDSMS` varchar(1) DEFAULT NULL COMMENT 'P- sms is to sent\nY- sms has been successfully sent\nN or null - sms not to be sent\nF - sms sending is unsucessful because of errors',
+  `SENDMAIL` varchar(255) DEFAULT NULL,
+  `MODIFIEDDATE` datetime COMMENT 'This is the main field by which all the status have been kept in history, it is set to sysdate() using trigger, if inserting null or blank',
+  PRIMARY KEY (`BILL_AUDITID`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
