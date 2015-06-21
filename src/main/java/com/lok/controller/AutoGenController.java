@@ -70,6 +70,6 @@ public class AutoGenController extends BaseController<AutoGenDAO>{
 		thread.start();
 		
 		
-	}
+	}	
 	
 }

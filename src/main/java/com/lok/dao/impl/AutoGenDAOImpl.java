@@ -51,4 +51,13 @@ public class AutoGenDAOImpl implements AutoGenDAO{
     	    
     		this.jdbcTemplate.update("call auto_rem_generation(?,?)",fromDate,toDate);
     	    }
+    
+    /**
+     * Get the jdbcTemplate to be used in different form
+     * Should be only available to immediate child class
+     */
+    public JdbcTemplate getDataSource(){
+    	
+    	return this.jdbcTemplate;
+    }
 }

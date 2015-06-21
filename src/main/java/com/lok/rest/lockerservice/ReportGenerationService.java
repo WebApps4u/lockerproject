@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.lok.controller.AutoGenController;
 import com.lok.controller.BillRecordController;
 import com.lok.controller.PartyRecordController;
 import com.lok.controller.ReportGenController;
@@ -31,10 +32,10 @@ import com.lok.service.impl.LokUtility;
  */
 
 @Path("/reports")
-public class ReportGenerationService {
+public class ReportGenerationService extends AutoGenController{
 
 	private static Logger logger = Logger
-			.getLogger(CustomerMasterService.class);
+			.getLogger(ReportGenerationService.class);
 
 	PartyRecordController partyContrl = new PartyRecordController();
 	BillRecordController billContrl = new BillRecordController();

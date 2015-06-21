@@ -13,4 +13,6 @@ public interface AutoGenDAO {
     public void initiateBillGeneration(String dueMonth, String dueYear);
     
     public void initiateRemGeneration(String fromDate,String toDate);
+
+    public JdbcTemplate getDataSource();
 }
