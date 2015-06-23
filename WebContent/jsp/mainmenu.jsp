@@ -144,6 +144,9 @@
 								<li><a href="#">Daily </a></li>
 								<li><a href="#">Monthly</a></li>
 							</ul></li>
+						<li><a
+							href="/Locker_Financial_Society/jsp/lockerservice/reports/TestBill.jsp">Bill
+								Status &raquo;</a></li>
 					</ul></li>
 				<li><a href="#">Admin Menu</a>
 					<ul>

@@ -19,8 +19,10 @@ import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -38,6 +40,7 @@ public class ReportGenController extends BaseController<AutoGenDAO>{
 		
 		contrl =  getService(); 
 		jdbcTemplate = contrl.getDataSource();
+		
 	}
 	//jdbc template object
 	private JdbcTemplate jdbcTemplate;
@@ -79,6 +82,7 @@ public class ReportGenController extends BaseController<AutoGenDAO>{
 	         try {
 	        	 
 	        	 JasperCompileManager.compileReportToFile(sourceFileName);
+	        	 
 	        	 printFileName =JasperFillManager.fillReportToFile(
 	            sourceFileNameJ,
 	            parameters,
@@ -110,4 +114,58 @@ public class ReportGenController extends BaseController<AutoGenDAO>{
 	      System.out.println("Done compiling!!! ...");
 	   }
 	
+	 public static JasperPrint getReportTest(String query){
+		 JasperPrint jasperPrint = null;
+		 try {
+				ConfigurationJdbc.closeOpenConnection();
+				ConfigurationJdbc.setPoolConnection();
+		 
+		    String sourceFileName = "E:\\CODES\\LOK_GIT\\lockerproject\\reporting\\OutstandingBills.jrxml";
+		   String sourceFileNameJ = "E:\\CODES\\LOK_GIT\\lockerproject\\reporting\\OutstandingBills.jasper";
+			Connection connect = null;
+			 Statement statement = null;
+			 PreparedStatement preparedStatement = null;
+			 ResultSet resultSet = null;
+		  System.out.println("Compiling Report Design ...");
+	  
+	     /**
+	      * Compile the report to a file name same as
+	      * the JRXML file name
+	      */
+	     
+		  connect = connectionPool.getConnection();
+			// Statements allow to issue SQL queries to the database
+			statement = connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE ,ResultSet.CONCUR_UPDATABLE);
+			
+			// Result set get the result of the SQL query
+			resultSet = statement
+					.executeQuery(query);
+			
+	     
+	     String printFileName = null;
+	     Map parameters = new HashMap();
+	     
+	     parameters.put("ReportTitle", "Bill Report");
+		parameters.put("BaseDir",new File( "E:\\CODES\\LOK_GIT\\lockerproject\\images\\test"));
+	     
+	    	 
+	    	 JasperCompileManager.compileReportToFile(sourceFileName);
+	    	 
+	    	 jasperPrint =JasperFillManager.fillReport(
+	        sourceFileNameJ,
+	        parameters,
+	        new JRResultSetDataSource(resultSet));
+	        
+	        
+	    	 
+	     } catch (JRException e) {
+	        e.printStackTrace();
+	     }catch(Exception e){
+	    	 e.printStackTrace();
+	     }finally{
+	    	 ConfigurationJdbc.closeOpenConnection();
+	     }
+		 
+		 return jasperPrint;
+	 }
 }

@@ -32,7 +32,7 @@ import com.lok.service.impl.LokUtility;
  */
 
 @Path("/reports")
-public class ReportGenerationService extends AutoGenController{
+public class ReportGenerationService {
 
 	private static Logger logger = Logger
 			.getLogger(ReportGenerationService.class);
