@@ -9,12 +9,15 @@ public class ConfigurationJdbc {
 	
 	// Get connection from db pool
 		public synchronized static void setPoolConnection() {
+			
+			if (connectionPool == null){
 			connectionPool = new BasicDataSource();
 
 			connectionPool.setDriverClassName("com.mysql.jdbc.Driver");
 			connectionPool.setUrl(DBURL);
 			connectionPool.setInitialSize(4);
 			connectionPool.setDefaultAutoCommit(false);
+			}
 		}
 		
 		// Close any open connection

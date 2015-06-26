@@ -181,13 +181,14 @@ public class CustomerDetailsController extends
 			}else{
 				
 				custDetails = custDetailsService.findById(incustId);
+				//if custDetails is null, throw error invalid customer id
+				if(custDetails == null){
+					throw new Exception(" Invalid Customer id");
+				}
 				nextCustomerId = custDetails.getCUSTOMERID();
 			}
 			
-			//if custDetails is null, throw error invalid customer id
-			if(custDetails == null){
-				throw new Exception(" Invalid Customer id");
-			}
+			
 			// create directory structure tree for KYC documents
 			DefaultMutableTreeNode kycDir = new DefaultMutableTreeNode(
 					ConstantLok.KYC_UPLOAD_DIRECTORY);

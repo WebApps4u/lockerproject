@@ -148,7 +148,7 @@ ul#navigation li a.last {
     vertical-align: middle; /* center kyc vertically */
 }
 
-table {
+.main_content table {
 	font-family:Arial, Helvetica, sans-serif;
 	color:#666;
 	font-size:12px;
@@ -165,7 +165,7 @@ table {
 	-webkit-box-shadow: 0 1px 2px #d1d1d1;
 	box-shadow: 0 1px 2px #d1d1d1;
 }
-table th {
+.main_content table th {
 	padding:2px 10px 2px 10px;
 	border-top:1px solid #fafafa;
 	border-bottom:1px solid #e0e0e0;
@@ -175,22 +175,22 @@ table th {
 	background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
 
 }
-th a {
+.main_content th a {
     color: #666 !important;
 }
 
-table td {
+.main_content table td {
 	padding:3px;
 	background: #fafafa;
 	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
 	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
 
-td.selected{
+.main_content td.selected{
 	
 	background : blue;
 }
-tr.selected{
+.main_content tr.selected{
 	
 	background : blue;
 }

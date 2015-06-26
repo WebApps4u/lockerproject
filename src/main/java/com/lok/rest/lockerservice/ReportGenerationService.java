@@ -20,8 +20,8 @@ import org.json.JSONObject;
 import com.lok.controller.AutoGenController;
 import com.lok.controller.BillRecordController;
 import com.lok.controller.PartyRecordController;
-import com.lok.controller.ReportGenController;
 import com.lok.model.BillRecord;
+import com.lok.reporting.ReportGenController;
 import com.lok.service.impl.LokUtility;
 
 /**

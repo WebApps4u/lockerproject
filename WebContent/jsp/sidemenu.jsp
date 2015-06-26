@@ -1,34 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <script type="text/javascript">
+
+$(function() {
+	$('#cssmenu > ul > li > a').click(function() {
+	  $('#cssmenu li').removeClass('active');
+	  $(this).closest('li').addClass('active');	
+	  var checkElement = $(this).next();
+	  if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+	    $(this).closest('li').removeClass('active');
+	    checkElement.slideUp('normal');
+	  }
+	  if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+	    $('#cssmenu ul ul:visible').slideUp('normal');
+	    checkElement.slideDown('normal');
+	  }
+	  if($(this).closest('li').find('ul').children().length == 0) {
+	    return true;
+	  } else {
+	    return false;	
+	  }		
+	});
 	
-	$(function() {
-		$('#cssmenu > ul > li > a').click(function() {
-		  $('#cssmenu li').removeClass('active');
-		  $(this).closest('li').addClass('active');	
-		  var checkElement = $(this).next();
-		  if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-		    $(this).closest('li').removeClass('active');
-		    checkElement.slideUp('normal');
-		  }
-		  if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
-		    $('#cssmenu ul ul:visible').slideUp('normal');
-		    checkElement.slideDown('normal');
-		  }
-		  if($(this).closest('li').find('ul').children().length == 0) {
-		    return true;
-		  } else {
-		    return false;	
-		  }		
-		});
+	//Submit form by passing inputs
+	$('#cssmenu > ul > li > ul > li > a').on("click",function(e){
+		
+		e.preventDefault();
+		
+		//create key value pair out of a href link
+		var listOfAttr = $(this).attr('href');
+		var destination = listOfAttr;
+		
+		//remove ? marks
+		listOfAttr = listOfAttr.replace('?','');
+		var keyValuePairs = listOfAttr.split('&');
+		
+		$.each( keyValuePairs, function( index, value ){
+		    var keyValue = value;
+		    
+		    //split with =
+		    var s = keyValue.split('=');			    
+		    var input = $("<input>").attr("type", "hidden").attr("name", s[0]).val(s[1]);
+	        $('#sidemenu').append($(input));
 		});
 		
-	</script>
+		
+		//TODO put validation : for custom section, from, to and as on date are mandatory fields			
+		
+		$('#sidemenu').attr('action',destination);
+		$('#sidemenu').submit();
+	});
 	
+	});
+</script>
+
+
+
+
 	<style type="text/css">
 
 		/* Styles added for side menu */
@@ -139,6 +172,33 @@
 </style>
 </head>
 <body>
+	<form name="sidemenu" id="sidemenu" >
+	<div id='cssmenu' style="float:left">
+	
+		<ul>
+			<li class='has-sub' id="saved"><a href='#'
+				title="System will generate report for current year"><span>Saved
+						Report</span></a>
+				<ul>
+					<li><a href='?reload=true&saved=true&id=bill_1'><span>Current Year Outstanding</span></a></li>
+					<li><a href='?reload=true&saved=true&id=bill_2'><span>Total Outstanding</span></a></li>
+					<li class='last'><a href='?reload=true&saved=true&id=bill_3'><span>Current year
+								Bill Raised</span></a></li>
+					
+				</ul></li>
+			<li class='has-sub' id="custom"><a href='#'><span>Custom Report</span></a>
+				<ul>
+					<li><span>Enter Period</span><br>
+					<input type="date" placeholder="From Date" name="fromdate">TO<input
+						type="date" placeholder="To Date" name="todate"></li>
+					<li><span>As On Date</span><br>
+					<input type="date" placeholder="As on Date" name="asondate"></li>
+					<li><a href='?reload=true&saved=false&id=bill_4'><span>Outstanding Bill</span></a></li>
+					<li><a href='?reload=true&saved=fals&id=bill_5'><span>Bill Raised</span></a></li>
 
+				</ul></li>
+		</ul>
+		
+	</div></form>
 </body>
 </html>

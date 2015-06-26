@@ -16,5 +16,10 @@ public final class ConstantLok {
 	public static final String AADHAR_UPLOAD_DIRECTORY ="AADHAR";
 	public static final String SIGN_UPLOAD_DIRECTORY ="SIGN";
 	public static final String PHOTO_UPLOAD_DIRECTORY ="PHOTO";
+	
+	//Constant for reporting
+	public static final String REPORTING_TEMPLATE ="REPORTING";
+
+	public static final String REPORTING_SAVED = "REPORTSSAVED";
 }
 
