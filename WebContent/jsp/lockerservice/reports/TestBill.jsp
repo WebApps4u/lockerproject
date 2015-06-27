@@ -10,11 +10,57 @@
 	String reload = request.getParameter("reload");
 	JasperPrint jasperPrint = (JasperPrint)session.getAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE);
 	
+	String downloadAsPdf = request.getParameter("pdf");
+	String downloadAsExcel = request.getParameter("excel");
+	
 	if ((reload!=null && reload.equalsIgnoreCase("true")) || jasperPrint == null)
 	{
 		jasperPrint = new BillReportGenerator().getReportTest(request);
 		session.setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
 	}
+	
+	if (downloadAsPdf!=null && downloadAsPdf.equalsIgnoreCase("true")){
+		response.setHeader("Content-Disposition", "attachment; filename=" + "bill_status");
+		  // Make sure to set the correct content type
+		response.setContentType("application/pdf");
+		
+		OutputStream outStream = response.getOutputStream();
+		
+		
+		  
+		JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		
+		//reset parameter
+		downloadAsPdf = "false";
+		return;
+	}else if (downloadAsExcel!=null && downloadAsExcel.equalsIgnoreCase("true")){
+		response.setHeader("Content-Disposition", "attachment; filename=" + "bill_status");
+		  // Make sure to set the correct content type
+		response.setContentType("application/vnd.ms-excel");
+		
+		OutputStream outStream = response.getOutputStream();
+		
+		
+		   JRExporter exporterXLS = new JRXlsExporter();         
+
+
+           exporterXLS.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporterXLS.setParameter(JRExporterParameter.OUTPUT_STREAM, outStream);
+            exporterXLS.setParameter(JRXlsAbstractExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
+            exporterXLS.setParameter(JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, Boolean.TRUE);
+            exporterXLS.setParameter(JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+            exporterXLS.setParameter(JRXlsAbstractExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+            exporterXLS.setParameter(JRXlsAbstractExporterParameter.IS_DETECT_CELL_TYPE, Boolean.FALSE);
+            exporterXLS.setParameter(JRXlsAbstractExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+            exporterXLS.setParameter(JRXlsAbstractExporterParameter.IS_IGNORE_GRAPHICS, Boolean.TRUE);
+
+
+            exporterXLS.exportReport();
+		
+		//reset parameter
+		downloadAsExcel = "false";
+		return;
+	} 
 	HtmlExporter exporter = new HtmlExporter();
 	
 	int pageIndex = 0;
@@ -80,8 +126,6 @@
     <hr size="1" color="#000000">
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td><a href="?reload=true"><img src="/Locker_Financial_Society/css/images/reload.GIF" border="0"></a></td>
-        <td>&nbsp;&nbsp;&nbsp;</td>
 <%
 	if (pageIndex > 0)
 	{
@@ -101,7 +145,7 @@
 	if (pageIndex < lastPageIndex)
 	{
 %>
-        <td><a href="?page=<%=pageIndex + 1%>"><img src="/Locker_Financial_Society/css/images/next.GIF" border="0"></a></td>
+        <td><a href="?page=<%=pageIndex + 1%>" ><img src="/Locker_Financial_Society/css/images/next.GIF" border="0"></a></td>
         <td><a href="?page=<%=lastPageIndex%>"><img src="/Locker_Financial_Society/css/images/last.GIF" border="0"></a></td>
 <%
 	}
@@ -112,6 +156,16 @@
         <td><img src="/Locker_Financial_Society/css/images/last_grey.GIF" border="0"></td>
 <%
 	}
+	
+	//give download option if report available
+	if(lastPageIndex >= 0 ){
+		%>
+		<td>&nbsp;&nbsp;&nbsp;</td>
+		<td><a href="?pdf=true" target="_blank"><img src="/Locker_Financial_Society/css/images/icon_download.png" title = "download as pdf" border="0"></a></td>
+		
+		<td>&nbsp;&nbsp;&nbsp;</td>
+		<td><a href="?excel=true" target="_blank"><img src="/Locker_Financial_Society/css/images/icon_download.png" title = "download as xls" border="0"></a></td>
+<%	}
 %>
         <td width="100%">&nbsp;</td>
       </tr>
@@ -131,7 +185,14 @@
 </tr>
 </table>
 </div>
+	<script type="text/javascript">
 	
+	$(function(){
+		
+		//set as on date to sysdate, it cannot be blank for custom report
+		setSysdate();
+	});
+	</script>
 
 </body>
 </html>

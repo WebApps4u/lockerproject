@@ -61,3 +61,10 @@ function resetForm(form){
 	//reset the form
 	document.getElementById(id).reset();
 }
+
+//set current date to the field
+function setSysdate(element){
+	 if($(element).val()==""){
+	$(element).val($.datepicker.formatDate('yy-mm-dd',new Date()));
+	}
+}

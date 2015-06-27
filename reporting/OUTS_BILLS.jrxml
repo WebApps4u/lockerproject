@@ -14,6 +14,8 @@
 	<field name="BNO" class="java.lang.String"/>
 	<field name="LAMT" class="java.lang.Double"/>
 	<field name="LSTXA" class="java.lang.Double"/>
+	<field name="PNM2" class="java.lang.String"/>
+	<field name="PNM3" class="java.lang.String"/>
 	<variable name="TotalAmount" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{LAMT}]]></variableExpression>
 	</variable>
@@ -28,7 +30,7 @@
 					<topPen lineWidth="1.0"/>
 				</box>
 				<textField isBlankWhenNull="true">
-					<reportElement x="175" y="1" width="335" height="30" uuid="bb74781c-1c03-4044-87f6-e43bfaf5a15a"/>
+					<reportElement x="0" y="1" width="510" height="30" uuid="bb74781c-1c03-4044-87f6-e43bfaf5a15a"/>
 					<textElement textAlignment="Right">
 						<font size="22"/>
 					</textElement>
@@ -54,25 +56,32 @@
 				<text><![CDATA[Key No]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="3" width="70" height="20" uuid="bfa671a0-3d51-4247-b531-f85dd41efb5b"/>
+				<reportElement x="225" y="0" width="70" height="20" uuid="bfa671a0-3d51-4247-b531-f85dd41efb5b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Bill No]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="190" y="3" width="70" height="20" uuid="54b970c3-4eee-4fa9-863e-e5fb34cc559c"/>
+				<reportElement x="295" y="0" width="70" height="20" uuid="54b970c3-4eee-4fa9-863e-e5fb34cc559c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Amount]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="260" y="3" width="70" height="20" uuid="400f9ac7-0554-455b-9649-9ea3e0276b3e"/>
+				<reportElement x="365" y="0" width="70" height="20" uuid="400f9ac7-0554-455b-9649-9ea3e0276b3e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[S. Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="3" width="105" height="17" uuid="65beed9f-8cad-424a-a9e3-5f84ab24a953"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Party Name]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -89,23 +98,28 @@
 				<textFieldExpression><![CDATA[$F{KNO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="120" y="4" width="70" height="15" uuid="65a6d24a-09f7-441f-92a4-25857ea193e9"/>
+				<reportElement positionType="Float" x="225" y="1" width="70" height="15" uuid="65a6d24a-09f7-441f-92a4-25857ea193e9"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{BNO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="190" y="4" width="70" height="15" uuid="57ec2798-333f-4712-acda-f4ce6881966a"/>
+				<reportElement positionType="Float" x="295" y="1" width="70" height="15" uuid="57ec2798-333f-4712-acda-f4ce6881966a"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{LAMT}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="260" y="4" width="70" height="15" uuid="57ec2798-333f-4712-acda-f4ce6881966a"/>
+				<reportElement positionType="Float" x="365" y="1" width="70" height="15" uuid="57ec2798-333f-4712-acda-f4ce6881966a"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{LSTXA}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="Float" x="0" y="19" width="515" height="1" forecolor="#808080" uuid="bf0e2cb8-18b9-4a3a-9dd4-50a622f9e754"/>
 			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="120" y="4" width="105" height="12" uuid="fcfa9b31-deec-40c7-903f-1ad3a408c502"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PNM2}+" "+$F{PNM3}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>

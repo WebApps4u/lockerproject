@@ -247,9 +247,11 @@
 		$(function() {
 
 			//set Bill date as sysdate if it is not already set
-			if($('input[name=LSDT]').val()==""){
+			/* if($('input[name=LSDT]').val()==""){
 				$('input[name=LSDT]').val($.datepicker.formatDate('yy-mm-dd',new Date()));
-			}
+			} */
+			//invoke set sysdate method
+			setSysdate('input[name=LSDT]');
 			
 			//generic function to populate form data 
 			//TODO need to be moved to the generic js file

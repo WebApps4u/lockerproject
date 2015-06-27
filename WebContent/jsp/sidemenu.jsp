@@ -40,21 +40,44 @@ $(function() {
 		listOfAttr = listOfAttr.replace('?','');
 		var keyValuePairs = listOfAttr.split('&');
 		
+		var flagChecked= "false";
+		var errors = 0;
+	 
 		$.each( keyValuePairs, function( index, value ){
 		    var keyValue = value;
 		    
 		    //split with =
 		    var s = keyValue.split('=');			    
+		    
+		    //set custom flag true, if not saved, need to validate from, to and as on date 
+		    if(flagChecked=='false' && s[0]=='saved' ){  //custom flag not checked yet
+		    	
+		    	if( s[1]=='true' ){
+		    		flagChecked = true;
+		    	}
+		    	else{
+		    	//validate from, to and as on date cannot be blank
+		    		 if( !$('input[name=fromdate]').val() || !$('input[name=todate]').val() || !$('input[name=asondate]').val()){
+		    			 alert(" from, to and as on date are required");
+		    			 errors++;
+		    			 return false;
+		    		 }
+		    	
+		    	}
+		    }
 		    var input = $("<input>").attr("type", "hidden").attr("name", s[0]).val(s[1]);
 	        $('#sidemenu').append($(input));
 		});
 		
 		
 		//TODO put validation : for custom section, from, to and as on date are mandatory fields			
-		
-		$('#sidemenu').attr('action',destination);
-		$('#sidemenu').submit();
+		   if(errors === 0){
+				$('#sidemenu').attr('action',destination);
+				$('#sidemenu').submit();
+		   }
 	});
+	
+	setSysdate('input[name=asondate]');
 	
 	});
 </script>
@@ -155,7 +178,7 @@ $(function() {
 /* Sub menu */
 #cssmenu ul ul {
   padding: 5px 12px;
-  display: none;
+  display: block;
 }
 #cssmenu ul ul li {
   padding: 3px 0;
@@ -176,7 +199,7 @@ $(function() {
 	<div id='cssmenu' style="float:left">
 	
 		<ul>
-			<li class='has-sub' id="saved"><a href='#'
+			<li class='has-sub active' id="saved"><a href='#'
 				title="System will generate report for current year"><span>Saved
 						Report</span></a>
 				<ul>
@@ -186,13 +209,13 @@ $(function() {
 								Bill Raised</span></a></li>
 					
 				</ul></li>
-			<li class='has-sub' id="custom"><a href='#'><span>Custom Report</span></a>
+			<li class='has-sub active' id="custom"><a href='#'><span>Custom Report</span></a>
 				<ul>
 					<li><span>Enter Period</span><br>
-					<input type="date" placeholder="From Date" name="fromdate">TO<input
-						type="date" placeholder="To Date" name="todate"></li>
+					<input type="date" placeholder="From Date" name="fromdate" value="${param.fromdate }">TO<input
+						type="date" placeholder="To Date" name="todate" value="${param.todate }"></li>
 					<li><span>As On Date</span><br>
-					<input type="date" placeholder="As on Date" name="asondate"></li>
+					<input type="date" placeholder="As on Date" name="asondate" value="${param.todate }"></li>
 					<li><a href='?reload=true&saved=false&id=bill_4'><span>Outstanding Bill</span></a></li>
 					<li><a href='?reload=true&saved=fals&id=bill_5'><span>Bill Raised</span></a></li>
 

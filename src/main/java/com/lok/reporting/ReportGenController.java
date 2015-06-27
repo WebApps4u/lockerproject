@@ -34,6 +34,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 
+import org.apache.log4j.Logger;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,7 +45,10 @@ import com.lok.config.ConstantLok;
 import com.lok.dao.AutoGenDAO;
 import com.lok.model.BillRecord;
 
-public class ReportGenController {
+public abstract class ReportGenController {
+
+	private static Logger logger = Logger
+			.getLogger(ReportGenController.class);
 
 	protected boolean savedFlag = false;
 	protected String queryId = "";
@@ -262,6 +266,7 @@ public class ReportGenController {
 		statement = connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 				ResultSet.CONCUR_UPDATABLE);
 
+		logger.debug(" Executable Query "+executableQuery);
 		// Result set get the result of the SQL query
 		resultSet = statement.executeQuery(executableQuery);
 
@@ -366,24 +371,43 @@ public class ReportGenController {
 	// execute reporting. Overloaded with be used to run custom sql
 	protected void execute(boolean forceCompile) throws JRException,
 			SQLException {
+		
 		compileReport(forceCompile);
+		setQuery();
 		getResult();
+		fillParameters();
 		fillReport();
 	}
 
 	// execute reporting. Overloaded with be used to run custom sql
 	protected void execute() throws JRException, SQLException {
 		compileReport(false);
+		setQuery();
 		getResult();
+		fillParameters();
 		fillReport();
 	}
 
+	/**
+ 	 * Set the query based of requested id
+ 	 * @throws Exception 
+ 	 */
+ 	protected void setQuery() {
+ 		if(savedFlag){
+ 			setPreSavedQuery();
+ 		}
+ 		else{
+ 			setCustomQuery();
+ 		}
+ 	}
+ 	
 	// Unimplemented methods, which extracting class must implement
 
 	// sets title and name of the report and other important configurations
-	// public abstract void fillParameters(Map<String,Object> parameters);
-
-	// public abstract void setQuery();
+	protected abstract void fillParameters();
+	
+	protected abstract void setPreSavedQuery();
+	protected abstract void setCustomQuery();
 
 	protected void validateCustomQuery() {
 		if (StringUtils.isBlank(fromDate) || StringUtils.isBlank(toDate)
@@ -406,7 +430,7 @@ class ReportsSql {
 	final static String currentYear = " and year(bdt)= year(sysdate()) ";
 	final static String outstandingBills = " and bflg <> '*'";
 	final static String allColumns = " * ";
-	final static String billDetails = " billrecord ";
+	final static String billDetails = " billrecord br, partyRecord pr ";
 	
 	//custom constant
 	final static String inPeriod = " and date(%s) >= '%s' and date (%s) <= '%s' ";     // e.g. and date(bfdt) >= '2014-03-21' and date(bfdt) <=  '2015-03-21'

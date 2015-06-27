@@ -39,7 +39,6 @@ public class ReportGenerationService {
 
 	PartyRecordController partyContrl = new PartyRecordController();
 	BillRecordController billContrl = new BillRecordController();
-	ReportGenController reportContrl = new ReportGenController();
 
 	/*
 	 * Get the bill report based on the type it can be 'saved' or 'custom' Based
