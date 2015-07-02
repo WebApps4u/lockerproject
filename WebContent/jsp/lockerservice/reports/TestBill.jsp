@@ -13,6 +13,7 @@
 	String downloadAsPdf = request.getParameter("pdf");
 	String downloadAsExcel = request.getParameter("excel");
 	
+	String print = request.getParameter("print");
 	if ((reload!=null && reload.equalsIgnoreCase("true")) || jasperPrint == null)
 	{
 		jasperPrint = new BillReportGenerator().getReportTest(request);
@@ -60,7 +61,21 @@
 		//reset parameter
 		downloadAsExcel = "false";
 		return;
-	} 
+	} else if (downloadAsPdf!=null && downloadAsPdf.equalsIgnoreCase("true")){
+		response.setHeader("Content-Disposition", "attachment; filename=" + "bill_status");
+		  // Make sure to set the correct content type
+		response.setContentType("application/pdf");
+		
+		OutputStream outStream = response.getOutputStream();
+		
+		
+		  
+		JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		
+		//reset parameter
+		downloadAsPdf = "false";
+		return;
+	}
 	HtmlExporter exporter = new HtmlExporter();
 	
 	int pageIndex = 0;
